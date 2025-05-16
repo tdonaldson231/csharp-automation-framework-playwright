@@ -5,10 +5,8 @@ This repository was created to get more familiar with `Playwright` in combintaio
 
 - **.NET 8** for the core framework
 - **Playwright** for UI automation
-- **Extent Reports** for generating HTML reports
-- **MySQL** for executing SQL test cases
 
-### Stil to come
+### In Progress
 - **RestSharp** for API testing
 - **Extent Reports** for generating HTML reports
 - **MySQL** for executing SQL test cases
@@ -33,7 +31,6 @@ This repository was created to get more familiar with `Playwright` in combintaio
 
 ## ⚙️ Configuration
 - **`Config/`**: Houses configuration files for MySQL, Selenium locators, and docker setup.
-- **`Extent-Config.xml`**: Extent report customization.
 
 ---
 
