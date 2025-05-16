@@ -11,7 +11,7 @@ public class Base
     protected static IPage _page;
     private static bool _initialized = false;
 
-    [BeforeTestRun] // Ensures Playwright initializes once per test suite
+    [BeforeTestRun]
     public static async Task GlobalSetup()
     {
         if (!_initialized)
@@ -31,7 +31,7 @@ public class Base
         }
     }
 
-    [AfterTestRun] // Ensures browser cleanup after all scenarios
+    [AfterTestRun]
     public static async Task GlobalTeardown()
     {
         if (_browser != null)
