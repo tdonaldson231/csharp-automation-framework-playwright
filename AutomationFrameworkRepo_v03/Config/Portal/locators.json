@@ -1,0 +1,18 @@
+{
+  "BrowserOptions": {
+    "Headless": false
+  },
+  "WebPage": {
+    "Url": "https://ultimateqa.com/automation"
+  },
+  "AutomationPage": {
+    "FormPage": "text='Fill out forms'"
+  },
+  "FillOutFormPage": {
+    "ContactNameId": "#et_pb_contact_name_0",
+    "NameField": "Todd A Donaldson",
+    "ContactMessageId": "#et_pb_contact_message_0",
+    "MessageField": "This is a test message.",
+    "SubmitButton": "button.et_pb_contact_submit"
+  }
+}

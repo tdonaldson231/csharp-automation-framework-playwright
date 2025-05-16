@@ -1,0 +1,11 @@
+﻿using NUnit.Framework;
+
+[TestFixture]
+public class BaseTestFixture : Base
+{
+    [OneTimeSetUp]
+    public async Task InitializeBaseSetup()
+    {
+        await GlobalSetup();
+    }
+}
