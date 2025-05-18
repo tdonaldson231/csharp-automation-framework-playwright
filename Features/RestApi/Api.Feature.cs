@@ -11,29 +11,25 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace AutomationFrameworkRepo_v03.Features
+namespace AutomationFrameworkRepo_v03.Features.RestApi
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Forms")]
+    [NUnit.Framework.DescriptionAttribute("Backend Service API")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    [NUnit.Framework.CategoryAttribute("Smoke")]
-    [NUnit.Framework.CategoryAttribute("FormTests")]
-    public partial class FormsFeature
+    public partial class BackendServiceAPIFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
-        private static string[] featureTags = new string[] {
-                "Smoke",
-                "FormTests"};
+        private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Forms", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/RestApi", "Backend Service API", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "Form.Feature"
+#line 1 "Api.Feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -106,14 +102,27 @@ namespace AutomationFrameworkRepo_v03.Features
             await testRunner.CollectScenarioErrorsAsync();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Submit Form")]
-        public async global::System.Threading.Tasks.Task SubmitForm()
+        public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-            string[] tagsOfScenario = ((string[])(null));
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Submit Form", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
+  #line hidden
+#line 4
+    await testRunner.GivenAsync("the backend is up and operational", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("GET request to a valid endpoint returns 200 OK")]
+        [NUnit.Framework.CategoryAttribute("api")]
+        [NUnit.Framework.CategoryAttribute("smoke")]
+        public async global::System.Threading.Tasks.Task GETRequestToAValidEndpointReturns200OK()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "api",
+                    "smoke"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("GET request to a valid endpoint returns 200 OK", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 7
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -123,14 +132,52 @@ namespace AutomationFrameworkRepo_v03.Features
             else
             {
                 await this.ScenarioStartAsync();
-#line 4
-    await testRunner.GivenAsync("the user navigates to the form page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 3
+  await this.FeatureBackgroundAsync();
 #line hidden
-#line 5
-    await testRunner.WhenAsync("they enter a name, message and submit", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 8
+    await testRunner.GivenAsync("the API endpoint is \"/objects/5\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 6
-    await testRunner.ThenAsync("the from is processed with a thank you message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 9
+    await testRunner.WhenAsync("a GET request is sent to the backend API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 10
+    await testRunner.ThenAsync("the response status code should be \"OK\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("GET request to an invalid endpoint returns 404 Not Found")]
+        [NUnit.Framework.CategoryAttribute("api")]
+        public async global::System.Threading.Tasks.Task GETRequestToAnInvalidEndpointReturns404NotFound()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "api"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("GET request to an invalid endpoint returns 404 Not Found", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
+  this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 3
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 14
+    await testRunner.GivenAsync("the API endpoint is \"/unknown\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 15
+    await testRunner.WhenAsync("a GET request is sent to the backend API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 16
+    await testRunner.ThenAsync("the response status code should be \"NotFound\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
