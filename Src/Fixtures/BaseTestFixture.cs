@@ -9,7 +9,7 @@ public class PlaywrightFixture
     public PlaywrightFixture()
     {
         var projectRoot = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-        var configPath = Path.Combine(projectRoot, "Config", "Portal", "locators.json");
+        var configPath = Path.Combine(projectRoot, "Config", "UserInterface", "locators.json");
         var configContent = File.ReadAllText(configPath);
         _config = JsonConvert.DeserializeObject<JObject>(configContent);
     }
