@@ -46,8 +46,10 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |       `-- Form.Feature.cs
 |-- README.md
 |-- Reports
-|   |-- ExtentReport_2025-05-18_10-55-29.html
-|   `-- Extent_Reports_Example.html
+|   |-- ExtentReport_2025-05-20_09-41-01.html
+|   |-- Extent_Reports_Example.html
+|   `-- SreenCaptures
+|       `-- Screenshot_2025-05-20_09-29-41.png
 |-- Src
 |   |-- Fixtures
 |   |   |-- BaseTestFixture.cs
@@ -57,12 +59,14 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   `-- UserInterfaceFixture.cs
 |   |-- Helpers
 |   |   `-- DockerComposeHelper.cs
+|   |-- Hooks
+|   |   |-- ExtentReportHooks.cs
+|   |   |-- Hooks.cs
+|   |   `-- UserInterfaceTestHooks.cs
 |   |-- Lib
 |   |   `-- Base.cs
 |   `-- Reporting
-|       |-- ExtentReportHooks.cs
-|       |-- ExtentReportHooksGlobal.cs
-|       `-- Hooks.cs
+|       `-- ExtentReportHooksGlobal.cs
 `-- Tests
     |-- Portal.cs
     |-- RestApi.cs
@@ -94,10 +98,14 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 
 - **`Tests/`**: BDD tests, categorized into API, UI, and SQL.
 
+- **`Hooks/`**: Contains `Reqnroll` hook files that define setup and teardown logic for ExtentReports and UserInterface.
+
 ---
 
 ## 📄 HTML Reports
-- **`Reports/`**: Auto-generated HTML reports using Extent Reports, saved in the `Reports` directory.
+- **`Reports/`**: 
+  - Auto-generated HTML reports using Extent Reports, saved in the `Reports` directory.
+  - Screen captures in `SreenCaptures` directory with date/timestamp when an error is detected while running UI tests.
 
 ---
 
