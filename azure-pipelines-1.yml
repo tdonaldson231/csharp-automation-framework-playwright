@@ -14,7 +14,7 @@ stages:
   - job: Build
     displayName: Build Docker Image
     pool:
-      vmImage: ubuntu-latest
+      name: Default
     steps:
     - checkout: self
 
