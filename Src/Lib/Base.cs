@@ -6,13 +6,6 @@ using Reqnroll;
 public class Base
 {
     protected readonly string testEnvironment = "";  // specify when runnig visual studio debug else the environment: "dev";
-
-    protected static IPlaywright _playwright;
-    protected static IBrowser _browser;
-    protected static IBrowserContext _context;
-    protected static IPage _page;
-    private static bool _isUiInitialized = false;
-
     public static string restApiUrl = "https://api.restful-api.dev";
     public static string mySqlConnection = "Server=localhost;Port=3306;Database=testdb;User ID=testuser;Password=testpassword;";
 
