@@ -44,6 +44,7 @@ stages:
       displayName: Build Docker Image
       inputs:
         command: build
+        arguments: no-cache
         dockerfile: $(Build.SourcesDirectory)/csharp-automation-framework-playwright/Dockerfile
         buildContext: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
         tags: |
