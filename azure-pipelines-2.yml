@@ -1,0 +1,57 @@
+#trigger:
+#- update-readme-documentation  ##main  # or whatever default branch you want
+trigger: none  # No automatic trigger; you’ll run this manually or customize as needed
+
+parameters:
+- name: gitRepoUrl
+  displayName: 'GitHub Repo URL'
+  type: string
+  default: 'https://github.com/tdonaldson231/csharp-automation-framework-playwright.git'
+
+- name: gitBranch
+  displayName: 'GitHub Branch to Clone'
+  type: string
+  default: 'main'
+
+- name: testCategory
+  displayName: Test Category
+  type: string
+  default: smoke
+
+stages:
+- stage: Test
+  displayName: Build and Run Tests in Docker
+  jobs:
+  - job: RunDockerTests
+    displayName: Docker Test Runner
+    pool:
+      name: default
+
+    variables:
+      TEST_CATEGORY: ${{ parameters.testCategory }}
+
+    steps:
+    - checkout: self
+      persistCredentials: true
+    
+    - script: |
+        if exist csharp-automation-framework-playwright (
+          echo Deleting existing directory...
+          rmdir /s /q csharp-automation-framework-playwright
+        )
+        git clone -b ${{ parameters.gitBranch }} ${{ parameters.gitRepoUrl }}
+      displayName: 'Clean and Clone GitHub Repo Branch'
+
+    - task: Docker@2
+      displayName: Build Docker Image
+      inputs:
+        command: build
+        Dockerfile: Dockerfile
+        tags: |
+          test-image
+        repository: test-image
+        buildContext: .
+
+    - script: |
+        docker run --rm -e TEST_CATEGORY=$(TEST_CATEGORY) test-image
+      displayName: Run Docker Image with TEST_CATEGORY
