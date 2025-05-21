@@ -1,5 +1,5 @@
 trigger:
-- main
+- update-readme-documentation  ##main
 
 stages:
 - stage: Build
@@ -18,7 +18,7 @@ stages:
           echo Deleting existing directory...
           rmdir /s /q csharp-automation-framework-playwright
         )
-        git clone https://github.com/tdonaldson231/csharp-automation-framework-playwright.git
+        git clone -b update-readme-documentation https://github.com/tdonaldson231/csharp-automation-framework-playwright.git
       displayName: 'Clean and Clone public GitHub repo'
 
     - task: Docker@2
