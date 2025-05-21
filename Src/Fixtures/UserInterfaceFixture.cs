@@ -1,29 +1,32 @@
 ﻿using Microsoft.Playwright;
 
-public class UserInterfaceFixture
+namespace AutomationFramework.Features.UserInterface
 {
-    public IPlaywright Playwright { get; private set; }
-    public IBrowser Browser { get; private set; }
-    public IBrowserContext Context { get; private set; }
-    public IPage Page { get; private set; }
-
-    public async Task InitializeAsync()
+    public class UserInterfaceFixture
     {
-        Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
-        var configFixture = new PlaywrightFixture();
+        public IPlaywright Playwright { get; private set; }
+        public IBrowser Browser { get; private set; }
+        public IBrowserContext Context { get; private set; }
+        public IPage Page { get; private set; }
 
-        bool headless = bool.Parse(configFixture.GetSelector("BrowserOptions", "Headless"));
-        Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = headless });
-        Context = await Browser.NewContextAsync();
-        Page = await Context.NewPageAsync();
-    }
-
-    public async Task TeardownAsync()
-    {
-        if (Browser != null)
+        public async Task InitializeAsync()
         {
-            await Browser.CloseAsync();
-            Playwright.Dispose();
+            Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
+            var configFixture = new PlaywrightFixture();
+
+            bool headless = bool.Parse(configFixture.GetSelector("BrowserOptions", "Headless"));
+            Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = headless });
+            Context = await Browser.NewContextAsync();
+            Page = await Context.NewPageAsync();
+        }
+
+        public async Task TeardownAsync()
+        {
+            if (Browser != null)
+            {
+                await Browser.CloseAsync();
+                Playwright.Dispose();
+            }
         }
     }
 }

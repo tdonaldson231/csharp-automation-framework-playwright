@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace Sql
+namespace AutomationFramework.Features.Sql
 {
     [Binding]
     public class SqlQueries

@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace AutomationFrameworkRepo_v03.Src.Hooks
+namespace AutomationFramework.Features.UserInterface
 {
     [Binding]
     public class UiTestHooks
