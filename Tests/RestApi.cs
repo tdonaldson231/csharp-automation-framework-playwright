@@ -6,7 +6,7 @@ using Reqnroll;
 using AventStack.ExtentReports;
 
 
-namespace RestApi
+namespace AutomationFramework.Features.RestApi
 {
     [Binding]
     public class BackendRestApi : Base
