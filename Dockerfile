@@ -23,8 +23,11 @@ RUN dotnet build AutomationFrameworkRepo_v03.sln --no-restore
 RUN pwsh bin/Debug/net8.0/playwright.ps1 install-deps
 RUN pwsh bin/Debug/net8.0/playwright.ps1 install
 
-# Run tests
-RUN dotnet test --filter "TestCategory=api" --logger "trx;LogFileName=test_results.trx"
+# Set default test category as env variable
+ENV TEST_CATEGORY=smoke
 
-# Collect results
-#RUN mkdir /test-results && cp **/TestResults/*.trx /test-results/
+# Add entrypoint script
+COPY tests.sh /app/tests.sh
+RUN chmod +x /app/tests.sh
+
+ENTRYPOINT ["/app/tests.sh"]
