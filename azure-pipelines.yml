@@ -1,25 +1,35 @@
-trigger:
-- update-readme-documentation  ##main
+trigger: none  # No automatic trigger; you’ll run this manually or customize as needed
+
+parameters:
+- name: gitRepoUrl
+  displayName: 'GitHub Repo URL'
+  type: string
+  default: 'https://github.com/tdonaldson231/csharp-automation-framework-playwright.git'
+
+- name: gitBranch
+  displayName: 'GitHub Branch to Clone'
+  type: string
+  default: 'main'
 
 stages:
 - stage: Build
   displayName: Build Docker Image
   jobs:
   - job: DockerBuild
-    displayName: Build Dockerfile from Public GitHub Repo
+    displayName: Build Dockerfile from Parametrized GitHub Repo
     pool:
       name: default
 
     steps:
-    - checkout: none  # don't checkout the default repo
+    - checkout: none  # Skip default repo checkout
 
     - script: |
         if exist csharp-automation-framework-playwright (
           echo Deleting existing directory...
           rmdir /s /q csharp-automation-framework-playwright
         )
-        git clone -b update-readme-documentation https://github.com/tdonaldson231/csharp-automation-framework-playwright.git
-      displayName: 'Clean and Clone public GitHub repo'
+        git clone -b ${{ parameters.gitBranch }} ${{ parameters.gitRepoUrl }}
+      displayName: 'Clean and Clone GitHub Repo Branch'
 
     - task: Docker@2
       displayName: 'Build Docker image'
