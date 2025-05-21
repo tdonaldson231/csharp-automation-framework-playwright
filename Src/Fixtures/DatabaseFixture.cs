@@ -2,45 +2,47 @@
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-[SetUpFixture]
-public class DatabaseFixture
+namespace AutomationFramework.Features.Sql
 {
-    public static DockerComposeHelper DockerHelper { get; private set; }
-
-    [OneTimeSetUp]
-    public async Task GlobalSetup()
+    public class DatabaseFixture
     {
-        DockerHelper = new DockerComposeHelper();
-        await WaitForDatabaseAsync();
-    }
+        public static DockerComposeHelper DockerHelper { get; private set; }
 
-    [OneTimeTearDown]
-    public async Task GlobalTeardown()
-    {
-        if (DockerHelper != null)
+        [OneTimeSetUp]
+        public async Task GlobalSetup()
         {
-            await DockerHelper.DisposeAsync();
+            DockerHelper = new DockerComposeHelper();
+            await WaitForDatabaseAsync();
         }
-    }
 
-    private static async Task WaitForDatabaseAsync(int maxAttempts = 15)
-    {
-        int attempts = 0;
-        while (attempts < maxAttempts)
+        [OneTimeTearDown]
+        public async Task GlobalTeardown()
         {
-            try
+            if (DockerHelper != null)
             {
-                using var connection = new MySqlConnection(Base.mySqlConnection);
-                await connection.OpenAsync();
-                return;
-            }
-            catch
-            {
-                attempts++;
-                await Task.Delay(2500); // Wait before retrying
+                await DockerHelper.DisposeAsync();
             }
         }
 
-        throw new Exception("Failed to connect to the database after multiple attempts.");
+        private static async Task WaitForDatabaseAsync(int maxAttempts = 15)
+        {
+            int attempts = 0;
+            while (attempts < maxAttempts)
+            {
+                try
+                {
+                    using var connection = new MySqlConnection(Base.mySqlConnection);
+                    await connection.OpenAsync();
+                    return;
+                }
+                catch
+                {
+                    attempts++;
+                    await Task.Delay(2500); // Wait before retrying
+                }
+            }
+
+            throw new Exception("Failed to connect to the database after multiple attempts.");
+        }
     }
 }

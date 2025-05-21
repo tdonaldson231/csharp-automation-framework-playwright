@@ -2,7 +2,7 @@ using Microsoft.Playwright;
 using Reqnroll;
 
 
-namespace UserInterface
+namespace AutomationFramework.Features.UserInterface
 {
     [Binding]
     public class PortalTests
