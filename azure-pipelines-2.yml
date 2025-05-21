@@ -52,9 +52,7 @@ stages:
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm -e TEST_CATEGORY=api `
-          -v $(Build.ArtifactStagingDirectory)/test-results:/test-results `
-          test-image
+        docker run --rm -e TEST_CATEGORY=api -v $(Build.ArtifactStagingDirectory)/test-results:/test-results test-image
       displayName: 'Run Docker Image with TEST_CATEGORY'
 
     - task: PublishTestResults@2
