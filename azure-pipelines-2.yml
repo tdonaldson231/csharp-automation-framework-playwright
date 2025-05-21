@@ -46,11 +46,11 @@ stages:
       displayName: Build Docker Image
       inputs:
         command: build
-        Dockerfile: Dockerfile
+        dockerfile: $(Build.SourcesDirectory)/csharp-automation-framework-playwright/Dockerfile
+        buildContext: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
         tags: |
           test-image
         repository: test-image
-        buildContext: .
 
     - script: |
         docker run --rm -e TEST_CATEGORY=$(TEST_CATEGORY) test-image
