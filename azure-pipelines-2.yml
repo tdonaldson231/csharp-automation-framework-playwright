@@ -1,5 +1,3 @@
-#trigger:
-#- update-readme-documentation  ##main  # or whatever default branch you want
 trigger: none  # No automatic trigger; you’ll run this manually or customize as needed
 
 parameters:
@@ -53,5 +51,22 @@ stages:
         repository: test-image
 
     - script: |
-        docker run --rm -e TEST_CATEGORY=$(TEST_CATEGORY) test-image
-      displayName: Run Docker Image with TEST_CATEGORY
+        mkdir -p $(Build.ArtifactStagingDirectory)/test-results
+        docker run --rm -e TEST_CATEGORY=api `
+          -v $(Build.ArtifactStagingDirectory)/test-results:/test-results `
+          test-image
+      displayName: 'Run Docker Image with TEST_CATEGORY'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '$(Build.ArtifactStagingDirectory)/test-results/*.trx'
+        searchFolder: '$(Build.ArtifactStagingDirectory)/test-results'
+      condition: succeededOrFailed()
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results'
+        ArtifactName: 'TestReports'
+        publishLocation: 'Container'
+
