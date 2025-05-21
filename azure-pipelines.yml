@@ -1,29 +1,28 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- main
-
-resources:
-- repo: self
-
-variables:
-  tag: '$(Build.BuildId)'
+- main  # or any branch name in the repo you want to trigger from
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Build Docker Image
   jobs:
-  - job: Build
-    displayName: Build
+  - job: DockerBuild
+    displayName: Build Dockerfile from Public GitHub Repo
     pool:
       vmImage: ubuntu-latest
+
     steps:
+    - checkout: none  # don't checkout the default repo
+
+    - script: |
+        git clone https://github.com/tdonaldson231/csharp-automation-framework-playwright.git
+      displayName: 'Clone public GitHub repo'
+
     - task: Docker@2
-      displayName: Build an image
+      displayName: 'Build Docker image'
       inputs:
         command: build
-        dockerfile: '**/Dockerfile'
+        dockerfile: $(Build.SourcesDirectory)/csharp-automation-framework-playwright/Dockerfile
+        buildContext: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+        repository: myimage
         tags: |
-          $(tag)
+          $(Build.BuildId)
