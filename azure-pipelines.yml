@@ -8,7 +8,7 @@ stages:
   - job: DockerBuild
     displayName: Build Dockerfile from Public GitHub Repo
     pool:
-      vmImage: ubuntu-latest
+      name: default
 
     steps:
     - checkout: none  # don't checkout the default repo
