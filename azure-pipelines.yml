@@ -1,5 +1,5 @@
 trigger:
-- main  # or any branch name in the repo you want to trigger from
+- main
 
 stages:
 - stage: Build
@@ -14,8 +14,12 @@ stages:
     - checkout: none  # don't checkout the default repo
 
     - script: |
+        if exist csharp-automation-framework-playwright (
+          echo Deleting existing directory...
+          rmdir /s /q csharp-automation-framework-playwright
+        )
         git clone https://github.com/tdonaldson231/csharp-automation-framework-playwright.git
-      displayName: 'Clone public GitHub repo'
+      displayName: 'Clean and Clone public GitHub repo'
 
     - task: Docker@2
       displayName: 'Build Docker image'
