@@ -57,19 +57,13 @@ stages:
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/Tests/Results test-image
+        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/test-results test-image
       displayName: 'Run Docker Image with TEST_ENV and TEST_CATEGORY'
     
-    - task: CopyFiles@2
-      inputs:
-        SourceFolder: '/app/TestResults/Tests/Results'
-        Contents: '**/*.trx'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/test-results'
-
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'VSTest'
-        testResultsFiles: '$(Build.ArtifactStagingDirectory)/test-results/*.trx'
+        testResultsFiles: '$(Build.ArtifactStagingDirectory)/test-results/**/*.trx'
         searchFolder: '$(Build.ArtifactStagingDirectory)/test-results'
       condition: succeededOrFailed()
 
