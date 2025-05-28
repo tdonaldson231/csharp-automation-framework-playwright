@@ -41,8 +41,7 @@ stages:
       name: default
 
     variables:
-      TEST_ENV: ${{ parameters.testEnvironment }}
-      TEST_CATEGORY: ${{ parameters.testCategory }}
+      imageTag: "$(Build.BuildNumber)"
 
     steps:
     - checkout: self
@@ -64,8 +63,8 @@ stages:
         buildContext: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
         buildArguments: |
           --no-cache
-        tags: |
-          ${{ parameters.imageName }}:${{ parameters.imageTag }}
+        tags:
+          - "${{ parameters.imageName }}:$(imageTag)"
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
