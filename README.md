@@ -88,11 +88,11 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 ---
 
 ## 📁 Source Code Overview
-- **`Lib/`**: Base file used to initialize the test environment and provides shared configuration values for use across the framework.
+- **`Base`**: Base file used to initialize the test environment and provides shared configuration values for use across the framework.
 
-- **`Fixtures/`**: - Manages test environment setup and teardown for database, reports, and configuration.
+- **`Fixtures/`**: Manages test environment setup and teardown for database,user interface, reports, and test configuration.
 
-- **`Helpers/`**: Contains utility functions like Docker management with `DockerComposeHelper.cs`.
+- **`Helpers/`**: Contains utility functions such as `docker compose up/down` for Docker management.
 
 - **`Reporting/`**: Extent Report classes to assist with reporting setup and initialization for test suite.
 
