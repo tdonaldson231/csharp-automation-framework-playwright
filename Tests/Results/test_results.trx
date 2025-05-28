@@ -1,64 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TestRun id="eb6a5394-ef01-4ba3-b587-c6b478908d35" name="toddd@DONALDSON-WIN10 2025-05-28 13:51:11" runUser="DONALDSON-WIN10\toddd" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
-  <Times creation="2025-05-28T13:51:11.1437109-07:00" queuing="2025-05-28T13:51:11.1437113-07:00" start="2025-05-28T13:50:37.9763896-07:00" finish="2025-05-28T13:51:38.6232742-07:00" />
-  <TestSettings name="default" id="5113b7dc-ace3-4db9-a2f6-0957e6d3c3b5">
-    <Deployment runDeploymentRoot="toddd_DONALDSON-WIN10_2025-05-28_13_51_11" />
+<TestRun id="48c500bf-8b84-4489-90c7-55c0bacdb0c4" name="toddd@DONALDSON-WIN10 2025-05-28 16:14:10" runUser="DONALDSON-WIN10\toddd" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-05-28T16:14:10.8942580-07:00" queuing="2025-05-28T16:14:10.8942582-07:00" start="2025-05-28T16:14:04.8075142-07:00" finish="2025-05-28T16:14:36.7962953-07:00" />
+  <TestSettings name="default" id="9c2829a4-fcac-4585-a921-72e792fff70b">
+    <Deployment runDeploymentRoot="toddd_DONALDSON-WIN10_2025-05-28_16_14_10" />
   </TestSettings>
   <Results>
-    <UnitTestResult executionId="7f3cee60-c0b9-4856-a833-480306f34e90" testId="e7ffe41d-0c4d-c2d5-8f86-b30b3974abc5" testName="GETRequestToAValidEndpointReturns200OK" computerName="DONALDSON-WIN10" duration="00:00:04.0400190" startTime="2025-05-28T13:51:11.0378735-07:00" endTime="2025-05-28T13:51:15.0778953-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f3cee60-c0b9-4856-a833-480306f34e90">
+    <UnitTestResult executionId="d99dd9ab-d6d1-48dc-bf1f-adf5b08e51d6" testId="ce32ca6c-5d16-c638-2bae-56244646441a" testName="GETRequestToAnInvalidEndpointReturns404NotFound" computerName="DONALDSON-WIN10" duration="00:00:04.2980580" startTime="2025-05-28T16:14:06.5071050-07:00" endTime="2025-05-28T16:14:10.8050877-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d99dd9ab-d6d1-48dc-bf1f-adf5b08e51d6">
       <Output>
         <StdOut>Given the backend is up and operational&#xD;
 Environment: dev&#xD;
 API URL: https://api.restful-api.dev&#xD;
-SQL DB: devdb&#xD;
+SQL DB: Server=localhost;Port=3306;Database=devdb;User ID=devuser;Password=devpassword;&#xD;
 Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0&#xD;
 Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright&#xD;
--&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.4s)&#xD;
-Given the API endpoint is "/objects/5"&#xD;
--&gt; done: BackendRestApi.GivenTheApiEndpointIs("/objects/5") (0.0s)&#xD;
-When a GET request is sent to the backend API&#xD;
-Full request URL: https://api.restful-api.dev/objects/5&#xD;
--&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.4s)&#xD;
-Then the response status code should be "OK"&#xD;
-PASS: Expected status 'OK' matched actual 'OK'.&#xD;
-OK&#xD;
--&gt; done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("OK") (0.0s)</StdOut>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="13634dae-2cc9-4893-824a-2c8893d7cd27" testId="ce32ca6c-5d16-c638-2bae-56244646441a" testName="GETRequestToAnInvalidEndpointReturns404NotFound" computerName="DONALDSON-WIN10" duration="00:00:26.8212620" startTime="2025-05-28T13:50:44.2151802-07:00" endTime="2025-05-28T13:51:11.0363626-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13634dae-2cc9-4893-824a-2c8893d7cd27">
-      <Output>
-        <StdOut>Given the backend is up and operational&#xD;
-Environment: dev&#xD;
-API URL: https://api.restful-api.dev&#xD;
-SQL DB: devdb&#xD;
-Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0&#xD;
-Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright&#xD;
--&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (1.8s)&#xD;
+-&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.5s)&#xD;
 Given the API endpoint is "/unknown"&#xD;
 -&gt; done: BackendRestApi.GivenTheApiEndpointIs("/unknown") (0.0s)&#xD;
 When a GET request is sent to the backend API&#xD;
-Full request URL: https://api.restful-api.dev/unknown&#xD;
--&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.4s)&#xD;
+-&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.6s)&#xD;
 Then the response status code should be "NotFound"&#xD;
-PASS: Expected status 'NotFound' matched actual 'NotFound'.&#xD;
-NotFound&#xD;
 -&gt; done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("NotFound") (0.0s)</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4a8a2dfa-b908-4be8-b489-0e730b6a9ab8" testId="e7ffe41d-0c4d-c2d5-8f86-b30b3974abc5" testName="GETRequestToAValidEndpointReturns200OK" computerName="DONALDSON-WIN10" duration="00:00:03.0762580" startTime="2025-05-28T16:14:10.8080518-07:00" endTime="2025-05-28T16:14:13.8843099-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a8a2dfa-b908-4be8-b489-0e730b6a9ab8">
+      <Output>
+        <StdOut>Given the backend is up and operational&#xD;
+Environment: dev&#xD;
+API URL: https://api.restful-api.dev&#xD;
+SQL DB: Server=localhost;Port=3306;Database=devdb;User ID=devuser;Password=devpassword;&#xD;
+Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0&#xD;
+Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright&#xD;
+-&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.5s)&#xD;
+Given the API endpoint is "/objects/5"&#xD;
+-&gt; done: BackendRestApi.GivenTheApiEndpointIs("/objects/5") (0.0s)&#xD;
+When a GET request is sent to the backend API&#xD;
+-&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.6s)&#xD;
+Then the response status code should be "OK"&#xD;
+-&gt; done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("OK") (0.0s)</StdOut>
       </Output>
     </UnitTestResult>
   </Results>
   <TestDefinitions>
     <UnitTest name="GETRequestToAnInvalidEndpointReturns404NotFound" storage="c:\users\toddd\source\repos\csharp-automation-framework-playwright\bin\debug\net8.0\automationframework.dll" id="ce32ca6c-5d16-c638-2bae-56244646441a">
-      <Execution id="13634dae-2cc9-4893-824a-2c8893d7cd27" />
+      <Execution id="d99dd9ab-d6d1-48dc-bf1f-adf5b08e51d6" />
       <TestMethod codeBase="C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll" adapterTypeName="executor://nunit3testexecutor/" className="AutomationFramework.Features.RestApi.BackendServiceAPIFeature" name="GETRequestToAnInvalidEndpointReturns404NotFound" />
     </UnitTest>
     <UnitTest name="GETRequestToAValidEndpointReturns200OK" storage="c:\users\toddd\source\repos\csharp-automation-framework-playwright\bin\debug\net8.0\automationframework.dll" id="e7ffe41d-0c4d-c2d5-8f86-b30b3974abc5">
-      <Execution id="7f3cee60-c0b9-4856-a833-480306f34e90" />
+      <Execution id="4a8a2dfa-b908-4be8-b489-0e730b6a9ab8" />
       <TestMethod codeBase="C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll" adapterTypeName="executor://nunit3testexecutor/" className="AutomationFramework.Features.RestApi.BackendServiceAPIFeature" name="GETRequestToAValidEndpointReturns200OK" />
     </UnitTest>
   </TestDefinitions>
   <TestEntries>
-    <TestEntry testId="e7ffe41d-0c4d-c2d5-8f86-b30b3974abc5" executionId="7f3cee60-c0b9-4856-a833-480306f34e90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="ce32ca6c-5d16-c638-2bae-56244646441a" executionId="13634dae-2cc9-4893-824a-2c8893d7cd27" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce32ca6c-5d16-c638-2bae-56244646441a" executionId="d99dd9ab-d6d1-48dc-bf1f-adf5b08e51d6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7ffe41d-0c4d-c2d5-8f86-b30b3974abc5" executionId="4a8a2dfa-b908-4be8-b489-0e730b6a9ab8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
   </TestEntries>
   <TestLists>
     <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
@@ -73,35 +67,29 @@ Running selected tests in C:\Users\toddd\source\repos\csharp-automation-framewor
 Given the backend is up and operational&#xD;
 Environment: dev&#xD;
 API URL: https://api.restful-api.dev&#xD;
-SQL DB: devdb&#xD;
+SQL DB: Server=localhost;Port=3306;Database=devdb;User ID=devuser;Password=devpassword;&#xD;
 Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0&#xD;
 Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright&#xD;
--&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (1.8s)&#xD;
+-&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.5s)&#xD;
 Given the API endpoint is "/unknown"&#xD;
 -&gt; done: BackendRestApi.GivenTheApiEndpointIs("/unknown") (0.0s)&#xD;
 When a GET request is sent to the backend API&#xD;
-Full request URL: https://api.restful-api.dev/unknown&#xD;
--&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.4s)&#xD;
+-&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.6s)&#xD;
 Then the response status code should be "NotFound"&#xD;
-PASS: Expected status 'NotFound' matched actual 'NotFound'.&#xD;
-NotFound&#xD;
 -&gt; done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("NotFound") (0.0s)&#xD;
 &#xD;
 Given the backend is up and operational&#xD;
 Environment: dev&#xD;
 API URL: https://api.restful-api.dev&#xD;
-SQL DB: devdb&#xD;
+SQL DB: Server=localhost;Port=3306;Database=devdb;User ID=devuser;Password=devpassword;&#xD;
 Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0&#xD;
 Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright&#xD;
--&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.4s)&#xD;
+-&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.5s)&#xD;
 Given the API endpoint is "/objects/5"&#xD;
 -&gt; done: BackendRestApi.GivenTheApiEndpointIs("/objects/5") (0.0s)&#xD;
 When a GET request is sent to the backend API&#xD;
-Full request URL: https://api.restful-api.dev/objects/5&#xD;
--&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.4s)&#xD;
+-&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.6s)&#xD;
 Then the response status code should be "OK"&#xD;
-PASS: Expected status 'OK' matched actual 'OK'.&#xD;
-OK&#xD;
 -&gt; done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("OK") (0.0s)&#xD;
 &#xD;
 NUnit Adapter 5.0.0.0: Test execution complete&#xD;

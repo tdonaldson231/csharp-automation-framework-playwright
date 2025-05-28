@@ -1,38 +1,33 @@
-using RestSharp;
-using System;
+using AutomationFramework.Interfaces.RestApi;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Reqnroll;
-using AventStack.ExtentReports;
-
+using System.ComponentModel;
+using System.Net;
 
 namespace AutomationFramework.Features.RestApi
 {
     [Binding]
     public class BackendRestApi : Base
     {
-        private RestResponse? _response; 
+        private readonly IApiClient _apiClient;
         private string? _endpoint;
-        private string? testMsg;
+        private HttpStatusCode _statusCode;
+        private string _responseContent = string.Empty;
 
-        public BackendRestApi() : base(new TestConfigFixture())
+        // Scans your code for static methods with [ScenarioDependencies] attribute
+        // Calls that method to get the IServiceCollection
+        // Builds its DI container from it
+        public BackendRestApi(IApiClient apiClient) : base(new TestConfigFixture())
         {
+            _apiClient = apiClient;
         }
 
         [Given(@"the backend is up and operational")]
         public void GivenTheBackendIsUpAndOperational()
         {
-            string apiUrl = Base.restApiUrl;
-            var client = new RestClient(apiUrl);
-            var request = new RestRequest("/", Method.Get);
-
-            if (_response != null)
-            {
-                throw new InvalidOperationException("Response has not been initialized.");
-            }
-            else
-            {                 
-                _response = client.Execute(request);
-            }
+            _statusCode = _apiClient.GetStatus("/");
+            Assert.That(_statusCode, Is.EqualTo(HttpStatusCode.OK), "Backend is not operational.");
         }
 
         [Given(@"the API endpoint is ""(.*)""")]
@@ -44,45 +39,16 @@ namespace AutomationFramework.Features.RestApi
         [When(@"a GET request is sent to the backend API")]
         public void WhenAGETRequestIsSentToTheBackendAPI()
         {
-
-            var baseUrl = Base.restApiUrl;
-            var endpoint = _endpoint?.TrimStart('/');
-            var fullUrl = $"{baseUrl}/{endpoint}";
-            Console.WriteLine($"Full request URL: {fullUrl}");
-
-            var client = new RestClient(baseUrl);
-            var request = new RestRequest($"/{endpoint}", Method.Get);
-
-            _response = client.Execute(request);
+            if (string.IsNullOrEmpty(_endpoint)) throw new ArgumentException("Endpoint is null or empty.");
+            _statusCode = _apiClient.GetStatus(_endpoint);
+            _responseContent = _apiClient.GetResponseContent(_endpoint);
         }
 
         [Then(@"the response status code should be ""(.*)""")]
         public void ThenTheResponseStatusCodeShouldBe(string expectedStatus)
         {
-            try
-            {
-                if (_response == null)
-                {
-                    testMsg = "FAIL: Response is null.";
-                    throw new AssertionException(testMsg);
-                }
-
-                string actualStatus = _response.StatusCode.ToString();
-                Assert.That(expectedStatus, Is.EqualTo(actualStatus));
-
-                testMsg = $"PASS: Expected status '{expectedStatus}' matched actual '{actualStatus}'.";
-            }
-            catch (AssertionException ex)
-            {
-                testMsg = $"FAIL: Status mismatch. Expected '{expectedStatus}', got '{_response?.StatusCode}'. {ex.Message}";
-                throw;
-            }
-            finally
-            {
-                Console.WriteLine(testMsg);
-                if (_response != null)
-                    Console.WriteLine(_response.StatusCode);
-            }
+            var expectedCode = (HttpStatusCode)Enum.Parse(typeof(HttpStatusCode), expectedStatus);
+            Assert.That(_statusCode, Is.EqualTo(expectedCode), $"Expected: {expectedCode}, Got: {_statusCode}");
         }
     }
 }

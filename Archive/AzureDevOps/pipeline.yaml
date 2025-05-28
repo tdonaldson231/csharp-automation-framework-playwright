@@ -21,6 +21,16 @@ parameters:
   type: string
   default: dev
 
+- name: imageName
+  displayName: Docker Image Name
+  type: string
+  default: test-image
+
+- name: imageTag
+  displayName: Docker Image Tag
+  type: string
+  default: image-tag
+
 stages:
 - stage: Test
   displayName: Build and Run Tests in Docker
@@ -52,23 +62,26 @@ stages:
         command: build
         dockerfile: $(Build.SourcesDirectory)/csharp-automation-framework-playwright/Dockerfile
         buildContext: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
-        buildArguments: --no-cache
+        buildArguments: |
+          --no-cache
         tags: |
-          test-image
+          ${{ parameters.imageName }}:${{ parameters.imageTag }}
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/test-results test-image
+        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/test-results ${{ parameters.imageName }}:${{ parameters.imageTag }}
       displayName: 'Run Docker Image with TEST_ENV and TEST_CATEGORY'
     
     - task: PublishTestResults@2
+      displayName: 'Publish Test Results (.trx)'
       inputs:
         testResultsFormat: 'VSTest'
-        testResultsFiles: '$(Build.ArtifactStagingDirectory)/test-results/*.trx'
+        testResultsFiles: '**/*.trx'
         searchFolder: '$(Build.ArtifactStagingDirectory)/test-results'
       condition: succeededOrFailed()
 
     - task: PublishBuildArtifacts@1
+      displayName: 'Publish Test Reports Artifact'
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results'
         ArtifactName: 'TestReports'

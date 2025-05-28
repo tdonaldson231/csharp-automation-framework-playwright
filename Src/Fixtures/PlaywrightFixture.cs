@@ -6,9 +6,9 @@ public class PlaywrightFixture
 {
     private readonly JObject _config;
 
-    public PlaywrightFixture()
+    public PlaywrightFixture(TestConfigFixture config)
     {        
-        var configPath = Path.Combine(Base.projectPath, "Config", "UserInterface", "locators.json");
+        var configPath = Path.Combine(config.ProjectPath, "Config", "UserInterface", "locators.json");
 
         if (!File.Exists(configPath))
             throw new FileNotFoundException($"Locator config file not found at {configPath}");

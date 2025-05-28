@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AutomationFramework.Features.Sql
 {
@@ -9,10 +10,9 @@ namespace AutomationFramework.Features.Sql
     {
         private readonly string _dockerComposeDirectory;
 
-        public DockerComposeHelper()
+        public DockerComposeHelper(TestConfigFixture config)
         {
-            _dockerComposeDirectory = Path.Combine(Base.projectPath, "Config", "Sql");
-
+            _dockerComposeDirectory = Path.Combine(config.ProjectPath, "Config", "Sql");
             StartDockerCompose();
         }
 
