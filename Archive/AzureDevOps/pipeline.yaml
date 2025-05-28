@@ -63,12 +63,12 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'VSTest'
-        testResultsFiles: '$(Build.ArtifactStagingDirectory)/test-results/**/*.trx'
+        testResultsFiles: '$(Build.ArtifactStagingDirectory)/test-results/*.trx'
         searchFolder: '$(Build.ArtifactStagingDirectory)/test-results'
       condition: succeededOrFailed()
 
     - task: PublishBuildArtifacts@1
       inputs:
-        pathToPublish: '$(Build.ArtifactStagingDirectory)/test-results'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results'
         ArtifactName: 'TestReports'
         publishLocation: 'Container'
