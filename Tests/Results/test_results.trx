@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1c59aec0-13c4-4822-b99c-f272fe2bf799" name="toddd@DONALDSON-WIN10 2025-05-28 12:53:27" runUser="DONALDSON-WIN10\toddd" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-05-28T12:53:27.3520342-07:00" queuing="2025-05-28T12:53:27.3520346-07:00" start="2025-05-28T12:52:35.1272405-07:00" finish="2025-05-28T12:54:44.4129775-07:00" />
+  <TestSettings name="default" id="9703e967-bbdb-4443-8e44-fa0f703c6f82">
+    <Deployment runDeploymentRoot="toddd_DONALDSON-WIN10_2025-05-28_12_53_27" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="34a5758a-74ce-4502-96c1-4b77ae98e02c" testId="192d820c-5aa3-ac28-3c39-8137b9ee78fb" testName="StoredProcedureReturnsScoresGreaterThanOrEqualTo70" computerName="DONALDSON-WIN10" duration="00:00:40.9002910" startTime="2025-05-28T12:53:26.4523632-07:00" endTime="2025-05-28T12:54:07.3526548-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34a5758a-74ce-4502-96c1-4b77ae98e02c">
+      <Output>
+        <ErrorInfo>
+          <Message>OneTimeSetUp: System.Exception : Failed to connect to the database after multiple attempts.</Message>
+          <StackTrace>   at AutomationFramework.Features.Sql.DatabaseFixture.WaitForDatabaseAsync(Int32 maxAttempts) in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\Src\Fixtures\DatabaseFixture.cs:line 46&#xD;
+   at AutomationFramework.Features.Sql.DatabaseFixture.GlobalSetup() in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\Src\Fixtures\DatabaseFixture.cs:line 16&#xD;
+   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()&#xD;
+   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)&#xD;
+   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await[TResult](TestExecutionContext context, Func`1 invoke)&#xD;
+   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(TestExecutionContext context, Func`1 invoke)&#xD;
+   at NUnit.Framework.Internal.Commands.SetUpTearDownItem.RunSetUpOrTearDownMethod(TestExecutionContext context, IMethodInfo method)&#xD;
+   at NUnit.Framework.Internal.Commands.SetUpTearDownItem.RunSetUp(TestExecutionContext context)&#xD;
+   at NUnit.Framework.Internal.Commands.OneTimeSetUpCommand.&lt;&gt;c__DisplayClass0_0.&lt;.ctor&gt;b__0(TestExecutionContext context)&#xD;
+   at NUnit.Framework.Internal.Commands.BeforeTestCommand.Execute(TestExecutionContext context)&#xD;
+   at NUnit.Framework.Internal.Commands.BeforeTestCommand.Execute(TestExecutionContext context)&#xD;
+   at NUnit.Framework.Internal.Execution.CompositeWorkItem.PerformOneTimeSetUp()
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4975ed9c-17c0-4c80-aaf6-dff41de74bec" testId="e7ffe41d-0c4d-c2d5-8f86-b30b3974abc5" testName="GETRequestToAValidEndpointReturns200OK" computerName="DONALDSON-WIN10" duration="00:00:36.7271500" startTime="2025-05-28T12:52:49.7195682-07:00" endTime="2025-05-28T12:53:26.4466273-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4975ed9c-17c0-4c80-aaf6-dff41de74bec">
+      <Output>
+        <StdOut>Given the backend is up and operational&#xD;
+Environment: dev&#xD;
+API URL: https://api.restful-api.dev&#xD;
+SQL DB: devdb&#xD;
+Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0&#xD;
+Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright&#xD;
+-&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (1.8s)&#xD;
+Given the API endpoint is "/objects/5"&#xD;
+-&gt; done: BackendRestApi.GivenTheApiEndpointIs("/objects/5") (0.0s)&#xD;
+When a GET request is sent to the backend API&#xD;
+Full request URL: https://api.restful-api.dev/objects/5&#xD;
+-&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.3s)&#xD;
+Then the response status code should be "OK"&#xD;
+PASS: Expected status 'OK' matched actual 'OK'.&#xD;
+OK&#xD;
+-&gt; done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("OK") (0.0s)</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="01c01140-09ae-489b-8680-e79f982cafe7" testId="fcc93b38-7a3f-2c32-847c-c37dd7308840" testName="SubmitContactForm" computerName="DONALDSON-WIN10" duration="00:00:08.7260100" startTime="2025-05-28T12:54:11.8753354-07:00" endTime="2025-05-28T12:54:20.6013460-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01c01140-09ae-489b-8680-e79f982cafe7">
+      <Output>
+        <StdOut>Given the user navigates to the form page&#xD;
+-&gt; done: PortalTests.GivenUserNavigatesToTheFormPage() (3.8s)&#xD;
+When the user enters a name, message and clicks the submit button&#xD;
+-&gt; done: PortalTests.WhenUserEntersNameMessageAndClicksSubmit() (1.5s)&#xD;
+Then the form is processed with a thank you message&#xD;
+-&gt; done: PortalTests.ThenFormIsProcessedWithThankYouMessage() (2.0s)</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SubmitContactForm" storage="c:\users\toddd\source\repos\csharp-automation-framework-playwright\bin\debug\net8.0\automationframework.dll" id="fcc93b38-7a3f-2c32-847c-c37dd7308840">
+      <Execution id="01c01140-09ae-489b-8680-e79f982cafe7" />
+      <TestMethod codeBase="C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll" adapterTypeName="executor://nunit3testexecutor/" className="AutomationFramework.Features.UserInterface.UIFormValidationFeature" name="SubmitContactForm" />
+    </UnitTest>
+    <UnitTest name="GETRequestToAValidEndpointReturns200OK" storage="c:\users\toddd\source\repos\csharp-automation-framework-playwright\bin\debug\net8.0\automationframework.dll" id="e7ffe41d-0c4d-c2d5-8f86-b30b3974abc5">
+      <Execution id="4975ed9c-17c0-4c80-aaf6-dff41de74bec" />
+      <TestMethod codeBase="C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll" adapterTypeName="executor://nunit3testexecutor/" className="AutomationFramework.Features.RestApi.BackendServiceAPIFeature" name="GETRequestToAValidEndpointReturns200OK" />
+    </UnitTest>
+    <UnitTest name="StoredProcedureReturnsScoresGreaterThanOrEqualTo70" storage="c:\users\toddd\source\repos\csharp-automation-framework-playwright\bin\debug\net8.0\automationframework.dll" id="192d820c-5aa3-ac28-3c39-8137b9ee78fb">
+      <Execution id="34a5758a-74ce-4502-96c1-4b77ae98e02c" />
+      <TestMethod codeBase="C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll" adapterTypeName="executor://nunit3testexecutor/" className="AutomationFramework.Features.Sql.SQLScoreValidationFeature" name="StoredProcedureReturnsScoresGreaterThanOrEqualTo70" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="192d820c-5aa3-ac28-3c39-8137b9ee78fb" executionId="34a5758a-74ce-4502-96c1-4b77ae98e02c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7ffe41d-0c4d-c2d5-8f86-b30b3974abc5" executionId="4975ed9c-17c0-4c80-aaf6-dff41de74bec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fcc93b38-7a3f-2c32-847c-c37dd7308840" executionId="01c01140-09ae-489b-8680-e79f982cafe7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 5.0.0.0: Test execution started&#xD;
+Running selected tests in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Given the backend is up and operational&#xD;
+Environment: dev&#xD;
+API URL: https://api.restful-api.dev&#xD;
+SQL DB: devdb&#xD;
+Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0&#xD;
+Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright&#xD;
+-&gt; done: BackendRestApi.GivenTheBackendIsUpAndOperational() (1.8s)&#xD;
+Given the API endpoint is "/objects/5"&#xD;
+-&gt; done: BackendRestApi.GivenTheApiEndpointIs("/objects/5") (0.0s)&#xD;
+When a GET request is sent to the backend API&#xD;
+Full request URL: https://api.restful-api.dev/objects/5&#xD;
+-&gt; done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.3s)&#xD;
+Then the response status code should be "OK"&#xD;
+PASS: Expected status 'OK' matched actual 'OK'.&#xD;
+OK&#xD;
+-&gt; done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("OK") (0.0s)&#xD;
+&#xD;
+Given the user navigates to the form page&#xD;
+-&gt; done: PortalTests.GivenUserNavigatesToTheFormPage() (3.8s)&#xD;
+When the user enters a name, message and clicks the submit button&#xD;
+-&gt; done: PortalTests.WhenUserEntersNameMessageAndClicksSubmit() (1.5s)&#xD;
+Then the form is processed with a thank you message&#xD;
+-&gt; done: PortalTests.ThenFormIsProcessedWithThankYouMessage() (2.0s)&#xD;
+&#xD;
+NUnit Adapter 5.0.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DONALDSON-WIN10" outcome="Warning" timestamp="2025-05-28T12:54:11.8751288-07:00">
+        <Text>Setup failed for test fixture AutomationFramework.Features.Sql.DatabaseFixture</Text>
+      </RunInfo>
+      <RunInfo computerName="DONALDSON-WIN10" outcome="Warning" timestamp="2025-05-28T12:54:11.8756036-07:00">
+        <Text>System.Exception : Failed to connect to the database after multiple attempts.
+StackTrace:    at AutomationFramework.Features.Sql.DatabaseFixture.WaitForDatabaseAsync(Int32 maxAttempts) in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\Src\Fixtures\DatabaseFixture.cs:line 46&#xD;
+   at AutomationFramework.Features.Sql.DatabaseFixture.GlobalSetup() in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\Src\Fixtures\DatabaseFixture.cs:line 16&#xD;
+   at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.BlockUntilCompleted()&#xD;
+   at NUnit.Framework.Internal.MessagePumpStrategy.NoMessagePumpStrategy.WaitForCompletion(AwaitAdapter awaiter)&#xD;
+   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await[TResult](TestExecutionContext context, Func`1 invoke)&#xD;
+   at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(TestExecutionContext context, Func`1 invoke)&#xD;
+   at NUnit.Framework.Internal.Commands.SetUpTearDownItem.RunSetUpOrTearDownMethod(TestExecutionContext context, IMethodInfo method)&#xD;
+   at NUnit.Framework.Internal.Commands.SetUpTearDownItem.RunSetUp(TestExecutionContext context)&#xD;
+   at NUnit.Framework.Internal.Commands.OneTimeSetUpCommand.&lt;&gt;c__DisplayClass0_0.&lt;.ctor&gt;b__0(TestExecutionContext context)&#xD;
+   at NUnit.Framework.Internal.Commands.BeforeTestCommand.Execute(TestExecutionContext context)&#xD;
+   at NUnit.Framework.Internal.Commands.BeforeTestCommand.Execute(TestExecutionContext context)&#xD;
+   at NUnit.Framework.Internal.Execution.CompositeWorkItem.PerformOneTimeSetUp()</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
