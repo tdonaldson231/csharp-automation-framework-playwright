@@ -6,7 +6,7 @@ public class ExtentReportHooks
 {
     private readonly ScenarioContext _scenarioContext;
     private readonly FeatureContext _featureContext;
-    private ExtentTest _test;
+    private ExtentTest _test = null!;
     private readonly List<(string keyword, string text, string status)> _steps = new();
 
     public ExtentReportHooks(ScenarioContext scenarioContext, FeatureContext featureContext)

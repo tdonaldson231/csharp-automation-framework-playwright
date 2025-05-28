@@ -12,7 +12,6 @@ namespace AutomationFramework.Features.UserInterface
         private readonly ScenarioContext _scenarioContext;
         private readonly UserInterfaceFixture _uiFixture;
         private static string dateTime = DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss");
-        private readonly string projectPath;
 
         public UiTestHooks(ScenarioContext scenarioContext)
         {
@@ -27,10 +26,7 @@ namespace AutomationFramework.Features.UserInterface
             {
                 try
                 {
-                    string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    string projectPath = Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-                    string screenshotPath = Path.Combine(projectPath, $"Reports/SreenCaptures/Screenshot_{dateTime}.png");
-
+                    string screenshotPath = Path.Combine(Base.projectPath, $"Reports/SreenCaptures/Screenshot_{dateTime}.png");
                     await _uiFixture.Page.ScreenshotAsync(new PageScreenshotOptions
                     {
                         Path = screenshotPath,
