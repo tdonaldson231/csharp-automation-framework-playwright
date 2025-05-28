@@ -155,7 +155,7 @@ cd AutomationFrameworkRepo_v03
 3. Run all tests via `Tests > Run All Tests`
 
 ### Using the `tests.sh` script to run `dotnet test`
-Example running the `api` tests in the `dev` environment:
+Example running the `smoke` tests in the `dev` environment:
 ```bash
 $ bash tests.sh -e dev -c api
 ```
@@ -164,7 +164,7 @@ $ bash tests.sh -e dev -c api
 <details>
   <summary>(click to expand)</summary>
     ```bash
-    $ bash tests.sh -e dev -c api
+    $ bash git .sh -e dev -c api
     Running tests in Environment: dev
     Running tests using category: api
     Restore complete (1.3s)
@@ -221,7 +221,7 @@ $ bash tests.sh -e dev -c api
 ### Building & Running Docker Image
 1. Navigate to the root directory containing `Dockerfile`
 2. Build the docker image: `docker build -t test-image .`
-3. Run the docker image: `docker run --rm -e TEST_ENV=dev -e TEST_CATEGORY=api test-image`
+3. Run the docker image: `docker run --rm -e TEST_ENV=api -e TEST_CATEGORY=smoke test-image`
 
 ---
 
