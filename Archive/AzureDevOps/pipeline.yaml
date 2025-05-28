@@ -63,8 +63,8 @@ stages:
         buildContext: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
         buildArguments: |
           --no-cache
-        tags:
-          - "${{ parameters.imageName }}:$(imageTag)"
+        tags: |
+          "${{ parameters.imageName }}:$(imageTag)"
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
