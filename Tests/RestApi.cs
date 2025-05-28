@@ -1,4 +1,3 @@
-//using AventStack.ExtentReports;
 using RestSharp;
 using System;
 using NUnit.Framework;
