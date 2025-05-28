@@ -55,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Src\Interfaces\" />
     <Folder Include="Tests\Results\" />
   </ItemGroup>
 
