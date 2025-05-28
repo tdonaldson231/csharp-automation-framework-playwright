@@ -148,21 +148,25 @@ cd AutomationFrameworkRepo_v03
 ### Using Command Line (dotnet CLI)
 Run just `Smoke` tests with default environment:
 ```bash
-$ dotnet test --filter "TestCategory=smoke"
+$ dotnet test AutomationFrameworkRepo_v03.sln --filter "TestCategory=smoke" --settings Tests\\RunSettings\\dev.runsettings
 ```
 
 ### Sample Result Output
 <details>
   <summary>(click to expand)</summary>
     ```bash
-    $ dotnet test --filter "TestCategory=smoke"
-    Restore complete (0.9s)
-      AutomationFrameworkRepo_v03 succeeded (1.5s) → bin\Debug\net8.0\AutomationFrameworkRepo_v03.dll
+    $ dotnet test AutomationFrameworkRepo_v03.sln --filter "TestCategory=smoke" --settings Tests\\RunSettings\\dev.runsettings
+    ...
     NUnit Adapter 5.0.0.0: Test execution started
-    Running selected tests in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFrameworkRepo_v03.dll
-       NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run
+    Running selected tests in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll
+    NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run
     Given the backend is up and operational
-    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (1.8s)
+    Environment: dev
+    API URL: https://api.restful-api.dev
+    SQL DB: devdb
+    Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0
+    Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright
+    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.6s)
     Given the API endpoint is "/objects/5"
     -> done: BackendRestApi.GivenTheApiEndpointIs("/objects/5") (0.0s)
     When a GET request is sent to the backend API
@@ -170,10 +174,11 @@ $ dotnet test --filter "TestCategory=smoke"
     -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.3s)
     Then the response status code should be "OK"
     PASS: Expected status 'OK' matched actual 'OK'.
+    OK
     -> done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("OK") (0.0s)
 
     Given the database is up and running
-    -> done: SqlQueries.GivenTheDatabaseIsUpAndRunning() (0.1s)
+    -> done: SqlQueries.GivenTheDatabaseIsUpAndRunning() (0.0s)
     When the "GetHighScores" stored procedure is executed with minimum score 70
     -> done: SqlQueries.WhenStoredProcedureIsExecuted("GetHighScores", 70) (0.1s)
     Then the results should all have scores >= 70
@@ -184,13 +189,13 @@ $ dotnet test --filter "TestCategory=smoke"
     When the user enters a name, message and clicks the submit button
     -> done: PortalTests.WhenUserEntersNameMessageAndClicksSubmit() (1.6s)
     Then the form is processed with a thank you message
-    -> done: PortalTests.ThenFormIsProcessedWithThankYouMessage() (2.1s)
+    -> done: PortalTests.ThenFormIsProcessedWithThankYouMessage() (2.0s)
 
     NUnit Adapter 5.0.0.0: Test execution complete
-      AutomationFrameworkRepo_v03 test succeeded (61.3s)
+        AutomationFramework test succeeded (59.3s)
 
-    Test summary: total: 3, failed: 0, succeeded: 3, skipped: 0, duration: 61.3s
-    Build succeeded in 64.5s
+    Test summary: total: 3, failed: 0, succeeded: 3, skipped: 0, duration: 59.3s
+    Build succeeded with 1 warning(s) in 65.5s
     ```
 </details>
 ---

@@ -1,4 +1,4 @@
-USE testdb;
+USE devdb;
 
 CREATE TABLE IF NOT EXISTS results (
     id INT AUTO_INCREMENT PRIMARY KEY,
