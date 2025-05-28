@@ -7,19 +7,11 @@ namespace AutomationFramework.Features.Sql
 {
     public class DockerComposeHelper : IAsyncDisposable
     {
-        private readonly string projectPath;
         private readonly string _dockerComposeDirectory;
 
         public DockerComposeHelper()
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            projectPath = Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-            _dockerComposeDirectory = Path.Combine(projectPath, "Config", "Sql");
-
-            // debugging: Output the computed paths
-            Console.WriteLine($"Base Directory: {baseDirectory}");
-            Console.WriteLine($"Project Path: {projectPath}");
-            Console.WriteLine($"Docker Compose Directory: {_dockerComposeDirectory}");
+            _dockerComposeDirectory = Path.Combine(Base.projectPath, "Config", "Sql");
 
             StartDockerCompose();
         }

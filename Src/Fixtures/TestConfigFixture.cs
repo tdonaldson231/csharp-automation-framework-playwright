@@ -4,6 +4,6 @@
 
     public TestConfigFixture()
     {
-        testEnvironment = Environment.GetEnvironmentVariable("testEnvironment");
+        testEnvironment = Base.testEnvironment;
     }
 }

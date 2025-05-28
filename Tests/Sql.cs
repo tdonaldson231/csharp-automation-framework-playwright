@@ -12,7 +12,7 @@ namespace AutomationFramework.Features.Sql
     [Binding]
     public class SqlQueries
     {
-        private List<(string Name, int Score)> _results;
+        private List<(string Name, int Score)> _results = new();
         private string _connectionString = Base.mySqlConnection;
              
         [Given("the database is up and running")]

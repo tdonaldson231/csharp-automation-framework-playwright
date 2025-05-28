@@ -6,7 +6,7 @@ namespace AutomationFramework.Features.UserInterface
     public class Hooks
     {
         private readonly ScenarioContext _scenarioContext;
-        private UserInterfaceFixture _fixture;
+        private UserInterfaceFixture _fixture = null!;
 
         public Hooks(ScenarioContext scenarioContext)
         {
