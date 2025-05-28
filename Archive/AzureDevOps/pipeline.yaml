@@ -59,6 +59,12 @@ stages:
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
         docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/Tests/Results test-image
       displayName: 'Run Docker Image with TEST_ENV and TEST_CATEGORY'
+    
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '/app/TestResults/Tests/Results'
+        Contents: '**/*.trx'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/test-results'
 
     - task: PublishTestResults@2
       inputs:
