@@ -11,14 +11,14 @@ namespace AutomationFramework.Features.RestApi
     [Binding]
     public class BackendRestApi : Base
     {
-        private RestResponse _response;
-        private string _endpoint;
-        private string testMsg;
+        private RestResponse? _response; 
+        private string? _endpoint;
+        private string? testMsg;
 
         public BackendRestApi() : base(new TestConfigFixture())
         {
         }
-        
+
         [Given(@"the backend is up and operational")]
         public void GivenTheBackendIsUpAndOperational()
         {
@@ -26,7 +26,14 @@ namespace AutomationFramework.Features.RestApi
             var client = new RestClient(apiUrl);
             var request = new RestRequest("/", Method.Get);
 
-            _response = client.Execute(request);
+            if (_response != null)
+            {
+                throw new InvalidOperationException("Response has not been initialized.");
+            }
+            else
+            {                 
+                _response = client.Execute(request);
+            }
         }
 
         [Given(@"the API endpoint is ""(.*)""")]
@@ -39,7 +46,7 @@ namespace AutomationFramework.Features.RestApi
         public void WhenAGETRequestIsSentToTheBackendAPI()
         {
 
-            var baseUrl = Base.restApiUrl?.TrimEnd('/');
+            var baseUrl = Base.restApiUrl;
             var endpoint = _endpoint?.TrimStart('/');
             var fullUrl = $"{baseUrl}/{endpoint}";
             Console.WriteLine($"Full request URL: {fullUrl}");
@@ -55,19 +62,27 @@ namespace AutomationFramework.Features.RestApi
         {
             try
             {
-                var actualStatus = _response.StatusCode.ToString();
+                if (_response == null)
+                {
+                    testMsg = "FAIL: Response is null.";
+                    throw new AssertionException(testMsg);
+                }
+
+                string actualStatus = _response.StatusCode.ToString();
                 Assert.That(expectedStatus, Is.EqualTo(actualStatus));
 
                 testMsg = $"PASS: Expected status '{expectedStatus}' matched actual '{actualStatus}'.";
             }
             catch (AssertionException ex)
             {
-                testMsg = $"FAIL: Status mismatch. Expected '{expectedStatus}', got '{_response.StatusCode}'. {ex.Message}";
+                testMsg = $"FAIL: Status mismatch. Expected '{expectedStatus}', got '{_response?.StatusCode}'. {ex.Message}";
                 throw;
             }
             finally
             {
                 Console.WriteLine(testMsg);
+                if (_response != null)
+                    Console.WriteLine(_response.StatusCode);
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace AutomationFramework.Features.Sql
 {
+    [SetUpFixture]
     public class DatabaseFixture
     {
         public static DockerComposeHelper DockerHelper { get; private set; }

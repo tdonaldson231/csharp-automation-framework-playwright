@@ -7,7 +7,7 @@ To start the MySQL container:
 docker-compose up -d --build
 ```
 
-**Note**: Open docker desktop and verify the `test-mysql` container is running.
+**Note**: Open docker desktop and verify the `dev-mysql` container is running.
 
 To stop and remove the container:
 ```bash
@@ -23,13 +23,13 @@ docker-compose down -v
 
 To access the container:
 ```bash
-docker exec -it test-mysql mysql -u testuser -p
-(enter the password `testpassword` when prompted)
+docker exec -it dev-mysql mysql -u devuser -p
+(enter the password `devpassword` when prompted)
 ```
 
 To check data in results table:
 ```bash
-USE testdb;
+USE devdb;
 SELECT * FROM results;
 ```
 

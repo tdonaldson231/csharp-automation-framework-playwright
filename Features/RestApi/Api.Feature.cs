@@ -11,7 +11,7 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace AutomationFrameworkRepo_v03.Features.RestApi
+namespace AutomationFramework.Features.RestApi
 {
     
     

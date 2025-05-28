@@ -4,10 +4,10 @@ namespace AutomationFramework.Features.UserInterface
 {
     public class UserInterfaceFixture
     {
-        public IPlaywright Playwright { get; private set; }
-        public IBrowser Browser { get; private set; }
-        public IBrowserContext Context { get; private set; }
-        public IPage Page { get; private set; }
+        public IPlaywright Playwright { get; private set; } = null!;
+        public IBrowser Browser { get; private set; } = null!;
+        public IBrowserContext Context { get; private set; } = null!;
+        public IPage Page { get; private set; } = null!;
 
         public async Task InitializeAsync()
         {
