@@ -20,7 +20,13 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 
 ## 📂 Project Structure
 ```bash
-|-- AutomationFrameworkRepo_v03.csproj
+|-- AutomationFramework.csproj
+|-- AutomationFrameworkRepo_v03.sln
+|-- Archive
+|   |-- AzureDevOps
+|   |   `-- pipeline.yaml
+|   `-- Dockerfile
+|-- AutomationFramework.csproj
 |-- AutomationFrameworkRepo_v03.sln
 |-- Config
 |   |-- Sql
@@ -28,12 +34,12 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   |-- Src
 |   |   |   `-- Config
 |   |   |       `-- Sql
-|   |   |           `-- mysql-init
 |   |   |-- docker-compose.yml
 |   |   `-- mysql-init
 |   |       `-- mock_data.sql
 |   `-- UserInterface
 |       `-- locators.json
+|-- Dockerfile
 |-- Features
 |   |-- RestApi
 |   |   |-- Api.Feature
@@ -46,15 +52,15 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |       `-- Form.Feature.cs
 |-- README.md
 |-- Reports
-|   |-- ExtentReport_2025-05-20_09-41-01.html
 |   |-- Extent_Reports_Example.html
 |   `-- SreenCaptures
 |       `-- Screenshot_2025-05-20_09-29-41.png
 |-- Src
+|   |-- Base.cs
 |   |-- Fixtures
-|   |   |-- BaseTestFixture.cs
 |   |   |-- DatabaseFixture.cs
 |   |   |-- ExtentReportsFixture.cs
+|   |   |-- PlaywrightFixture.cs
 |   |   |-- TestConfigFixture.cs
 |   |   `-- UserInterfaceFixture.cs
 |   |-- Helpers
@@ -63,14 +69,18 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   |-- ExtentReportHooks.cs
 |   |   |-- Hooks.cs
 |   |   `-- UserInterfaceTestHooks.cs
-|   |-- Lib
-|   |   `-- Base.cs
 |   `-- Reporting
 |       `-- ExtentReportHooksGlobal.cs
-`-- Tests
-    |-- Portal.cs
-    |-- RestApi.cs
-    `-- Sql.cs
+|-- Tests
+|   |-- Portal.cs
+|   |-- RestApi.cs
+|   |-- Results
+|   |-- RunSettings
+|   |   |-- dev.runsettings
+|   |   `-- local.runsettings
+|   `-- Sql.cs
+|-- entrypoint.sh
+`-- tests.sh
 ```
 
 ---
@@ -138,66 +148,81 @@ cd AutomationFrameworkRepo_v03
 ### Environment Selection Precedence
 1. Environment variable `testEnvironment` (highest priority)
 2. Static value in the `Base` class (default: "dev")
-3. If both are unset, defaults to `local`.
 
 ### Using Visual Studio 2022
 1. Open `AutomationFrameworkRepo_v03.sln`
 2. Build the solution via `Build > Build Solution`
 3. Run all tests via `Tests > Run All Tests`
 
-### Using Command Line (dotnet CLI)
-Run just `Smoke` tests with default environment:
+### Using the `tests.sh` script to run `dotnet test`
+Example running the `api` tests in the `dev` environment:
 ```bash
-$ dotnet test AutomationFrameworkRepo_v03.sln --filter "TestCategory=smoke" --settings Tests\\RunSettings\\dev.runsettings
+$ bash tests.sh -e dev -c api
 ```
 
 ### Sample Result Output
 <details>
   <summary>(click to expand)</summary>
     ```bash
-    $ dotnet test AutomationFrameworkRepo_v03.sln --filter "TestCategory=smoke" --settings Tests\\RunSettings\\dev.runsettings
-    ...
+    $ bash tests.sh -e dev -c api
+    Running tests in Environment: dev
+    Running tests using category: api
+    Restore complete (1.3s)
+      AutomationFramework succeeded (3.7s) → bin\Debug\net8.0\AutomationFramework.dll
     NUnit Adapter 5.0.0.0: Test execution started
     Running selected tests in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll
-    NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run
+       NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run
     Given the backend is up and operational
     Environment: dev
     API URL: https://api.restful-api.dev
     SQL DB: devdb
     Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0
     Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright
-    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.6s)
+    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.8s)
+    Given the API endpoint is "/unknown"
+    -> done: BackendRestApi.GivenTheApiEndpointIs("/unknown") (0.0s)
+    When a GET request is sent to the backend API
+    Full request URL: https://api.restful-api.dev/unknown
+    -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.4s)
+    Then the response status code should be "NotFound"
+    PASS: Expected status 'NotFound' matched actual 'NotFound'.
+    NotFound
+    -> done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("NotFound") (0.0s)
+
+    Given the backend is up and operational
+    Environment: dev
+    API URL: https://api.restful-api.dev
+    SQL DB: devdb
+    Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0
+    Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright
+    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.8s)
     Given the API endpoint is "/objects/5"
     -> done: BackendRestApi.GivenTheApiEndpointIs("/objects/5") (0.0s)
     When a GET request is sent to the backend API
     Full request URL: https://api.restful-api.dev/objects/5
-    -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.3s)
+    -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.4s)
     Then the response status code should be "OK"
     PASS: Expected status 'OK' matched actual 'OK'.
     OK
     -> done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("OK") (0.0s)
 
-    Given the database is up and running
-    -> done: SqlQueries.GivenTheDatabaseIsUpAndRunning() (0.0s)
-    When the "GetHighScores" stored procedure is executed with minimum score 70
-    -> done: SqlQueries.WhenStoredProcedureIsExecuted("GetHighScores", 70) (0.1s)
-    Then the results should all have scores >= 70
-    -> done: SqlQueries.ThenScoresShouldBeGreaterThanOrEqualTo(70) (0.0s)
-
-    Given the user navigates to the form page
-    -> done: PortalTests.GivenUserNavigatesToTheFormPage() (1.4s)
-    When the user enters a name, message and clicks the submit button
-    -> done: PortalTests.WhenUserEntersNameMessageAndClicksSubmit() (1.6s)
-    Then the form is processed with a thank you message
-    -> done: PortalTests.ThenFormIsProcessedWithThankYouMessage() (2.0s)
-
     NUnit Adapter 5.0.0.0: Test execution complete
-        AutomationFramework test succeeded (59.3s)
+    WARNING: Overwriting results file: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\Tests\Results\test_results.trx
+    Results File: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\Tests\Results\test_results.trx
+      AutomationFramework test succeeded (27.2s)
 
-    Test summary: total: 3, failed: 0, succeeded: 3, skipped: 0, duration: 59.3s
-    Build succeeded with 1 warning(s) in 65.5s
+    Test summary: total: 2, failed: 0, succeeded: 2, skipped: 0, duration: 27.1s
+    Build succeeded in 33.2s
+
+    Workload updates are available. Run `dotnet workload list` for more information.
     ```
 </details>
+
+### Building & Running Docker Image
+1. Navigate to the root directory containing `Dockerfile`
+2. Build the docker image: `docker build -t test-image .`
+3. Run the docker image: `docker run --rm -e TEST_ENV=dev -e TEST_CATEGORY=api test-image`
+
 ---
 
 ## 📄 Additional Notes

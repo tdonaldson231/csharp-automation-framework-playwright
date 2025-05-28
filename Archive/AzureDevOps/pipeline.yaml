@@ -16,6 +16,11 @@ parameters:
   type: string
   default: smoke
 
+- name: testEnvironment
+  displayName: Test Environment
+  type: string
+  default: dev
+
 stages:
 - stage: Test
   displayName: Build and Run Tests in Docker
@@ -26,6 +31,7 @@ stages:
       name: default
 
     variables:
+      TEST_ENV: ${{ parameters.testEnvironment }}
       TEST_CATEGORY: ${{ parameters.testCategory }}
 
     steps:
@@ -48,12 +54,15 @@ stages:
         buildContext: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
         tags: |
           test-image
-        repository: test-image
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm -e TEST_CATEGORY=api -v $(Build.ArtifactStagingDirectory)/test-results:/test-results test-image
-      displayName: 'Run Docker Image with TEST_CATEGORY'
+        docker run --rm \
+          -e TEST_ENV=${{ parameters.testEnvironment }} \
+          -e TEST_CATEGORY=${{ parameters.testCategory }} \
+          -v $(Build.ArtifactStagingDirectory)/test-results:/app/Tests/Results \
+          test-image
+      displayName: 'Run Docker Image with TEST_ENV and TEST_CATEGORY'
 
     - task: PublishTestResults@2
       inputs:
@@ -64,6 +73,6 @@ stages:
 
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results'
+        pathToPublish: '$(Build.ArtifactStagingDirectory)/test-results'
         ArtifactName: 'TestReports'
         publishLocation: 'Container'
