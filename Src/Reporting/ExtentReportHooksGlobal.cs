@@ -6,7 +6,8 @@ public class ExtentReportHooksGlobal
     [OneTimeSetUp]
     public void GlobalSetup()
     {
-        Fixture = new ExtentReportsFixture();
+        var testConfig = new TestConfigFixture();
+        Fixture = new ExtentReportsFixture(testConfig);
         Console.WriteLine("ExtentReports initialized.");
     }
 

@@ -12,7 +12,8 @@ namespace AutomationFramework.Features.UserInterface
         public async Task InitializeAsync()
         {
             Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
-            var configFixture = new PlaywrightFixture();
+            var testConfig = new TestConfigFixture();
+            var configFixture = new PlaywrightFixture(testConfig);
 
             bool headless = bool.Parse(configFixture.GetSelector("BrowserOptions", "Headless"));
             Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = headless });
