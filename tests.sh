@@ -25,5 +25,4 @@ dotnet test AutomationFrameworkRepo_v03.sln \
   --filter "TestCategory=$TEST_CATEGORY" \
   --settings "Tests/RunSettings/$TEST_ENV.runsettings" \
   --logger "trx;LogFileName=test_results.trx" \
-  --results-directory "Tests/Results" \
   || echo "Tests failed — collecting results anyway."
