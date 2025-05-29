@@ -22,12 +22,8 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 ```bash
 |-- AutomationFramework.csproj
 |-- AutomationFrameworkRepo_v03.sln
-|-- Archive
-|   |-- AzureDevOps
-|   |   `-- pipeline.yaml
-|   `-- Dockerfile
-|-- AutomationFramework.csproj
-|-- AutomationFrameworkRepo_v03.sln
+|-- AzureDevOps
+|   `-- pipeline.yaml
 |-- Config
 |   |-- Sql
 |   |   |-- README.md
@@ -70,7 +66,7 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   |-- Hooks.cs
 |   |   `-- UserInterfaceTestHooks.cs
 |   `-- Reporting
-|       `-- ExtentReportHooksGlobal.cs
+|       `-- ExtentReportGlobal.cs
 |-- Tests
 |   |-- Portal.cs
 |   |-- RestApi.cs
@@ -102,6 +98,8 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 
 - **`Fixtures/`**: Manages test environment setup and teardown for database,user interface, reports, and test configuration.
 
+- **`Interfaces/`**: Contains abstract definitions for services and utilities used in tests.
+ 
 - **`Helpers/`**: Contains utility functions such as `docker compose up/down` for Docker management.
 
 - **`Reporting/`**: Extent Report classes to assist with reporting setup and initialization for test suite.
