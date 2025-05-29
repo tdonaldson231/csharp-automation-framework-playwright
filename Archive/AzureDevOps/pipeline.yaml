@@ -60,11 +60,26 @@ stages:
         buildArguments: |
           --no-cache
         tags: |
-          ${{ parameters.imageName }}:$(imageTag)
+          $(imageName):$(imageTag)
+
+    - script: |
+        echo "==> Docker Images"
+        docker images
+
+        echo "==> Docker Containers (all)"
+        docker ps -a
+
+        echo "==> Docker Info"
+        docker info
+      displayName: 'Debug Docker: List Images and Containers'
+
+    - script: |
+        echo "Docker image built: $(imageName):$(imageTag)"
+      displayName: 'Docker Image Tag'
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/test-results ${{ parameters.imageName }}:$(imageTag)
+        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/test-results $(imageName):$(imageTag)
       displayName: 'Run Docker Image with TEST_ENV and TEST_CATEGORY'
     
     - task: PublishTestResults@2
