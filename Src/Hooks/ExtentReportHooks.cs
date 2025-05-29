@@ -18,7 +18,7 @@ public class ExtentReportHooks
     [BeforeScenario]
     public void BeforeScenario()
     {
-        _test = ExtentReportHooksGlobal.Fixture.Extent.CreateTest(_scenarioContext.ScenarioInfo.Title);
+        _test = ExtentReportGlobal.Fixture.Extent.CreateTest(_scenarioContext.ScenarioInfo.Title);
         _scenarioContext["ExtentTest"] = _test;
         _test.Info("Starting scenario: " + _scenarioContext.ScenarioInfo.Title);
     }

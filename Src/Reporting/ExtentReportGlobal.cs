@@ -1,12 +1,13 @@
 ﻿[SetUpFixture]
-public class ExtentReportHooksGlobal
+public class ExtentReportGlobal
 {
     public static ExtentReportsFixture Fixture { get; private set; }
 
     [OneTimeSetUp]
     public void GlobalSetup()
     {
-        Fixture = new ExtentReportsFixture();
+        var testConfig = new TestConfigFixture();
+        Fixture = new ExtentReportsFixture(testConfig);
         Console.WriteLine("ExtentReports initialized.");
     }
 

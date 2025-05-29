@@ -28,6 +28,7 @@
     </PackageReference>
     <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageReference Include="Reqnroll" Version="2.4.1" />
+    <PackageReference Include="Reqnroll.Microsoft.Extensions.DependencyInjection" Version="2.4.1" />
     <PackageReference Include="Reqnroll.NUnit" Version="2.4.1" />
     <PackageReference Include="RestSharp" Version="112.1.0" />
   </ItemGroup>
@@ -40,6 +41,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="entrypoint.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="tests.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -49,6 +53,10 @@
     <None Update="Tests\RunSettings\local.runsettings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestResults\" />
   </ItemGroup>
 
 </Project>
