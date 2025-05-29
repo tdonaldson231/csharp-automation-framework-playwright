@@ -54,6 +54,7 @@ stages:
     - script: |
         docker build -t $(imageName):$(imageTag) .
       displayName: 'Docker Build Image'
+      workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
     - script: |
         echo "==> Docker Images"
