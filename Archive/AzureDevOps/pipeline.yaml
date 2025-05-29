@@ -68,7 +68,7 @@ stages:
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/test-results ${{ parameters.imageName }}:${{ parameters.imageTag }}
+        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/test-results "${{ parameters.imageName }}:$(imageTag)"
       displayName: 'Run Docker Image with TEST_ENV and TEST_CATEGORY'
     
     - task: PublishTestResults@2
