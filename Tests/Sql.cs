@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Reqnroll;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutomationFramework.Features.UserInterface;
 
 
 namespace AutomationFramework.Features.Sql
@@ -13,8 +14,14 @@ namespace AutomationFramework.Features.Sql
     public class SqlQueries
     {
         private List<(string Name, int Score)> _results = new();
-        private string _connectionString = Base.mySqlConnection;
-             
+        private string _connectionString;
+
+        public SqlQueries()
+        {
+            var testConfig = new TestConfigFixture();
+            _connectionString = testConfig.MySqlConnection;
+        }
+
         [Given("the database is up and running")]
         public async Task GivenTheDatabaseIsUpAndRunning()
         {

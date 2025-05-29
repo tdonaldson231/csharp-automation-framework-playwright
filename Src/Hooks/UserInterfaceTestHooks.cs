@@ -20,13 +20,13 @@ namespace AutomationFramework.Features.UserInterface
         }
 
         [AfterStep]
-        public async Task AfterEachStepAsync()
+        public async Task AfterEachStepAsync(TestConfigFixture config)
         {
             if (_scenarioContext.TestError != null && _uiFixture?.Page != null)
             {
                 try
                 {
-                    string screenshotPath = Path.Combine(Base.projectPath, $"Reports/SreenCaptures/Screenshot_{dateTime}.png");
+                    string screenshotPath = Path.Combine(config.ProjectPath, $"Reports/SreenCaptures/Screenshot_{dateTime}.png");
                     await _uiFixture.Page.ScreenshotAsync(new PageScreenshotOptions
                     {
                         Path = screenshotPath,

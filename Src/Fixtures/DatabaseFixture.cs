@@ -1,18 +1,19 @@
 ﻿using MySql.Data.MySqlClient;
-using NUnit.Framework;
-using System.Threading.Tasks;
 
 namespace AutomationFramework.Features.Sql
 {
     [SetUpFixture]
     public class DatabaseFixture
     {
+        private TestConfigFixture _config;
+
         public static DockerComposeHelper DockerHelper { get; private set; }
 
         [OneTimeSetUp]
         public async Task GlobalSetup()
         {
-            DockerHelper = new DockerComposeHelper();
+            _config = new TestConfigFixture();
+            DockerHelper = new DockerComposeHelper(_config);
             await WaitForDatabaseAsync();
         }
 
@@ -25,21 +26,22 @@ namespace AutomationFramework.Features.Sql
             }
         }
 
-        private static async Task WaitForDatabaseAsync(int maxAttempts = 15)
+        private async Task WaitForDatabaseAsync(int maxAttempts = 15)
         {
             int attempts = 0;
             while (attempts < maxAttempts)
             {
                 try
                 {
-                    using var connection = new MySqlConnection(Base.mySqlConnection);
+                    using var connection = new MySqlConnection(_config.MySqlConnection);
                     await connection.OpenAsync();
                     return;
                 }
-                catch
+                catch (Exception ex)
                 {
                     attempts++;
-                    await Task.Delay(2500); // Wait before retrying
+                    Console.WriteLine($"Attempt {attempts} failed: {ex.Message}");
+                    await Task.Delay(2500);
                 }
             }
 

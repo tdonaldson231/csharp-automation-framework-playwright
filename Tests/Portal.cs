@@ -13,7 +13,8 @@ namespace AutomationFramework.Features.UserInterface
         public PortalTests(ScenarioContext scenarioContext)
         {
             _uiFixture = scenarioContext.Get<UserInterfaceFixture>();
-            _configFixture = new PlaywrightFixture();
+            var testConfig = new TestConfigFixture();
+            _configFixture = new PlaywrightFixture(testConfig);
         }
 
         [Given(@"the user navigates to the form page")]
