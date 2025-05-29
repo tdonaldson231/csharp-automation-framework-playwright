@@ -75,12 +75,12 @@ stages:
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
         docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/test-results $(imageName):$(imageTag)
       displayName: 'Run Docker Image'
-    
+
     - task: PublishTestResults@2
       displayName: 'Publish Test Results (.trx)'
       inputs:
         testResultsFormat: 'VSTest'
-        testResultsFiles: '**/*.trx'
+        testResultsFiles: '$(Build.ArtifactStagingDirectory)/test-results/*.trx'
         searchFolder: '$(Build.ArtifactStagingDirectory)/test-results'
       condition: succeededOrFailed()
 
@@ -90,3 +90,4 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results'
         ArtifactName: 'TestReports'
         publishLocation: 'Container'
+    
