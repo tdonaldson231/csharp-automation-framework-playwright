@@ -221,9 +221,11 @@ $ bash tests.sh -e dev -c api
 ### Building & Running Docker Image
 1. Navigate to the root directory containing `Dockerfile`
 2. Build the docker image: `docker build -t test-image .`
-3. Run the docker image: `docker run --rm -e TEST_ENV=api -e TEST_CATEGORY=smoke test-image`
-
----
+3. Run the docker image: `docker run --rm -e TEST_ENV=api -e TEST_CATEGORY=smoke test-image`\
+**Note:** to allocate an interactive terminal (for shell access), execute the following:
+```bash
+> docker run -it --entrypoint /bin/bash <image-name:image-tag>
+```
 
 ## 📄 Additional Notes
 - **Extent Reports**: Automatically generated after every test run.
