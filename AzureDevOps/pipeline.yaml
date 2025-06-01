@@ -58,8 +58,9 @@ stages:
       displayName: 'Start MySQL container'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
-    - script: docker-compose ps
+    - script: docker-compose -f Config/Sql/docker-compose.yml ps
       displayName: 'List running containers'
+      workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
     - script: |
         docker build -t $(imageName):$(imageTag) .
