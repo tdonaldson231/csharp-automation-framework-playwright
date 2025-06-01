@@ -15,7 +15,7 @@ namespace AutomationFramework.Features.Sql
         {
             _config = config;
 
-            if (string.Equals(config.TestEnvironment, "localhost", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(config.DbServer, "localhost", StringComparison.OrdinalIgnoreCase))
             {
                 _dockerComposeDirectory = Path.Combine(config.ProjectPath, "Config", "Sql");
                 StartDockerCompose();
@@ -63,7 +63,7 @@ namespace AutomationFramework.Features.Sql
 
         public async ValueTask DisposeAsync()
         {
-            if (string.Equals(_config.TestEnvironment, "localhost", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(_config.DbServer, "localhost", StringComparison.OrdinalIgnoreCase))
             {
                 StopDockerCompose();
             }
