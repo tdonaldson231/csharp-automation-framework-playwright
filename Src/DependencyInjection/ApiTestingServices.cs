@@ -4,7 +4,7 @@ using Reqnroll.Microsoft.Extensions.DependencyInjection;
 
 namespace AutomationFramework.DependencyInjection
 {
-    public static class ReqnrollServices
+    public static class ApiTestingServices
     {
         [ScenarioDependencies]
         public static IServiceCollection ConfigureServices()

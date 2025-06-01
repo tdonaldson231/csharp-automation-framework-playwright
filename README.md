@@ -30,6 +30,7 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   |-- Src
 |   |   |   `-- Config
 |   |   |       `-- Sql
+|   |   |           `-- mysql-init
 |   |   |-- docker-compose.yml
 |   |   `-- mysql-init
 |   |       `-- mock_data.sql
@@ -48,11 +49,14 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |       `-- Form.Feature.cs
 |-- README.md
 |-- Reports
+|   |-- ExtentReport_2025-06-01_12-47-55.html
 |   |-- Extent_Reports_Example.html
 |   `-- SreenCaptures
 |       `-- Screenshot_2025-05-20_09-29-41.png
 |-- Src
 |   |-- Base.cs
+|   |-- DependencyInjection
+|   |   `-- ApiTestingServices.cs
 |   |-- Fixtures
 |   |   |-- DatabaseFixture.cs
 |   |   |-- ExtentReportsFixture.cs
@@ -60,22 +64,38 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   |-- TestConfigFixture.cs
 |   |   `-- UserInterfaceFixture.cs
 |   |-- Helpers
-|   |   `-- DockerComposeHelper.cs
+|   |   |-- DockerComposeHelper.cs
+|   |   `-- RestSharpClient.cs
 |   |-- Hooks
 |   |   |-- ExtentReportHooks.cs
 |   |   |-- Hooks.cs
 |   |   `-- UserInterfaceTestHooks.cs
+|   |-- Interfaces
+|   |   `-- IApiClient.cs
 |   `-- Reporting
 |       `-- ExtentReportGlobal.cs
+|-- TestResults
+|   `-- test_results.trx
 |-- Tests
 |   |-- Portal.cs
 |   |-- RestApi.cs
-|   |-- Results
 |   |-- RunSettings
 |   |   |-- dev.runsettings
 |   |   `-- local.runsettings
 |   `-- Sql.cs
+|-- bin
+|   `-- Debug
+|       `-- net8.0
 |-- entrypoint.sh
+|-- obj
+|   `-- Debug
+|       `-- net8.0
+|           |-- AutomationFramework.AssemblyInfo.cs
+|           |-- AutomationFramework.AssemblyInfoInputs.cache
+|           |-- AutomationFramework.GeneratedMSBuildEditorConfig.editorconfig
+|           |-- AutomationFramework.GlobalUsings.g.cs
+|           |-- ref
+|           `-- refint
 `-- tests.sh
 ```
 
