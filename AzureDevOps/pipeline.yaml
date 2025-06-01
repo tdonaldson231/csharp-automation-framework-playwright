@@ -29,6 +29,7 @@ parameters:
 stages:
 - stage: Test
   displayName: Build and Run Tests in Docker
+
   jobs:
   - job: RunDockerTests
     displayName: Docker Test Runner
@@ -50,6 +51,15 @@ stages:
         )
         git clone -b ${{ parameters.gitBranch }} ${{ parameters.gitRepoUrl }}
       displayName: 'Clean and Clone GitHub Repo Branch'
+
+    - task: DockerInstaller@0
+
+    - script: docker-compose -f Config/Sql/docker-compose.yml up -d
+      displayName: 'Start MySQL container'
+      workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+
+    - script: docker-compose ps
+      displayName: 'List running containers'
 
     - script: |
         docker build -t $(imageName):$(imageTag) .
