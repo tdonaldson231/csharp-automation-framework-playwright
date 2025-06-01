@@ -115,11 +115,13 @@ namespace AutomationFramework.Features.Sql
         [NUnit.Framework.DescriptionAttribute("Stored procedure returns scores greater than or equal to 70")]
         [NUnit.Framework.CategoryAttribute("sql")]
         [NUnit.Framework.CategoryAttribute("smoke")]
+        [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task StoredProcedureReturnsScoresGreaterThanOrEqualTo70()
         {
             string[] tagsOfScenario = new string[] {
                     "sql",
-                    "smoke"};
+                    "smoke",
+                    "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Stored procedure returns scores greater than or equal to 70", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
@@ -148,10 +150,12 @@ namespace AutomationFramework.Features.Sql
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verify specific user and score from query")]
         [NUnit.Framework.CategoryAttribute("sql")]
+        [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task VerifySpecificUserAndScoreFromQuery()
         {
             string[] tagsOfScenario = new string[] {
-                    "sql"};
+                    "sql",
+                    "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Verify specific user and score from query", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 12

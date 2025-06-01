@@ -115,11 +115,13 @@ namespace AutomationFramework.Features.UserInterface
         [NUnit.Framework.DescriptionAttribute("Submit contact form")]
         [NUnit.Framework.CategoryAttribute("ui")]
         [NUnit.Framework.CategoryAttribute("smoke")]
+        [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task SubmitContactForm()
         {
             string[] tagsOfScenario = new string[] {
                     "ui",
-                    "smoke"};
+                    "smoke",
+                    "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Submit contact form", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
