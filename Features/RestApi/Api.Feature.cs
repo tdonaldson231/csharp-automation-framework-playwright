@@ -104,9 +104,9 @@ namespace AutomationFramework.Features.RestApi
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 3
+#line 6
   #line hidden
-#line 4
+#line 7
     await testRunner.GivenAsync("the backend is up and operational", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
         }
@@ -124,7 +124,7 @@ namespace AutomationFramework.Features.RestApi
                     "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("GET request to a valid endpoint returns 200 OK", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 10
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -134,16 +134,16 @@ namespace AutomationFramework.Features.RestApi
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 8
+#line 12
     await testRunner.GivenAsync("the API endpoint is \"/objects/5\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 13
     await testRunner.WhenAsync("a GET request is sent to the backend API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 14
     await testRunner.ThenAsync("the response status code should be \"OK\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -161,7 +161,7 @@ namespace AutomationFramework.Features.RestApi
                     "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("GET request to an invalid endpoint returns 404 Not Found", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 13
+#line 17
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -171,16 +171,16 @@ namespace AutomationFramework.Features.RestApi
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 14
+#line 19
     await testRunner.GivenAsync("the API endpoint is \"/unknown\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 15
+#line 20
     await testRunner.WhenAsync("a GET request is sent to the backend API", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 16
+#line 21
     await testRunner.ThenAsync("the response status code should be \"NotFound\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
