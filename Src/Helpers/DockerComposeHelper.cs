@@ -8,15 +8,18 @@ namespace AutomationFramework.Features.Sql
 {
     public class DockerComposeHelper : IAsyncDisposable
     {
-        private readonly string _dockerComposeDirectory;
+        private readonly TestConfigFixture _config;
+        private readonly string? _dockerComposeDirectory;
 
         public DockerComposeHelper(TestConfigFixture config)
         {
-            if (string.Equals(config.DbServer, "localhost", StringComparison.OrdinalIgnoreCase))
+            _config = config;
+
+            if (string.Equals(config.TestEnvironment, "localhost", StringComparison.OrdinalIgnoreCase))
             {
                 _dockerComposeDirectory = Path.Combine(config.ProjectPath, "Config", "Sql");
                 StartDockerCompose();
-            }            
+            }
         }
 
         private void StartDockerCompose()
@@ -60,7 +63,11 @@ namespace AutomationFramework.Features.Sql
 
         public async ValueTask DisposeAsync()
         {
-            StopDockerCompose();
+            if (string.Equals(_config.TestEnvironment, "localhost", StringComparison.OrdinalIgnoreCase))
+            {
+                StopDockerCompose();
+            }
+
             await Task.CompletedTask;
         }
     }
