@@ -9,16 +9,20 @@ namespace AutomationFramework.Features.Sql
     public class DockerComposeHelper : IAsyncDisposable
     {
         private readonly TestConfigFixture _config;
-        private readonly string? _dockerComposeDirectory;
+        private readonly string _dockerComposeDirectory;
 
         public DockerComposeHelper(TestConfigFixture config)
         {
             _config = config;
-
-            if (string.Equals(config.DbServer, "localhost", StringComparison.OrdinalIgnoreCase))
+            _dockerComposeDirectory = Path.Combine(config.ProjectPath, "Config", "Sql");
+            if (string.Equals(_config.DbServer, "localhost", StringComparison.OrdinalIgnoreCase))
+            try
             {
-                _dockerComposeDirectory = Path.Combine(config.ProjectPath, "Config", "Sql");
                 StartDockerCompose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Docker Compose startup failed: {ex.Message}");
             }
         }
 
@@ -58,16 +62,23 @@ namespace AutomationFramework.Features.Sql
                 throw new Exception($"Command `{command} {args}` failed with error: {error}");
             }
 
-            Console.WriteLine(output);  // Output result for debugging
+            Console.WriteLine(output);
         }
 
         public async ValueTask DisposeAsync()
         {
             if (string.Equals(_config.DbServer, "localhost", StringComparison.OrdinalIgnoreCase))
             {
-                StopDockerCompose();
+                try
+                {
+                    StopDockerCompose();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Docker Compose cleanup failed: {ex.Message}");
+                }
             }
-
+            
             await Task.CompletedTask;
         }
     }
