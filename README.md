@@ -83,19 +83,7 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   |-- dev.runsettings
 |   |   `-- local.runsettings
 |   `-- Sql.cs
-|-- bin
-|   `-- Debug
-|       `-- net8.0
 |-- entrypoint.sh
-|-- obj
-|   `-- Debug
-|       `-- net8.0
-|           |-- AutomationFramework.AssemblyInfo.cs
-|           |-- AutomationFramework.AssemblyInfoInputs.cache
-|           |-- AutomationFramework.GeneratedMSBuildEditorConfig.editorconfig
-|           |-- AutomationFramework.GlobalUsings.g.cs
-|           |-- ref
-|           `-- refint
 `-- tests.sh
 ```
 
