@@ -9,7 +9,7 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 - Extent Reports for HTML reporting
 - MySQL for executing SQL test cases
 
-### Key Feature
+### Key Features (in progress...)
 
 - 5 Test Cases: Including 2 API, 1 UI, and 2 SQL-based tests.
 - MySQL Initialization: Automated MySQL instance with seeded mock data and stored procedures for SQL validation.
