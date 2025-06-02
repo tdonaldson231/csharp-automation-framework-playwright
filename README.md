@@ -30,6 +30,7 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   |-- Src
 |   |   |   `-- Config
 |   |   |       `-- Sql
+|   |   |           `-- mysql-init
 |   |   |-- docker-compose.yml
 |   |   `-- mysql-init
 |   |       `-- mock_data.sql
@@ -48,11 +49,14 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |       `-- Form.Feature.cs
 |-- README.md
 |-- Reports
+|   |-- ExtentReport_2025-06-01_12-47-55.html
 |   |-- Extent_Reports_Example.html
 |   `-- SreenCaptures
 |       `-- Screenshot_2025-05-20_09-29-41.png
 |-- Src
 |   |-- Base.cs
+|   |-- DependencyInjection
+|   |   `-- ApiTestingServices.cs
 |   |-- Fixtures
 |   |   |-- DatabaseFixture.cs
 |   |   |-- ExtentReportsFixture.cs
@@ -60,22 +64,38 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |   |   |-- TestConfigFixture.cs
 |   |   `-- UserInterfaceFixture.cs
 |   |-- Helpers
-|   |   `-- DockerComposeHelper.cs
+|   |   |-- DockerComposeHelper.cs
+|   |   `-- RestSharpClient.cs
 |   |-- Hooks
 |   |   |-- ExtentReportHooks.cs
 |   |   |-- Hooks.cs
 |   |   `-- UserInterfaceTestHooks.cs
+|   |-- Interfaces
+|   |   `-- IApiClient.cs
 |   `-- Reporting
 |       `-- ExtentReportGlobal.cs
+|-- TestResults
+|   `-- test_results.trx
 |-- Tests
 |   |-- Portal.cs
 |   |-- RestApi.cs
-|   |-- Results
 |   |-- RunSettings
 |   |   |-- dev.runsettings
 |   |   `-- local.runsettings
 |   `-- Sql.cs
+|-- bin
+|   `-- Debug
+|       `-- net8.0
 |-- entrypoint.sh
+|-- obj
+|   `-- Debug
+|       `-- net8.0
+|           |-- AutomationFramework.AssemblyInfo.cs
+|           |-- AutomationFramework.AssemblyInfoInputs.cache
+|           |-- AutomationFramework.GeneratedMSBuildEditorConfig.editorconfig
+|           |-- AutomationFramework.GlobalUsings.g.cs
+|           |-- ref
+|           `-- refint
 `-- tests.sh
 ```
 
@@ -153,73 +173,87 @@ cd AutomationFrameworkRepo_v03
 3. Run all tests via `Tests > Run All Tests`
 
 ### Using the `tests.sh` script to run `dotnet test`
-Example running the `smoke` tests in the `dev` environment:
+Example running the `regression` tests in the `dev` environment:
 ```bash
-$ bash tests.sh -e dev -c api
+$ bash tests.sh -e dev -c regression
 ```
 
 ### Sample Result Output
 <details>
   <summary>(click to expand)</summary>
     ```bash
-    $ bash git .sh -e dev -c api
+    $ bash tests.sh -e dev -c regression
     Running tests in Environment: dev
-    Running tests using category: api
-    Restore complete (1.3s)
-      AutomationFramework succeeded (3.7s) → bin\Debug\net8.0\AutomationFramework.dll
+    Running tests using category: regression
+    Restore complete (1.1s)
+      AutomationFramework succeeded (12.0s) → bin\Debug\net8.0\AutomationFramework.dll
     NUnit Adapter 5.0.0.0: Test execution started
     Running selected tests in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll
-       NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run
+       NUnit3TestExecutor discovered 5 of 5 NUnit test cases using Current Discovery mode, Non-Explicit run
     Given the backend is up and operational
     Environment: dev
     API URL: https://api.restful-api.dev
-    SQL DB: devdb
+    SQL DB: Server=localhost;Port=3306;Database=devdb;User ID=devuser;Password=devpassword;
     Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0
     Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright
-    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.8s)
+    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.5s)
     Given the API endpoint is "/unknown"
     -> done: BackendRestApi.GivenTheApiEndpointIs("/unknown") (0.0s)
     When a GET request is sent to the backend API
-    Full request URL: https://api.restful-api.dev/unknown
-    -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.4s)
+    -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.6s)
     Then the response status code should be "NotFound"
-    PASS: Expected status 'NotFound' matched actual 'NotFound'.
-    NotFound
     -> done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("NotFound") (0.0s)
 
+    
     Given the backend is up and operational
     Environment: dev
     API URL: https://api.restful-api.dev
-    SQL DB: devdb
+    SQL DB: Server=localhost;Port=3306;Database=devdb;User ID=devuser;Password=devpassword;
     Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0
     Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright
-    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.8s)
+    -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.3s)
     Given the API endpoint is "/objects/5"
     -> done: BackendRestApi.GivenTheApiEndpointIs("/objects/5") (0.0s)
     When a GET request is sent to the backend API
-    Full request URL: https://api.restful-api.dev/objects/5
-    -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.4s)
+    -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.6s)
     Then the response status code should be "OK"
-    PASS: Expected status 'OK' matched actual 'OK'.
-    OK
     -> done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("OK") (0.0s)
 
+    Given the database is up and running
+    -> done: SqlQueries.GivenTheDatabaseIsUpAndRunning() (0.0s)
+    When the "GetHighScores" stored procedure is executed with minimum score 70
+    -> done: SqlQueries.WhenStoredProcedureIsExecuted("GetHighScores", 70) (0.1s)
+    Then the results should all have scores >= 70
+    -> done: SqlQueries.ThenScoresShouldBeGreaterThanOrEqualTo(70) (0.0s)
+
+    Given the database is up and running
+    -> done: SqlQueries.GivenTheDatabaseIsUpAndRunning() (0.0s)
+    When I query the "results" table
+    -> done: SqlQueries.WhenIQueryTheTable("results") (0.0s)
+    Then I should find user "Ringo" with score >= 75
+    -> done: SqlQueries.ThenUserScoreShouldBeAtLeast("Ringo", 75) (0.0s)
+
+    Given the user navigates to the form page
+    -> done: PortalTests.GivenUserNavigatesToTheFormPage() (0.9s)
+    When the user enters a name, message and clicks the submit button
+    -> done: PortalTests.WhenUserEntersNameMessageAndClicksSubmit() (1.1s)
+    Then the form is processed with a thank you message
+    -> done: PortalTests.ThenFormIsProcessedWithThankYouMessage() (2.0s)
+
     NUnit Adapter 5.0.0.0: Test execution complete
-    WARNING: Overwriting results file: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\Tests\Results\test_results.trx
-    Results File: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\Tests\Results\test_results.trx
-      AutomationFramework test succeeded (27.2s)
+    WARNING: Overwriting results file: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\TestResults\test_results.trx
+    Results File: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\TestResults\test_results.trx
+      AutomationFramework test succeeded (57.8s)
 
-    Test summary: total: 2, failed: 0, succeeded: 2, skipped: 0, duration: 27.1s
-    Build succeeded in 33.2s
-
-    Workload updates are available. Run `dotnet workload list` for more information.
+    Test summary: total: 5, failed: 0, succeeded: 5, skipped: 0, duration: 57.8s
+    Build succeeded in 75.1s
     ```
 </details>
 
 ### Building & Running Docker Image
 1. Navigate to the root directory containing `Dockerfile`
 2. Build the docker image: `docker build -t test-image .`
-3. Run the docker image: `docker run --rm -e TEST_ENV=api -e TEST_CATEGORY=smoke test-image`\
+3. Run the docker image: `docker run --rm -e TEST_ENV=dev -e TEST_CATEGORY=smoke test-image`\
 **Note:** to allocate an interactive terminal (for shell access), execute the following:
 ```bash
 > docker run -it --entrypoint /bin/bash <image-name:image-tag>
@@ -284,7 +318,7 @@ Connecting to the server.
 2025-05-21 14:32:15Z: Running job: Build Dockerfile from Public GitHub Repo
 ```
 
-Results from running the API suite from Azure DevOps:
+Results from running the API suite from an Azure DevOps pipeline:
 
 ```bash
 AutomationFrameworkRepo_v03 -> /app/bin/Debug/net8.0/AutomationFrameworkRepo_v03.dll
@@ -297,5 +331,4 @@ WARNING: Overwriting results file: /app/TestResults/test_results.trx
 Results File: /app/TestResults/test_results.trx
 
 Passed!  - Failed:     0, Passed:     2, Skipped:     0, Total:     2, Duration: 6 s - AutomationFrameworkRepo_v03.dll (net8.0)
-Finishing: Run Docker Image with TEST_CATEGORY
 ```

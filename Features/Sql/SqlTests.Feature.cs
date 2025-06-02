@@ -104,9 +104,9 @@ namespace AutomationFramework.Features.Sql
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 3
+#line 6
   #line hidden
-#line 4
+#line 7
     await testRunner.GivenAsync("the database is up and running", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
         }
@@ -115,14 +115,16 @@ namespace AutomationFramework.Features.Sql
         [NUnit.Framework.DescriptionAttribute("Stored procedure returns scores greater than or equal to 70")]
         [NUnit.Framework.CategoryAttribute("sql")]
         [NUnit.Framework.CategoryAttribute("smoke")]
+        [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task StoredProcedureReturnsScoresGreaterThanOrEqualTo70()
         {
             string[] tagsOfScenario = new string[] {
                     "sql",
-                    "smoke"};
+                    "smoke",
+                    "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Stored procedure returns scores greater than or equal to 70", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 10
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -132,13 +134,13 @@ namespace AutomationFramework.Features.Sql
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 8
+#line 13
     await testRunner.WhenAsync("the \"GetHighScores\" stored procedure is executed with minimum score 70", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 9
+#line 14
     await testRunner.ThenAsync("the results should all have scores >= 70", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -148,13 +150,15 @@ namespace AutomationFramework.Features.Sql
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verify specific user and score from query")]
         [NUnit.Framework.CategoryAttribute("sql")]
+        [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task VerifySpecificUserAndScoreFromQuery()
         {
             string[] tagsOfScenario = new string[] {
-                    "sql"};
+                    "sql",
+                    "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Verify specific user and score from query", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 12
+#line 17
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -164,13 +168,13 @@ namespace AutomationFramework.Features.Sql
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 13
+#line 20
     await testRunner.WhenAsync("I query the \"results\" table", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 21
     await testRunner.ThenAsync("I should find user \"Ringo\" with score >= 75", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

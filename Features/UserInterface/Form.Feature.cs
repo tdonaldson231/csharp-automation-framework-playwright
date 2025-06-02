@@ -104,9 +104,9 @@ namespace AutomationFramework.Features.UserInterface
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 3
+#line 6
   #line hidden
-#line 4
+#line 7
     await testRunner.GivenAsync("the user navigates to the form page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
         }
@@ -115,14 +115,16 @@ namespace AutomationFramework.Features.UserInterface
         [NUnit.Framework.DescriptionAttribute("Submit contact form")]
         [NUnit.Framework.CategoryAttribute("ui")]
         [NUnit.Framework.CategoryAttribute("smoke")]
+        [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task SubmitContactForm()
         {
             string[] tagsOfScenario = new string[] {
                     "ui",
-                    "smoke"};
+                    "smoke",
+                    "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Submit contact form", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 10
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -132,13 +134,13 @@ namespace AutomationFramework.Features.UserInterface
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 8
-    await testRunner.WhenAsync("the user enters a name, message and clicks the submit button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 13
+    await testRunner.WhenAsync("the user enters a name, message, and clicks the submit button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 9
+#line 14
     await testRunner.ThenAsync("the form is processed with a thank you message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

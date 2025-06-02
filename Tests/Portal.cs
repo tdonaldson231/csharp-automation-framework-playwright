@@ -23,7 +23,7 @@ namespace AutomationFramework.Features.UserInterface
             await _uiFixture.Page.GotoAsync(_configFixture.GetSelector("WebPage", "Url"));
         }
 
-        [When(@"the user enters a name, message and clicks the submit button")]
+        [When(@"the user enters a name, message, and clicks the submit button")]
         public async Task WhenUserEntersNameMessageAndClicksSubmit()
         {
             await _uiFixture.Page.ClickAsync(_configFixture.GetSelector("AutomationPage", "FormPage"));
