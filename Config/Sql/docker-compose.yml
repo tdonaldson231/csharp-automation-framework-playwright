@@ -1,4 +1,4 @@
-#version: '3.8'
+version: '3.8'
 
 services:
   mysql:
@@ -13,7 +13,13 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql-init:/docker-entrypoint-initdb.d  # loading SQL scripts on startup
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - test-network
 
 volumes:
   mysql-data:
+
+networks:
+  test-network:
+    driver: bridge

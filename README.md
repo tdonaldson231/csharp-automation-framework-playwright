@@ -253,7 +253,7 @@ $ bash tests.sh -e dev -c regression
 ### Building & Running Docker Image
 1. Navigate to the root directory containing `Dockerfile`
 2. Build the docker image: `docker build -t test-image .`
-3. Run the docker image: `docker run --rm -e TEST_ENV=dev -e TEST_CATEGORY=smoke test-image`\
+3. Run the docker image: `docker run --network sql_test-network -e TEST_ENV=dev -e TEST_CATEGORY=smoke test-image`\
 **Note:** to allocate an interactive terminal (for shell access), execute the following:
 ```bash
 > docker run -it --entrypoint /bin/bash <image-name:image-tag>
