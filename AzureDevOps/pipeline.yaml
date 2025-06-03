@@ -54,11 +54,11 @@ stages:
 
     - task: DockerInstaller@0
 
-    - script: docker-compose -f Config/Sql/docker-compose.yml up -d
+    - script: docker compose -f Config/Sql/docker-compose.yml up -d
       displayName: 'Start MySQL container'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
-    - script: docker-compose -f Config/Sql/docker-compose.yml ps
+    - script: docker compose -f Config/Sql/docker-compose.yml ps
       displayName: 'List running containers'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
@@ -84,7 +84,7 @@ stages:
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults $(imageName):$(imageTag)
+        docker run --rm --network sql_test-network -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults $(imageName):$(imageTag)
       displayName: 'Run Docker Image'
 
     - task: PublishTestResults@2
