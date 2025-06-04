@@ -1,0 +1,51 @@
+version: 0.2
+
+env:
+  variables:
+    TEST_ENV: "dev"
+    TEST_CATEGORY: "smoke"
+    GIT_BRANCH: "main"
+    GIT_REPO: "https://github.com/tdonaldson231/csharp-automation-framework-playwright.git"
+    IMAGE_NAME: "test-image"
+    IMAGE_TAG: "latest"
+
+phases:
+  install:
+    runtime-versions:
+      docker: 20
+    commands:
+      - echo Installing prerequisites...
+      - apt-get update && apt-get install -y git
+
+  pre_build:
+    commands:
+      - echo Cloning repo...
+      - rm -rf csharp-automation-framework-playwright || true
+      - git clone -b $GIT_BRANCH $GIT_REPO
+      - cd csharp-automation-framework-playwright
+      - echo Starting MySQL container...
+      - docker compose -f Config/Sql/docker-compose.yml up -d
+      - docker compose -f Config/Sql/docker-compose.yml ps
+
+  build:
+    commands:
+      - echo Building Docker image...
+      - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+      - echo Listing images...
+      - docker images
+      - echo Running test container...
+      - mkdir -p /tmp/test-results
+      - docker run --rm --network sql_test-network \
+          -e TEST_ENV=$TEST_ENV \
+          -e TEST_CATEGORY=$TEST_CATEGORY \
+          -v /tmp/test-results:/app/TestResults \
+          $IMAGE_NAME:$IMAGE_TAG
+      - echo Done running tests.
+
+  post_build:
+    commands:
+      - echo Copying test results to output...
+artifacts:
+  files:
+    - '**/*'
+  base-directory: /tmp/test-results
