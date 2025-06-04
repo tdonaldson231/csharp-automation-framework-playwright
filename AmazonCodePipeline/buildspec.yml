@@ -11,8 +11,6 @@ env:
 
 phases:
   install:
-    runtime-versions:
-      docker: 20
     commands:
       - echo Installing prerequisites...
       - apt-get update && apt-get install -y git
@@ -31,21 +29,15 @@ phases:
     commands:
       - echo Building Docker image...
       - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-      - echo Listing images...
-      - docker images
-      - echo Running test container...
       - mkdir -p /tmp/test-results
       - docker run --rm --network sql_test-network \
           -e TEST_ENV=$TEST_ENV \
           -e TEST_CATEGORY=$TEST_CATEGORY \
           -v /tmp/test-results:/app/TestResults \
           $IMAGE_NAME:$IMAGE_TAG
-      - echo Done running tests.
 
-  post_build:
-    commands:
-      - echo Copying test results to output...
 artifacts:
   files:
     - '**/*'
   base-directory: /tmp/test-results
+
