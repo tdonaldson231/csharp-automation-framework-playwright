@@ -169,8 +169,7 @@ $ bash tests.sh -e dev -c regression
 ### Sample Result Output
 <details>
   <summary>(click to expand)</summary>
-    ```bash
-    $ bash tests.sh -e dev -c regression
+  
     Running tests in Environment: dev
     Running tests using category: regression
     Restore complete (1.1s)
@@ -178,6 +177,7 @@ $ bash tests.sh -e dev -c regression
     NUnit Adapter 5.0.0.0: Test execution started
     Running selected tests in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll
        NUnit3TestExecutor discovered 5 of 5 NUnit test cases using Current Discovery mode, Non-Explicit run
+    
     Given the backend is up and operational
     Environment: dev
     API URL: https://api.restful-api.dev
@@ -191,7 +191,6 @@ $ bash tests.sh -e dev -c regression
     -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.6s)
     Then the response status code should be "NotFound"
     -> done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("NotFound") (0.0s)
-
     
     Given the backend is up and operational
     Environment: dev
@@ -235,7 +234,7 @@ $ bash tests.sh -e dev -c regression
 
     Test summary: total: 5, failed: 0, succeeded: 5, skipped: 0, duration: 57.8s
     Build succeeded in 75.1s
-    ```
+
 </details>
 
 ### Building & Running Docker Image
@@ -263,7 +262,7 @@ $ bash tests.sh -e dev -c regression
 ## ▶️ Azure DevOps 
 
 A test container was built and executed using an Azure DevOps pipeline.  
-The pipeline YAML file is archived under the `Archive > Azure DevOps` directory for reference.
+The pipeline YAML file is located in the `AzureDevOps` directory for reference.
 
 To run the pipeline, a self-hosted agent was configured by following the official Microsoft documentation:  
 [Set up a self-hosted Windows agent](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/windows-agent?view=azure-devops&tabs=IP-V4)
@@ -319,4 +318,68 @@ WARNING: Overwriting results file: /app/TestResults/test_results.trx
 Results File: /app/TestResults/test_results.trx
 
 Passed!  - Failed:     0, Passed:     2, Skipped:     0, Total:     2, Duration: 6 s - AutomationFrameworkRepo_v03.dll (net8.0)
+```
+
+---
+
+## ▶️ Amazon CodePipeline 
+
+The test container was also built and executed using an Amazon CodePipeline.  
+The pipeline YAML file is located in the `AmazonCodePipeline` directory for reference.
+
+The build was executed on Ubutu. 
+It was necessary to enable the `Privileged` flag to build the Docker image with elevated privileges.
+
+```bash
+[Container] 2025/06/04 21:56:15.282046 Running on CodeBuild On-demand
+[Container] 2025/06/04 21:56:15.282056 Waiting for agent ping
+[Container] 2025/06/04 21:56:15.585451 Waiting for DOWNLOAD_SOURCE
+[Container] 2025/06/04 21:56:16.778136 Phase is DOWNLOAD_SOURCE
+[Container] 2025/06/04 21:56:16.779698 CODEBUILD_SRC_DIR=/codebuild/output/src830115033/src
+[Container] 2025/06/04 21:56:16.780445 YAML location is /codebuild/output/src830115033/src/AmazonCodePipeline/buildspec.yml
+[Container] 2025/06/04 21:56:16.785446 Setting HTTP client timeout to higher timeout for S3 source
+[Container] 2025/06/04 21:56:16.786658 Processing environment variables
+[Container] 2025/06/04 21:56:16.920567 No runtime version selected in buildspec.
+[Container] 2025/06/04 21:56:16.948183 Moving to directory /codebuild/output/src830115033/src
+[Container] 2025/06/04 21:56:16.948209 Cache is not defined in the buildspec
+[Container] 2025/06/04 21:56:16.989342 Skip cache due to: no paths specified to be cached
+[Container] 2025/06/04 21:56:16.989643 Registering with agent
+[Container] 2025/06/04 21:56:17.023426 Phases found in YAML: 3
+[Container] 2025/06/04 21:56:17.023445  INSTALL: 2 commands
+[Container] 2025/06/04 21:56:17.023450  PRE_BUILD: 7 commands
+[Container] 2025/06/04 21:56:17.023454  BUILD: 6 commands
+[Container] 2025/06/04 21:56:17.023817 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2025/06/04 21:56:17.023829 Phase context status code:  Message: 
+[Container] 2025/06/04 21:56:17.116404 Entering phase INSTALL
+[Container] 2025/06/04 21:56:17.155916 Running command echo Installing prerequisites...
+Installing prerequisites...
+
+#15 naming to docker.io/library/test-image:latest done
+#15 DONE 13.8s
+
+[Container] 2025/06/04 21:58:37.329984 Running command mkdir -p /tmp/test-results
+
+[Container] 2025/06/04 21:58:37.362327 Running command echo Running test container...
+Running test container...
+
+[Container] 2025/06/04 21:58:37.368586 Running command docker run --rm --network sql_test-network -e TEST_ENV=$TEST_ENV -e TEST_CATEGORY=$TEST_CATEGORY -v /tmp/test-results:/app/TestResults $IMAGE_NAME:$IMAGE_TAG
+  Determining projects to restore...
+  Restored /app/AutomationFramework.csproj (in 10.71 sec).
+  AutomationFramework -> /app/bin/Debug/net8.0/AutomationFramework.dll
+Test run for /app/bin/Debug/net8.0/AutomationFramework.dll (.NETCoreApp,Version=v8.0)
+VSTest version 17.11.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Results File: /app/TestResults/test_results.trx
+
+Passed!  - Failed:     0, Passed:     3, Skipped:     0, Total:     3, Duration: 11 s - AutomationFramework.dll (net8.0)
+
+[Container] 2025/06/04 21:59:13.269037 Running command echo Test run complete.
+Test run complete.
+
+[Container] 2025/06/04 21:59:13.295432 Phase complete: BUILD State: SUCCEEDED
+[Container] 2025/06/04 21:59:13.295459 Phase context status code:  Message: 
+[Container] 2025/06/04 21:59:13.357428 Entering phase POST_BUILD
+[Container] 2025/06/04 21:59:13.362118 Phase complete: POST_BUILD State: SUCCEEDED
 ```
