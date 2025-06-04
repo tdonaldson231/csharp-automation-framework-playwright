@@ -169,8 +169,7 @@ $ bash tests.sh -e dev -c regression
 ### Sample Result Output
 <details>
   <summary>(click to expand)</summary>
-    ```bash
-    $ bash tests.sh -e dev -c regression
+  
     Running tests in Environment: dev
     Running tests using category: regression
     Restore complete (1.1s)
@@ -178,6 +177,7 @@ $ bash tests.sh -e dev -c regression
     NUnit Adapter 5.0.0.0: Test execution started
     Running selected tests in C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0\AutomationFramework.dll
        NUnit3TestExecutor discovered 5 of 5 NUnit test cases using Current Discovery mode, Non-Explicit run
+    
     Given the backend is up and operational
     Environment: dev
     API URL: https://api.restful-api.dev
@@ -191,7 +191,6 @@ $ bash tests.sh -e dev -c regression
     -> done: BackendRestApi.WhenAGETRequestIsSentToTheBackendAPI() (0.6s)
     Then the response status code should be "NotFound"
     -> done: BackendRestApi.ThenTheResponseStatusCodeShouldBe("NotFound") (0.0s)
-
     
     Given the backend is up and operational
     Environment: dev
@@ -235,7 +234,7 @@ $ bash tests.sh -e dev -c regression
 
     Test summary: total: 5, failed: 0, succeeded: 5, skipped: 0, duration: 57.8s
     Build succeeded in 75.1s
-    ```
+
 </details>
 
 ### Building & Running Docker Image
@@ -329,7 +328,7 @@ The test container was also built and executed using an Amazon CodePipeline.
 The pipeline YAML file is located in the `AmazonCodePipeline` directory for reference.
 
 The build was executed on Ubutu. 
-It was necessary to enable the `Privileged` flag to build the Docker image to get elevated privileges.
+It was necessary to enable the `Privileged` flag to build the Docker image with elevated privileges.
 
 ```bash
 [Container] 2025/06/04 21:56:15.282046 Running on CodeBuild On-demand
