@@ -332,7 +332,6 @@ The build was executed on Ubutu.
 It was necessary to enable the `Privileged` flag to build the Docker image to get elevated privileges.
 
 ```bash
-
 [Container] 2025/06/04 21:56:15.282046 Running on CodeBuild On-demand
 [Container] 2025/06/04 21:56:15.282056 Waiting for agent ping
 [Container] 2025/06/04 21:56:15.585451 Waiting for DOWNLOAD_SOURCE
