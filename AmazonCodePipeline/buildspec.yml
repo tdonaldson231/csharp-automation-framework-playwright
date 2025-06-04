@@ -31,12 +31,7 @@ phases:
       - docker build -t $IMAGE_NAME:$IMAGE_TAG .
       - mkdir -p /tmp/test-results
       - echo Running test container...
-      - |
-        docker run --rm --network sql_test-network \
-          -e TEST_ENV=$TEST_ENV \
-          -e TEST_CATEGORY=$TEST_CATEGORY \
-          -v /tmp/test-results:/app/TestResults \
-          $IMAGE_NAME:$IMAGE_TAG
+      - docker run --rm --network sql_test-network -e TEST_ENV=$TEST_ENV -e TEST_CATEGORY=$TEST_CATEGORY -v /tmp/test-results:/app/TestResults $IMAGE_NAME:$IMAGE_TAG
       - echo Test run complete.
 
 artifacts:

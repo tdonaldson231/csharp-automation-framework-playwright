@@ -263,7 +263,7 @@ $ bash tests.sh -e dev -c regression
 ## ▶️ Azure DevOps 
 
 A test container was built and executed using an Azure DevOps pipeline.  
-The pipeline YAML file is archived under the `Archive > Azure DevOps` directory for reference.
+The pipeline YAML file is located in the `AzureDevOps` directory for reference.
 
 To run the pipeline, a self-hosted agent was configured by following the official Microsoft documentation:  
 [Set up a self-hosted Windows agent](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/windows-agent?view=azure-devops&tabs=IP-V4)
