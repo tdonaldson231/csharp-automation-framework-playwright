@@ -44,6 +44,15 @@
     <None Update="AmazonCodePipeline\buildspec.yml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="AmazonCodePipeline\terraform\codepipeline\main.tf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AmazonCodePipeline\terraform\codepipeline\providers.tf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AmazonCodePipeline\terraform\codepipeline\variables.tf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="AzureDevOps\pipeline.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

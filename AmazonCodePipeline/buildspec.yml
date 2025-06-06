@@ -21,6 +21,8 @@ phases:
       - rm -rf csharp-automation-framework-playwright || true
       - git clone -b $GIT_BRANCH $GIT_REPO
       - cd csharp-automation-framework-playwright
+      - echo "Logging in to Docker Hub"
+      - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
       - echo Starting MySQL container...
       - docker compose -f Config/Sql/docker-compose.yml up -d
       - docker compose -f Config/Sql/docker-compose.yml ps
