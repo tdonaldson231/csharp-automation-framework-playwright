@@ -1,0 +1,20 @@
+{
+  "BrowserOptions": {
+    "Headless": false
+  },
+  "WebPage": {
+    "Url": "https://demoqa.com/"
+  },
+  "HomePage": {
+    "HomePageImage": "img[alt='Selenium Online Training']",
+    "Elements": "Elements",
+    "Forms": "",
+    "Alerts": "",
+    "Widgets": "",
+    "Interaction": ""
+  },
+  "ElementsPage": {
+    "Forms": ".header-text:has-text('Forms')",
+    "PracticeForm": "span.text:has-text('Practice Form')"
+  }
+}

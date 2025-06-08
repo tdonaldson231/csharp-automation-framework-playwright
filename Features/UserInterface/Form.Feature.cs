@@ -29,7 +29,7 @@ namespace AutomationFramework.Features.UserInterface
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/UserInterface", "UI Form Validation", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "Form.Feature"
+#line 1 "Form.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -113,12 +113,14 @@ namespace AutomationFramework.Features.UserInterface
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Submit contact form")]
+        [NUnit.Framework.CategoryAttribute("suite")]
         [NUnit.Framework.CategoryAttribute("ui")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task SubmitContactForm()
         {
             string[] tagsOfScenario = new string[] {
+                    "suite",
                     "ui",
                     "smoke",
                     "regression"};

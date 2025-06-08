@@ -5,7 +5,7 @@ using Reqnroll;
 using System.ComponentModel;
 using System.Net;
 
-namespace AutomationFramework.Features.RestApi
+namespace AutomationFramework.Tests.Suites
 {
     [Binding]
     public class BackendRestApi : Base

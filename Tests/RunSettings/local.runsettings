@@ -4,5 +4,6 @@
 		<!-- currently set to dev for api url that is only dev -->
 		<Parameter name="testEnvironment" value="dev" />
 	    <Parameter name="dbServer" value="localhost" />
+		<Parameter name="localJourneyUrl" value="https://demoqa.com/" />		
 	</TestRunParameters>
 </RunSettings>

@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.Playwright.TestAdapter" Version="1.52.0" />
     <PackageReference Include="MySql.Data" Version="9.3.0" />
     <PackageReference Include="NUnit" Version="4.3.2" />
-    <PackageReference Include="NUnit.Analyzers" Version="4.7.0">
+    <PackageReference Include="NUnit.Analyzers" Version="4.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -56,6 +56,9 @@
     <None Update="AzureDevOps\pipeline.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Config\Journeys\locators.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="entrypoint.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -72,6 +75,15 @@
 
   <ItemGroup>
     <Folder Include="TestResults\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Features\Sql\SqlTests.Feature.cs">
+      <DependentUpon>SqlTests.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\UserInterface\Form.Feature.cs">
+      <DependentUpon>Form.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

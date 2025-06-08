@@ -1,16 +1,18 @@
+using AutomationFramework.Features.UserInterface;
 using Microsoft.Playwright;
 using Reqnroll;
 
 
-namespace AutomationFramework.Features.UserInterface
+namespace AutomationFramework.Tests.Services
 {
     [Binding]
-    public class PortalTests
+    [Scope(Tag = "journeys")]
+    public class InteractionsSteps
     {
         private readonly UserInterfaceFixture _uiFixture;
         private readonly PlaywrightFixture _configFixture;
 
-        public PortalTests(ScenarioContext scenarioContext)
+        public InteractionsSteps(ScenarioContext scenarioContext)
         {
             _uiFixture = scenarioContext.Get<UserInterfaceFixture>();
             var testConfig = new TestConfigFixture();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using AutomationFramework.Features.UserInterface;
 
 
-namespace AutomationFramework.Features.Sql
+namespace AutomationFramework.Tests.Suites
 {
     [Binding]
     public class SqlQueries

@@ -6,7 +6,7 @@ Feature: UI Form Validation
   Background:
     Given the user navigates to the form page
 
-  @ui @smoke @regression
+  @suite @ui @smoke @regression
   Scenario: Submit contact form
     # Ensures that users can successfully submit the contact form.
     # Expected: A thank you message should be displayed after submission.

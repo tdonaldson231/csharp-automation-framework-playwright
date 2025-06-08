@@ -11,25 +11,25 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace AutomationFramework.Features.Sql
+namespace AutomationFramework.Features.Journeys
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("SQL Score Validation")]
+    [NUnit.Framework.DescriptionAttribute("User Journey 2")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class SQLScoreValidationFeature
+    public partial class UserJourney2Feature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/Sql", "SQL Score Validation", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/Journeys", "User Journey 2", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "SqlTests.feature"
+#line 1 "Journey2.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -107,23 +107,23 @@ namespace AutomationFramework.Features.Sql
 #line 6
   #line hidden
 #line 7
-    await testRunner.GivenAsync("the database is up and running", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.GivenAsync("the user is on the home page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Stored procedure returns scores greater than or equal to 70")]
-        [NUnit.Framework.CategoryAttribute("sql")]
+        [NUnit.Framework.DescriptionAttribute("Complete Journey 2 Flow")]
+        [NUnit.Framework.CategoryAttribute("journeys")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("regression")]
-        public async global::System.Threading.Tasks.Task StoredProcedureReturnsScoresGreaterThanOrEqualTo70()
+        public async global::System.Threading.Tasks.Task CompleteJourney2Flow()
         {
             string[] tagsOfScenario = new string[] {
-                    "sql",
+                    "journeys",
                     "smoke",
                     "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Stored procedure returns scores greater than or equal to 70", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Complete Journey 2 Flow", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 10
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -137,45 +137,14 @@ namespace AutomationFramework.Features.Sql
 #line 6
   await this.FeatureBackgroundAsync();
 #line hidden
+#line 11
+    await testRunner.WhenAsync("the user accesses the elements page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 12
+    await testRunner.AndAsync("the user navigates to the wigets page", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
 #line 13
-    await testRunner.WhenAsync("the \"GetHighScores\" stored procedure is executed with minimum score 70", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 14
-    await testRunner.ThenAsync("the results should all have scores >= 70", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Verify specific user and score from query")]
-        [NUnit.Framework.CategoryAttribute("sql")]
-        [NUnit.Framework.CategoryAttribute("regression")]
-        public async global::System.Threading.Tasks.Task VerifySpecificUserAndScoreFromQuery()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "sql",
-                    "regression"};
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Verify specific user and score from query", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
-  this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 6
-  await this.FeatureBackgroundAsync();
-#line hidden
-#line 20
-    await testRunner.WhenAsync("I query the \"results\" table", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 21
-    await testRunner.ThenAsync("I should find user \"Ringo\" with score >= 75", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.ThenAsync("the user journey has completed successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

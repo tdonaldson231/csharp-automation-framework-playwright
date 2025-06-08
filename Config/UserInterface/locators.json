@@ -1,6 +1,6 @@
 {
   "BrowserOptions": {
-    "Headless": true
+    "Headless": false
   },
   "WebPage": {
     "Url": "https://ultimateqa.com/automation"
