@@ -79,11 +79,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }} 
 
+      - name: Debug Reports
+        run: |
+          pwd
+          ls -la
+          cd Reports
+          ls -la
+          cp ExtentReport*.html /app/TestResults/
+
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
         if: always()  # Show results even if tests fail
         with:
           name: TestReport
-          path: 'Reports/ExtentReport_*.html'
+          path: 'test-results/ExtentReport_*.html'
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }} 
