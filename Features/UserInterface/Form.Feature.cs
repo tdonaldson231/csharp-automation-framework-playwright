@@ -113,12 +113,14 @@ namespace AutomationFramework.Features.UserInterface
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Submit contact form")]
+        [NUnit.Framework.CategoryAttribute("suite")]
         [NUnit.Framework.CategoryAttribute("ui")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task SubmitContactForm()
         {
             string[] tagsOfScenario = new string[] {
+                    "suite",
                     "ui",
                     "smoke",
                     "regression"};

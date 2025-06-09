@@ -1,10 +1,12 @@
+using AutomationFramework.Features.UserInterface;
 using Microsoft.Playwright;
 using Reqnroll;
 
 
-namespace AutomationFramework.Features.UserInterface
+namespace AutomationFramework.Tests.Suites
 {
     [Binding]
+    [Scope(Tag = "suite")]
     public class PortalTests
     {
         private readonly UserInterfaceFixture _uiFixture;

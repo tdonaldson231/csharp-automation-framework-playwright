@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AutomationFramework.Features.UserInterface
 {
