@@ -1,4 +1,6 @@
-﻿on:
+﻿name: Build and Run .NET Tests
+
+on:
   workflow_dispatch:
      inputs:
       environment:
