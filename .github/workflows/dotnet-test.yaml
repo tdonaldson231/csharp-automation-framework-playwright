@@ -62,23 +62,16 @@ jobs:
             -v ${{ github.workspace }}/test-results:/app/TestResults \
             $IMAGE_NAME:$IMAGE_TAG
 
-      - name: Results Debug
-        run: |
-          pwd
-          ls -la
-          cd ${{ github.workspace }}/test-results
-          ls -la
-
       - name: Publish .trx Results
         uses: dorny/test-reporter@v1
         if: always()  # Show results even if tests fail
         with:
           name: .NET Test Results
-          path: '${{ github.workspace }}/test-results/test-results.trx'
+          path: 'test-results/test_results.trx'
           reporter: dotnet-trx
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
         with:
           name: TestReport
-          path: ${{ github.workspace }}/Reports/ExtentReport_*.html.html
+          path: 'Reports/ExtentReport_*.html'
