@@ -63,11 +63,14 @@ jobs:
         run: |
           mkdir -p test-results
           docker run --rm \
-            --network sql_test-network \
-            -e TEST_ENV=${{ github.event.inputs.test_env }} \
-            -e TEST_CATEGORY=${{ github.event.inputs.test_category }} \
-            -v ${{ github.workspace }}/test-results:/app/TestResults \
-            $IMAGE_NAME:$IMAGE_TAG
+          --network sql_test-network \
+          -e TEST_ENV=${{ github.event.inputs.test_env }} \
+          -e TEST_CATEGORY=${{ github.event.inputs.test_category }} \
+          -v ${{ github.workspace }}/test-results:/app/TestResults \
+          -v ${{ github.workspace }}/Reports:/app/Reports \
+          $IMAGE_NAME:$IMAGE_TAG \
+          /bin/bash -c "dotnet test AutomationFrameworkRepo_v03.sln --settings Tests/RunSettings/${{ github.event.inputs.test_env }}.runsettings --filter TestCategory=${{ github.event.inputs.test_category }} --logger trx;LogFileName=test_results.trx && find / -type f -name 'ExtentReport*.html' 2>/dev/null"
+
 
       - name: Publish .trx Results
         uses: dorny/test-reporter@v1
@@ -83,9 +86,7 @@ jobs:
         run: |
           pwd
           ls -la
-          cd Reports
-          ls -la
-          cp ExtentReport*.html /app/TestResults/
+          find / -type f -name 'ExtentReport*.html' 2>/dev/null
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
