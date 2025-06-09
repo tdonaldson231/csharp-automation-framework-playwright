@@ -13,7 +13,6 @@ on:
         default: "smoke"
 
 env:
-  #GIT_REPO: "https://github.com/tdonaldson231/csharp-automation-framework-playwright.git"
   IMAGE_NAME: "test-image"
   IMAGE_TAG: "latest"
 
@@ -24,9 +23,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-        # with:
-        #   repository: tdonaldson231/csharp-automation-framework-playwright
-        #   ref: main
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -54,3 +50,17 @@ jobs:
             -e TEST_CATEGORY=${{ github.event.inputs.test_category }} \
             -v ${{ github.workspace }}/test-results:/app/TestResults \
             $IMAGE_NAME:$IMAGE_TAG
+
+      - name: Publish .trx Results
+        uses: dorny/test-reporter@v1
+        if: always()  # Show results even if tests fail
+        with:
+          name: .NET Test Results
+          path: '**/test-results.trx'  # Adjust if your file is elsewhere
+          reporter: dotnet-trx
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestReport
+          path: Reports/ExtentReport_*.html.html
