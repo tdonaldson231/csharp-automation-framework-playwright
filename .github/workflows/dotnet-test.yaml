@@ -1,4 +1,4 @@
-﻿name: Build and Run .NET Tests
+name: Build and Run .NET Tests
 
 on:
   workflow_dispatch:

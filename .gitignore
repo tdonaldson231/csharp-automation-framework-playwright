@@ -262,6 +262,9 @@ __pycache__/
 
 # Generated Html file but leave one example
 *.html
+<<<<<<< HEAD
+!Extent_Reports_Example.html
+=======
 !Extent_Reports_Example.html
 
 # Ignore sensitive Terraform variable files
@@ -284,3 +287,4 @@ crash.log
 
 # .terraform dir (provider plugins, modules)
 .terraform/
+>>>>>>> 79e88aa6bc9324357005ade8d112f81c3e81a7e6
