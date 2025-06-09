@@ -7,7 +7,7 @@ using Reqnroll;
 namespace AutomationFramework.Tests.Services
 {
     [Binding]
-    [Scope(Tag = "journeys")]
+    [Scope(Tag = "journey1")]
     public class ElementsSteps
     {
         private readonly UserInterfaceFixture _uiFixture;
@@ -29,23 +29,23 @@ namespace AutomationFramework.Tests.Services
         }
 
         [When(@"the user accesses the elements page")]
-        public async Task WhenUserEntersNameMessageAndClicksSubmit()
+        public async Task WhenUserAccessesAndClicksOnElements()
         {
-            NUnit.Framework.Assert.That(await _uiFixture.Page.GetByText(_configFixture.GetSelector("HomePage", "Elements")).IsVisibleAsync(), Is.True, "Elements is not visible");
-            await _uiFixture.Page.GetByText(_configFixture.GetSelector("HomePage", "Elements")).ClickAsync();
+            NUnit.Framework.Assert.That(await _uiFixture.Page.GetByText(_configFixture.GetSelector("HomePage", "ElementsText")).IsVisibleAsync(), Is.True, "Elements Text is not visible");
+            await _uiFixture.Page.GetByText(_configFixture.GetSelector("HomePage", "ElementsText")).ClickAsync();
         }
 
         [When(@"the user navigates to the forms page")]
-        public async Task WhenUserEntersNameMessageAndClicksForms()
+        public async Task WhenUserNavigatesAndClicksOnForms()
         {
-            NUnit.Framework.Assert.That(await _uiFixture.Page.Locator(_configFixture.GetSelector("ElementsPage", "Forms")).IsVisibleAsync(), Is.True, "Forms is not visible");
-            await _uiFixture.Page.Locator(_configFixture.GetSelector("ElementsPage", "Forms")).ClickAsync();
+            NUnit.Framework.Assert.That(await _uiFixture.Page.Locator(_configFixture.GetSelector("FormsPage", "FormsHeader")).IsVisibleAsync(), Is.True, "Forms Header is not visible");
+            await _uiFixture.Page.Locator(_configFixture.GetSelector("FormsPage", "FormsHeader")).ClickAsync();
         }
 
         [Then(@"the user journey has completed successfully")]
-        public async Task ThenFormIsProcessedWithThankYouMessage()
+        public async Task ThenElemenetsUserJourneyCompletedSuccessfully()
         {
-            NUnit.Framework.Assert.That(await _uiFixture.Page.Locator(_configFixture.GetSelector("ElementsPage", "PracticeForm")).IsVisibleAsync(), Is.True, "Practice Form is not visible");
+            NUnit.Framework.Assert.That(await _uiFixture.Page.Locator(_configFixture.GetSelector("FormsPage", "PracticeForm")).IsVisibleAsync(), Is.True, "Practice Form is not visible");
         }
     }
 }

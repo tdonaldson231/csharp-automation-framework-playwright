@@ -113,14 +113,14 @@ namespace AutomationFramework.Features.Journeys
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Complete Journey 2 Flow")]
+        [NUnit.Framework.CategoryAttribute("journey2")]
         [NUnit.Framework.CategoryAttribute("journeys")]
-        [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task CompleteJourney2Flow()
         {
             string[] tagsOfScenario = new string[] {
+                    "journey2",
                     "journeys",
-                    "smoke",
                     "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Complete Journey 2 Flow", null, tagsOfScenario, argumentsOfScenario, featureTags);
@@ -141,7 +141,7 @@ namespace AutomationFramework.Features.Journeys
     await testRunner.WhenAsync("the user accesses the elements page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 12
-    await testRunner.AndAsync("the user navigates to the wigets page", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.WhenAsync("the user navigates to the widgets page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 13
     await testRunner.ThenAsync("the user journey has completed successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

@@ -113,12 +113,14 @@ namespace AutomationFramework.Features.Journeys
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Complete Journey 1 Flow")]
+        [NUnit.Framework.CategoryAttribute("journey1")]
         [NUnit.Framework.CategoryAttribute("journeys")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task CompleteJourney1Flow()
         {
             string[] tagsOfScenario = new string[] {
+                    "journey1",
                     "journeys",
                     "smoke",
                     "regression"};

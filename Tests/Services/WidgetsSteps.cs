@@ -7,13 +7,13 @@ using Reqnroll;
 namespace AutomationFramework.Tests.Services
 {
     [Binding]
-    [Scope(Tag = "journey3")]
-    public class InteractiveSteps
+    [Scope(Tag = "journey2")]
+    public class WidgetsSteps
     {
         private readonly UserInterfaceFixture _uiFixture;
         private readonly PlaywrightFixture _configFixture;
 
-        public InteractiveSteps(ScenarioContext scenarioContext)
+        public WidgetsSteps(ScenarioContext scenarioContext)
         {
             var testConfig = new TestConfigFixture();
             _configFixture = new PlaywrightFixture(testConfig);
@@ -28,11 +28,11 @@ namespace AutomationFramework.Tests.Services
             NUnit.Framework.Assert.That(await image.IsVisibleAsync());
         }
 
-        [When(@"the user accesses the forms page")]
-        public async Task WhenUserAccessesAndClicksOnForms()
+        [When(@"the user accesses the elements page")]
+        public async Task WhenUserAccessesAndClicksOnElements()
         {
-            NUnit.Framework.Assert.That(await _uiFixture.Page.GetByText(_configFixture.GetSelector("HomePage", "FormsText")).IsVisibleAsync(), Is.True, "Forms Text is not visible");
-            await _uiFixture.Page.GetByText(_configFixture.GetSelector("HomePage", "FormsText")).ClickAsync();
+            NUnit.Framework.Assert.That(await _uiFixture.Page.GetByText(_configFixture.GetSelector("HomePage", "ElementsText")).IsVisibleAsync(), Is.True, "Elements Text is not visible");
+            await _uiFixture.Page.GetByText(_configFixture.GetSelector("HomePage", "ElementsText")).ClickAsync();
         }
 
         [When(@"the user navigates to the widgets page")]
@@ -42,18 +42,10 @@ namespace AutomationFramework.Tests.Services
             await _uiFixture.Page.Locator(_configFixture.GetSelector("WidgetsPage", "WidgetsHeader")).ClickAsync();
         }
 
-        [When(@"the user navigates to the interactions page")]
-        public async Task WhenUserNavigatesAndClicksOnInteractions()
-        {
-            NUnit.Framework.Assert.That(await _uiFixture.Page.Locator(_configFixture.GetSelector("InteractionsPage", "InteractionsHeader")).IsVisibleAsync(), Is.True, "Interactions Header is not visible");
-            await _uiFixture.Page.Locator(_configFixture.GetSelector("InteractionsPage", "InteractionsHeader")).ClickAsync();
-        }
-
-
         [Then(@"the user journey has completed successfully")]
-        public async Task ThenInteractionsUserJourneyCompletedSuccessfully()
+        public async Task ThenWidgetsUserJourneyCompletedSuccessfully()
         {
-            NUnit.Framework.Assert.That(await _uiFixture.Page.Locator(_configFixture.GetSelector("InteractionsPage", "InteractionsResizable")).IsVisibleAsync(), Is.True, "Interactions Resizable is not visible");
+            NUnit.Framework.Assert.That(await _uiFixture.Page.Locator(_configFixture.GetSelector("WidgetsPage", "WidgetsSelectMenu")).IsVisibleAsync(), Is.True, "Widgets Select Menu Form is not visible");
         }
     }
 }

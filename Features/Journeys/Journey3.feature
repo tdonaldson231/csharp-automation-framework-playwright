@@ -6,9 +6,9 @@ Feature: User Journey 3
   Background:
     Given the user is on the home page
 
-  @journeys @regression
+  @journey3 @journeys @regression
   Scenario: Complete Journey 3 Flow
     When the user accesses the forms page
-    And the user navigates to the wigets page
-    And the user navigates to the interactions page
+    When the user navigates to the widgets page
+    When the user navigates to the interactions page
     Then the user journey has completed successfully

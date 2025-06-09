@@ -6,9 +6,9 @@ Feature: User Journey 2
   Background:
     Given the user is on the home page
 
-  @journeys @smoke @regression
+  @journey2 @journeys @regression
   Scenario: Complete Journey 2 Flow
     When the user accesses the elements page
-    And the user navigates to the wigets page
+    When the user navigates to the widgets page
     Then the user journey has completed successfully
 

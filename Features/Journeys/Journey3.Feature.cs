@@ -113,11 +113,13 @@ namespace AutomationFramework.Features.Journeys
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Complete Journey 3 Flow")]
+        [NUnit.Framework.CategoryAttribute("journey3")]
         [NUnit.Framework.CategoryAttribute("journeys")]
         [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task CompleteJourney3Flow()
         {
             string[] tagsOfScenario = new string[] {
+                    "journey3",
                     "journeys",
                     "regression"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
@@ -139,10 +141,10 @@ namespace AutomationFramework.Features.Journeys
     await testRunner.WhenAsync("the user accesses the forms page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 12
-    await testRunner.AndAsync("the user navigates to the wigets page", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.WhenAsync("the user navigates to the widgets page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 13
-    await testRunner.AndAsync("the user navigates to the interactions page", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.WhenAsync("the user navigates to the interactions page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 14
     await testRunner.ThenAsync("the user journey has completed successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

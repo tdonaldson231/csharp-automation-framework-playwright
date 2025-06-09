@@ -6,7 +6,7 @@ Feature: User Journey 1
   Background:
     Given the user is on the home page
 
-  @journeys @smoke @regression
+  @journey1 @journeys @smoke @regression
   Scenario: Complete Journey 1 Flow
     When the user accesses the elements page
     When the user navigates to the forms page

@@ -7,14 +7,26 @@
   },
   "HomePage": {
     "HomePageImage": "img[alt='Selenium Online Training']",
-    "Elements": "Elements",
-    "Forms": "",
-    "Alerts": "",
-    "Widgets": "",
-    "Interaction": ""
+    "ElementsText": "Elements",
+    "FormsText": "Forms",
+    "AlertsText": "Alerts, Frame & Windows",
+    "WidgetsText": "Widgets",
+    "InteractionText": "Interactions"
   },
   "ElementsPage": {
-    "Forms": ".header-text:has-text('Forms')",
+    "ElementsHeader": ".header-text:has-text('Elements')",
+    "UploadAndDownload": "span.text:has-text('Upload and Download')"
+  },
+  "FormsPage": {
+    "FormsHeader": ".header-text:has-text('Forms')",
     "PracticeForm": "span.text:has-text('Practice Form')"
+  },
+  "WidgetsPage": {
+    "WidgetsHeader": ".header-text:has-text('Widgets')",
+    "WidgetsSelectMenu": "span.text:has-text('Select Menu')"
+  },
+  "InteractionsPage": {
+    "InteractionsHeader": ".header-text:has-text('Interactions')",
+    "InteractionsResizable": "span.text:has-text('Resizable')"
   }
 }
