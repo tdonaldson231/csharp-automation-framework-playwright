@@ -5,12 +5,23 @@ on:
     inputs:
       test_env:
         description: "Test Environment"
-        required: false
+        required: true
         default: "dev"
+        type: choice
+        options:
+          - dev
+          - integration
+
       test_category:
         description: "Test Category"
-        required: false
+        required: true
         default: "smoke"
+        type: choice
+        options:
+          - smoke
+          - regression
+          - journeys
+          - integration
 
 env:
   IMAGE_NAME: "test-image"
