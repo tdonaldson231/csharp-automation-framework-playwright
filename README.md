@@ -51,7 +51,7 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 |-- Reports
 |   |-- ExtentReport_2025-06-01_12-47-55.html
 |   |-- Extent_Reports_Example.html
-|   `-- SreenCaptures
+|   `-- ScreenCaptures
 |       `-- Screenshot_2025-05-20_09-29-41.png
 |-- Src
 |   |-- Base.cs
@@ -121,7 +121,7 @@ This repository demonstrates a basic test automation framework in `C#` using `Pl
 ## 📄 HTML Reports
 - **`Reports/`**: 
   - Auto-generated HTML reports using Extent Reports, saved in the `Reports` directory.
-  - Screen captures in `SreenCaptures` directory with date/timestamp when an error is detected while running UI tests.
+  - Screen captures in `ScreenCaptures` directory with date/timestamp when an error is detected while running UI tests.
 
 ---
 

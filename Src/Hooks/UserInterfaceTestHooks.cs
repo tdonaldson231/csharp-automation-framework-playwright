@@ -26,7 +26,7 @@ namespace AutomationFramework.Features.UserInterface
             {
                 try
                 {
-                    string screenshotPath = Path.Combine(config.ProjectPath, $"Reports/SreenCaptures/Screenshot_{dateTime}.png");
+                    string screenshotPath = Path.Combine(config.ProjectPath, $"Reports/ScreenCaptures/Screenshot_{dateTime}.png");
                     await _uiFixture.Page.ScreenshotAsync(new PageScreenshotOptions
                     {
                         Path = screenshotPath,

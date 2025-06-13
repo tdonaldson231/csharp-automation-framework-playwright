@@ -114,14 +114,10 @@ namespace AutomationFramework.Features.RestApi
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("GET request to a valid endpoint returns 200 OK")]
         [NUnit.Framework.CategoryAttribute("api")]
-        [NUnit.Framework.CategoryAttribute("smoke")]
-        [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task GETRequestToAValidEndpointReturns200OK()
         {
             string[] tagsOfScenario = new string[] {
-                    "api",
-                    "smoke",
-                    "regression"};
+                    "api"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("GET request to a valid endpoint returns 200 OK", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 10
@@ -153,12 +149,10 @@ namespace AutomationFramework.Features.RestApi
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("GET request to an invalid endpoint returns 404 Not Found")]
         [NUnit.Framework.CategoryAttribute("api")]
-        [NUnit.Framework.CategoryAttribute("regression")]
         public async global::System.Threading.Tasks.Task GETRequestToAnInvalidEndpointReturns404NotFound()
         {
             string[] tagsOfScenario = new string[] {
-                    "api",
-                    "regression"};
+                    "api"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("GET request to an invalid endpoint returns 404 Not Found", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 17
