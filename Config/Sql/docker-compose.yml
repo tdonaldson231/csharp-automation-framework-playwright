@@ -1,12 +1,12 @@
-version: '3.8'
+#version: '3.8'
 
 services:
-  mysql:
+  integration:
     image: mysql:8.0
     container_name: dev-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword  # change this
+      MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: devdb
       MYSQL_USER: devuser
       MYSQL_PASSWORD: devpassword

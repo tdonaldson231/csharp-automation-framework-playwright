@@ -4,12 +4,13 @@ public class TestConfigFixture
 {
     public string TestEnvironment { get; }
     public string DbServer { get; }
-    public string RestApiUrl { get; }
+    public string RestApiUrl { get; set; }
     public string MySqlConnection { get; }
     public string CurrentWorkingDir { get; }
     public string ProjectPath { get; }
-    public string LocalJourneyUrl { get; }
+    public string UserJourneyUrl { get; }
     public string SuiteType { get; }
+    public string MockServerUrl { get; }
 
     public TestConfigFixture()
     {
@@ -19,7 +20,8 @@ public class TestConfigFixture
         MySqlConnection = $"Server={DbServer};Port=3306;Database={TestEnvironment}db;User ID={TestEnvironment}user;Password={TestEnvironment}password;";
 
         RestApiUrl = $"https://api.restful-api.{TestEnvironment}";
-        LocalJourneyUrl = TestContext.Parameters["localJourneyUrl"];
+        MockServerUrl = $"{TestContext.Parameters["mockServerUrl"]}/{TestEnvironment}";
+        UserJourneyUrl = TestContext.Parameters["userJourneyUrl"];
 
         CurrentWorkingDir = Directory.GetCurrentDirectory();
         ProjectPath = Directory.GetParent(CurrentWorkingDir)?.Parent?.Parent?.FullName

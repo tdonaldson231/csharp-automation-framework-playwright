@@ -44,6 +44,9 @@
     <None Update="AmazonCodePipeline\buildspec.yml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="AzureDevOps\pipeline - Copy.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="AzureDevOps\pipeline.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

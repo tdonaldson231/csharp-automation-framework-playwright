@@ -10,12 +10,9 @@ namespace AutomationFramework.DependencyInjection
         public static IServiceCollection ConfigureServices()
         {
             var services = new ServiceCollection();
-
-            // Registering config fixture so DI can provide it
             services.AddSingleton<TestConfigFixture>();
 
-            // Registering API client with injected TestConfigFixture
-            services.AddSingleton<IApiClient>(provider =>
+            services.AddScoped<IApiClient>(provider =>
             {
                 var config = provider.GetRequiredService<TestConfigFixture>();
                 return new RestSharpClient(config.RestApiUrl);

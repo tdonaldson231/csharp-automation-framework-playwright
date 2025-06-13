@@ -43,46 +43,40 @@ stages:
     steps:
     - checkout: self
       persistCredentials: true
-
-    # Clean and clone the test framework repo
+    
     - script: |
         if exist csharp-automation-framework-playwright (
           echo Deleting existing directory...
           rmdir /s /q csharp-automation-framework-playwright
         )
         git clone -b ${{ parameters.gitBranch }} ${{ parameters.gitRepoUrl }}
-      displayName: 'Clean and Clone Test Framework Repo'
-
-    # Clone the wiremock-server repo
-    - script: |
-        if exist wiremock-server (
-          echo Deleting existing wiremock-server directory...
-          rmdir /s /q wiremock-server
-        )
-        git clone -b initial-wiremock-server-setup https://github.com/tdonaldson231/wiremock-server.git
-      displayName: 'Clone WireMock Server Repo'
+      displayName: 'Clean and Clone GitHub Repo Branch'
 
     - task: DockerInstaller@0
 
-    # Start the mock server (WireMock)
-    - script: docker-compose -p integration -f docker-compose.yml up -d --build
-      displayName: 'Start WireMock Server'
-      workingDirectory: $(Build.SourcesDirectory)/wiremock-server
-
-    # Start MySQL container
     - script: docker-compose -p integration -f Config/Sql/docker-compose.yml up -d --build
       displayName: 'Start MySQL container'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
-    # List all running containers
-    - script: docker ps -a
+    - script: docker-compose -p integration -f Config/Sql/docker-compose.yml ps
       displayName: 'List running containers'
-
-    # Build test framework Docker image
+      workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+      
     - script: |
         docker build -t $(imageName):$(imageTag) .
       displayName: 'Docker Build Image'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+
+    - script: |
+        echo "==> Docker Images"
+        docker images
+
+        echo "==> Docker Containers (all)"
+        docker ps -a
+
+        echo "==> Docker Info"
+        docker info
+      displayName: 'Debug Docker: List Images and Containers'
 
     - script: |
         echo "Docker image built: $(imageName):$(imageTag)"
@@ -115,3 +109,4 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results'
         ArtifactName: 'TestReports'
         publishLocation: 'Container'
+    
