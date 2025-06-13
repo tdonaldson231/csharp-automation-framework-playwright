@@ -20,7 +20,12 @@ parameters:
   displayName: Test Environment
   type: string
   default: dev
-    
+
+- name: imageName
+  displayName: Docker Image Name
+  type: string
+  default: test-image
+
 # ?? Add this section below parameters
 variables:
 - group: docker-secrets  # Replace with your actual variable group name
