@@ -85,15 +85,34 @@ stages:
     - script: docker ps -a
       displayName: 'List running containers'
 
-    # Build test framework Docker image
+
+
+    # Login to DockerHub
+    - script: docker login -u $(DOCKERHUB_USERNAME) -p $(DOCKERHUB_PASSWORD)
+      displayName: 'Login to DockerHub'
+
+    # Try to pull the image from DockerHub, build if not found
     - script: |
-        docker build -t $(imageName):$(imageTag) .
-      displayName: 'Docker Build Image'
+        echo "Attempting to pull image $(imageName):$(imageTag) from DockerHub..."
+        docker pull donaldsontodd22/$(imageName):$(imageTag) || (
+          echo "Image not found, building locally..."
+          docker build -t donaldsontodd22/$(imageName):$(imageTag) .
+          echo "Pushing newly built image to DockerHub..."
+          docker push donaldsontodd22/$(imageName):$(imageTag)
+        )
+      displayName: 'Pull or Build Docker Image'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
+    # Optional: Tag image without the full repo name if needed for later steps
     - script: |
-        echo "Docker image built: $(imageName):$(imageTag)"
-      displayName: 'Docker Image Tag'
+        docker tag donaldsontodd22/$(imageName):$(imageTag) $(imageName):$(imageTag)
+      displayName: 'Tag Local Image (if needed)'
+
+    - script: |
+        echo "Docker image ready: $(imageName):$(imageTag)"
+      displayName: 'Docker Image Confirmation'
+
+
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
