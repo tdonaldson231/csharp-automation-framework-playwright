@@ -26,6 +26,11 @@ parameters:
   type: string
   default: test-image
 
+- name: imageTag
+  displayName: Docker Image Tag
+  type: string
+  default: latest  ## $(Build.BuildNumber)
+
 # ?? Add this section below parameters
 variables:
 - group: docker-secrets  # Replace with your actual variable group name
@@ -34,7 +39,7 @@ variables:
   value: ${{ parameters.imageName }}
 
 - name: imageTag
-  value: "latest"  ## $(Build.BuildNumber)
+  value: ${{ parameters.imageTag }}  
 
 stages:
 - stage: Test
@@ -48,7 +53,7 @@ stages:
 
     variables:
       imageName: ${{ parameters.imageName }}
-      imageTag: $(Build.BuildNumber)
+      imageTag:  ${{ parameters.imageTag }}
       group: docker-secrets
 
     steps:
