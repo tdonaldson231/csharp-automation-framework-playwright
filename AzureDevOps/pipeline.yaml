@@ -63,14 +63,18 @@ stages:
       displayName: 'Clone WireMock Server Repo'
 
     - task: DockerInstaller@0
+  
+    # Create shared network
+    - script: docker network create shared-test-network
+      displayName: 'Create Shared Network'
 
     # Start the mock server (WireMock)
-    - script: docker-compose -p integration -f docker-compose.yml up -d --build
+    - script: docker-compose -f docker-compose.yml up -d --build
       displayName: 'Start WireMock Server'
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
 
     # Start MySQL container
-    - script: docker-compose -p integration -f Config/Sql/docker-compose.yml up -d --build
+    - script: docker-compose -f Config/Sql/docker-compose.yml up -d --build
       displayName: 'Start MySQL container'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
