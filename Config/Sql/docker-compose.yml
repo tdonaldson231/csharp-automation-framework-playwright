@@ -15,11 +15,11 @@ services:
     volumes:
       - ./mysql-init:/docker-entrypoint-initdb.d
     networks:
-      - test-network
+      - shared-test-network
 
 volumes:
   mysql-data:
 
 networks:
-  test-network:
-    driver: bridge
+  shared-test-network:
+    external: true
