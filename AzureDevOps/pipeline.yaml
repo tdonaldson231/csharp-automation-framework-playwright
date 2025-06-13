@@ -65,8 +65,11 @@ stages:
     - task: DockerInstaller@0
   
     # Create shared network
-    - script: docker network create shared-test-network
-      displayName: 'Create Shared Network'
+    - script: |
+        docker network ls | grep shared-test-network && docker network rm shared-test-network || true
+        docker network create shared-test-network
+      displayName: 'Clean and Recreate Shared Network'
+
 
     # Start the mock server (WireMock)
     - script: docker-compose -f docker-compose.yml up -d --build
@@ -94,7 +97,7 @@ stages:
 
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm --network sql_test-network -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults $(imageName):$(imageTag)
+        docker run --rm --network shared-test-network -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults $(imageName):$(imageTag)
       displayName: 'Run Docker Image'
 
     - task: PublishTestResults@2
@@ -119,3 +122,15 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/test-results'
         ArtifactName: 'TestReports'
         publishLocation: 'Container'
+
+    # Stop the mock server (WireMock)
+    - script: docker-compose -f docker-compose.yml down --remove-orphans
+      displayName: 'Stop WireMock Server'
+      workingDirectory: $(Build.SourcesDirectory)/wiremock-server
+
+    # Stop MySQL container
+    - script: docker-compose -f Config/Sql/docker-compose.yml down --remove-orphans
+      displayName: 'Stop MySQL container'
+      workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+
+
