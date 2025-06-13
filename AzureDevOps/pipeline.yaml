@@ -20,11 +20,16 @@ parameters:
   displayName: Test Environment
   type: string
   default: dev
+    
+# ?? Add this section below parameters
+variables:
+- group: docker-secrets  # Replace with your actual variable group name
 
 - name: imageName
-  displayName: Docker Image Name
-  type: string
-  default: test-image
+  value: ${{ parameters.imageName }}
+
+- name: imageTag
+  value: $(Build.BuildNumber)
 
 stages:
 - stage: Test
@@ -39,6 +44,7 @@ stages:
     variables:
       imageName: ${{ parameters.imageName }}
       imageTag: $(Build.BuildNumber)
+      group: docker-secrets
 
     steps:
     - checkout: self
