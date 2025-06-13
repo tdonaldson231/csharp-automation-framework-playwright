@@ -111,29 +111,40 @@ stages:
 
 
 
-    # Login to DockerHub
-    - script: echo "Logging in as $(DOCKERHUB_USERNAME)"
-      displayName: 'Show Docker Username (Debug)'
+    - task: Docker@2
+      displayName: 'Build and push Docker image'
+      inputs:
+        containerRegistry: DockerHubConnection
+        repository: donaldsontodd22/$(imageName)
+        command: buildAndPush
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(Build.BuildNumber)
 
-    - script: echo "$(DOCKERHUB_PASSWORD)" | docker login -u $(DOCKERHUB_USERNAME) --password-stdin
-      displayName: 'Secure Login to DockerHub'
 
-    # Try to pull the image from DockerHub, build if not found
-    - script: |
-        echo "Attempting to pull image $(imageName):$(imageTag) from DockerHub..."
-        docker pull donaldsontodd22/$(imageName):$(imageTag) || (
-          echo "Image not found, building locally..."
-          docker build -t donaldsontodd22/$(imageName):$(imageTag) .
-          echo "Pushing newly built image to DockerHub..."
-          docker push donaldsontodd22/$(imageName):$(imageTag)
-        )
-      displayName: 'Pull or Build Docker Image'
-      workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+    # # Login to DockerHub
+    # - script: echo "Logging in as $(DOCKERHUB_USERNAME)"
+    #   displayName: 'Show Docker Username (Debug)'
 
-    # Optional: Tag image without the full repo name if needed for later steps
-    - script: |
-        docker tag donaldsontodd22/$(imageName):$(imageTag) $(imageName):$(imageTag)
-      displayName: 'Tag Local Image (if needed)'
+    # - script: echo "$(DOCKERHUB_PASSWORD)" | docker login -u $(DOCKERHUB_USERNAME) --password-stdin
+    #   displayName: 'Secure Login to DockerHub'
+
+    # # Try to pull the image from DockerHub, build if not found
+    # - script: |
+    #     echo "Attempting to pull image $(imageName):$(imageTag) from DockerHub..."
+    #     docker pull donaldsontodd22/$(imageName):$(imageTag) || (
+    #       echo "Image not found, building locally..."
+    #       docker build -t donaldsontodd22/$(imageName):$(imageTag) .
+    #       echo "Pushing newly built image to DockerHub..."
+    #       docker push donaldsontodd22/$(imageName):$(imageTag)
+    #     )
+    #   displayName: 'Pull or Build Docker Image'
+    #   workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+
+    # # Optional: Tag image without the full repo name if needed for later steps
+    # - script: |
+    #     docker tag donaldsontodd22/$(imageName):$(imageTag) $(imageName):$(imageTag)
+    #   displayName: 'Tag Local Image (if needed)'
 
     - script: |
         echo "Docker image ready: $(imageName):$(imageTag)"
