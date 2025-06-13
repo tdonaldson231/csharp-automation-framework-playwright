@@ -101,6 +101,9 @@ stages:
 
 
     # Login to DockerHub
+    - script: echo "Logging in as $(DOCKERHUB_USERNAME)"
+      displayName: 'Show Docker Username (Debug)'
+
     - script: echo $(DOCKERHUB_PASSWORD) | docker login -u $(DOCKERHUB_USERNAME) --password-stdin
       displayName: 'Secure Login to DockerHub'
 
