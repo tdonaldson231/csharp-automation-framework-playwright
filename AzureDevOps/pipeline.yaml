@@ -120,11 +120,11 @@ stages:
       displayName: 'Build and push Docker image'
       inputs:
         containerRegistry: DockerHubConnection
-        repository: donaldsontodd22/$(imageName)
+        repository: todddonaldson22/$(imageName)
         command: buildAndPush
         Dockerfile: '**/Dockerfile'
         tags: |
-          $(Build.BuildNumber)
+          ${{ parameters.imageTag }}  ## $(Build.BuildNumber)
 
 
     # # Login to DockerHub
@@ -137,18 +137,18 @@ stages:
     # # Try to pull the image from DockerHub, build if not found
     # - script: |
     #     echo "Attempting to pull image $(imageName):$(imageTag) from DockerHub..."
-    #     docker pull donaldsontodd22/$(imageName):$(imageTag) || (
+    #     docker pull todddonaldson22/$(imageName):$(imageTag) || (
     #       echo "Image not found, building locally..."
-    #       docker build -t donaldsontodd22/$(imageName):$(imageTag) .
+    #       docker build -t todddonaldson22/$(imageName):$(imageTag) .
     #       echo "Pushing newly built image to DockerHub..."
-    #       docker push donaldsontodd22/$(imageName):$(imageTag)
+    #       docker push todddonaldson22/$(imageName):$(imageTag)
     #     )
     #   displayName: 'Pull or Build Docker Image'
     #   workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
     # # Optional: Tag image without the full repo name if needed for later steps
     # - script: |
-    #     docker tag donaldsontodd22/$(imageName):$(imageTag) $(imageName):$(imageTag)
+    #     docker tag todddonaldson22/$(imageName):$(imageTag) $(imageName):$(imageTag)
     #   displayName: 'Tag Local Image (if needed)'
 
     - script: |
