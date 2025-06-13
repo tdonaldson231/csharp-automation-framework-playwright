@@ -115,7 +115,7 @@ stages:
     - script: echo "Logging in as $(DOCKERHUB_USERNAME)"
       displayName: 'Show Docker Username (Debug)'
 
-    - script: echo $(DOCKERHUB_PASSWORD) | docker login -u $(DOCKERHUB_USERNAME) --password-stdin
+    - script: echo "$(DOCKERHUB_PASSWORD)" | docker login -u $(DOCKERHUB_USERNAME) --password-stdin
       displayName: 'Secure Login to DockerHub'
 
     # Try to pull the image from DockerHub, build if not found
