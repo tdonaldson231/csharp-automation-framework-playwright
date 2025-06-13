@@ -65,14 +65,8 @@ stages:
     - task: DockerInstaller@0
   
     - script: |
-        echo Stopping containers using the network (if any)...
-        docker ps -q --filter "network=shared-test-network" | for /F %i in ('more') do docker stop %i && docker rm %i
-
-        echo Attempting to remove shared-test-network...
-        docker network rm shared-test-network || echo "Network removal failed (may not exist or in use). Continuing..."
-
-        echo Creating shared-test-network...
-        docker network create shared-test-network
+        docker network inspect shared-test-network -f '{{range .Containers}}{{.Name}} {{end}}' | xargs -r docker rm -f && docker network rm shared-test-network
+      shell: bash
       displayName: 'Ensure Shared Network is Clean'
 
 
