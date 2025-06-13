@@ -54,7 +54,6 @@ stages:
     variables:
       imageName: ${{ parameters.imageName }}
       imageTag:  ${{ parameters.imageTag }}
-      group: docker-secrets
 
     steps:
     - checkout: self
@@ -124,7 +123,7 @@ stages:
         command: buildAndPush
         Dockerfile: '**/Dockerfile'
         tags: |
-          ${{ parameters.imageTag }}  ## $(Build.BuildNumber)
+          $(imageTag)  ## $(Build.BuildNumber)
 
 
     # # Login to DockerHub
