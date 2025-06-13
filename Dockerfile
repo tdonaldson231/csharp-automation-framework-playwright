@@ -26,8 +26,6 @@ RUN dotnet build AutomationFrameworkRepo_v03.sln --no-restore
 ENV TEST_ENV=dev
 ENV TEST_CATEGORY=smoke
 
-COPY entrypoint.sh /app/entrypoint.sh
+COPY ./entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 CMD ["/app/entrypoint.sh"]
-
-
