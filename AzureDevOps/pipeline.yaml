@@ -64,10 +64,10 @@ stages:
 
     - task: DockerInstaller@0
   
-    # Create shared network
     - script: |
         docker network rm shared-test-network || true
         docker network create shared-test-network
+      shell: bash
       displayName: 'Ensure Shared Network is Clean'
 
 
