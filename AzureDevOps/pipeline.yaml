@@ -66,9 +66,9 @@ stages:
   
     # Create shared network
     - script: |
-        docker network ls | grep shared-test-network && docker network rm shared-test-network || true
+        docker network rm shared-test-network || true
         docker network create shared-test-network
-      displayName: 'Clean and Recreate Shared Network'
+      displayName: 'Ensure Shared Network is Clean'
 
 
     # Start the mock server (WireMock)
