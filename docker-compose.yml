@@ -13,7 +13,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql-init:/docker-entrypoint-initdb.d
+      - ./Config/Sql/mysql-init:/docker-entrypoint-initdb.d
     networks:
       - shared-test-network
 

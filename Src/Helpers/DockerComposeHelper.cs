@@ -14,7 +14,7 @@ namespace AutomationFramework.Features.Sql
         public DockerComposeHelper(TestConfigFixture config)
         {
             _config = config;
-            _dockerComposeDirectory = Path.Combine(config.ProjectPath, "Config", "Sql");
+            _dockerComposeDirectory = Path.Combine(config.ProjectPath);
             if (string.Equals(_config.DbServer, "localhost", StringComparison.OrdinalIgnoreCase))
             try
             {

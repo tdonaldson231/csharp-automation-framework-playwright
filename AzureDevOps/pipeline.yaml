@@ -1,15 +1,32 @@
 trigger: none  # No automatic trigger; running manually for now.
 
 parameters:
-- name: gitRepoUrl
-  displayName: 'GitHub Repo URL'
+- name: githubTestFrameworkRepo
+  displayName: 'GitHub Test Framework Repo'
   type: string
   default: 'https://github.com/tdonaldson231/csharp-automation-framework-playwright.git'
+
+- name: githubTestFrameworkBranch
+  displayName: 'GitHub Test Framework Branch to Clone'
+  type: string
+  default: 'main'
+
+- name: githubWiremockServerRepo
+  displayName: 'GitHub Wiremock Server Repo'
+  type: string
+  default: 'https://github.com/tdonaldson231/wiremock-server.git'
+
+- name: githubWiremockServerBranch
+  displayName: 'GitHub Wiremock Server Branch to Clone'
+  type: string
+  default: 'main'
+
 
 - name: gitBranch
   displayName: 'GitHub Branch to Clone'
   type: string
   default: 'main'
+
 
 - name: testCategory
   displayName: Test Category
@@ -43,7 +60,7 @@ variables:
 
 stages:
 - stage: Test
-  displayName: Build and Run Tests in Docker
+  displayName: Build and Run Test Framework in Docker
 
   jobs:
   - job: RunDockerTests
@@ -59,22 +76,20 @@ stages:
     - checkout: self
       persistCredentials: true
 
-    # Clean and clone the test framework repo
     - script: |
         if exist csharp-automation-framework-playwright (
-          echo Deleting existing directory...
+          echo Deleting existing test framework directory...
           rmdir /s /q csharp-automation-framework-playwright
         )
-        git clone -b ${{ parameters.gitBranch }} ${{ parameters.gitRepoUrl }}
+        git clone -b ${{ parameters.githubTestFrameworkBranch }} ${{ parameters.githubTestFrameworkRepo }}
       displayName: 'Clean and Clone Test Framework Repo'
 
-    # Clone the wiremock-server repo
     - script: |
         if exist wiremock-server (
           echo Deleting existing wiremock-server directory...
           rmdir /s /q wiremock-server
         )
-        git clone -b initial-wiremock-server-setup https://github.com/tdonaldson231/wiremock-server.git
+        git clone -b ${{ parameters.githubWiremockServerBranch }} ${{ parameters.githubWiremockServerRepo }}
       displayName: 'Clone WireMock Server Repo'
 
     - task: DockerInstaller@0
@@ -94,26 +109,18 @@ stages:
 
         echo Creating shared-test-network...
         docker network create shared-test-network
-      displayName: 'Ensure Shared Network is Clean'
+      displayName: 'Ensure Shared Network is Clean'      
 
-
-
-
-    # Start the mock server (WireMock)
     - script: docker-compose -f docker-compose.yml up -d --build
       displayName: 'Start WireMock Server'
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
 
-    # Start MySQL container
     - script: docker-compose -f Config/Sql/docker-compose.yml up -d --build
       displayName: 'Start MySQL container'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
 
-    # List all running containers
     - script: docker ps -a
-      displayName: 'List running containers'
-
-
+      displayName: 'List running containers'      
 
     - task: Docker@2
       displayName: 'Build and push Docker image'
@@ -123,39 +130,12 @@ stages:
         command: buildAndPush
         Dockerfile: '**/Dockerfile'
         tags: |
-          $(imageTag)
-
-
-    # # Login to DockerHub
-    # - script: echo "Logging in as $(DOCKERHUB_USERNAME)"
-    #   displayName: 'Show Docker Username (Debug)'
-
-    # - script: echo "$(DOCKERHUB_PASSWORD)" | docker login -u $(DOCKERHUB_USERNAME) --password-stdin
-    #   displayName: 'Secure Login to DockerHub'
-
-    # # Try to pull the image from DockerHub, build if not found
-    # - script: |
-    #     echo "Attempting to pull image $(imageName):$(imageTag) from DockerHub..."
-    #     docker pull todddonaldson22/$(imageName):$(imageTag) || (
-    #       echo "Image not found, building locally..."
-    #       docker build -t todddonaldson22/$(imageName):$(imageTag) .
-    #       echo "Pushing newly built image to DockerHub..."
-    #       docker push todddonaldson22/$(imageName):$(imageTag)
-    #     )
-    #   displayName: 'Pull or Build Docker Image'
-    #   workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
-
-    # # Optional: Tag image without the full repo name if needed for later steps
-    # - script: |
-    #     docker tag todddonaldson22/$(imageName):$(imageTag) $(imageName):$(imageTag)
-    #   displayName: 'Tag Local Image (if needed)'
+          $(imageTag)                    
 
     - script: |
         echo "Docker image ready: $(imageName):$(imageTag)"
       displayName: 'Docker Image Confirmation'
-
-
-
+      
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
         docker run --rm --network shared-test-network -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults $(imageName):$(imageTag)
