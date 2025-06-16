@@ -69,9 +69,6 @@
     <None Update=".env.dev">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update=".env.test">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update=".env.local">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
