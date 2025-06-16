@@ -29,7 +29,7 @@ docker exec -it dev-mysql mysql -u devuser -p
 
 To check data in results table:
 ```bash
-USE devdb;
+USE mysql-db;
 SELECT * FROM results;
 ```
 

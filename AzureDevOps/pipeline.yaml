@@ -21,13 +21,6 @@ parameters:
   type: string
   default: 'main'
 
-
-- name: gitBranch
-  displayName: 'GitHub Branch to Clone'
-  type: string
-  default: 'main'
-
-
 - name: testCategory
   displayName: Test Category
   type: string
@@ -37,6 +30,11 @@ parameters:
   displayName: Test Environment
   type: string
   default: dev
+
+- name: mySqlDatabase
+  displayName: MySql DB Name
+  type: string
+  default: mysql-db
 
 - name: imageName
   displayName: Docker Image Name
@@ -52,11 +50,14 @@ parameters:
 variables:
 - group: docker-secrets  # Replace with your actual variable group name
 
-- name: imageName
+- name: IMAGE_NAME
   value: ${{ parameters.imageName }}
 
-- name: imageTag
-  value: ${{ parameters.imageTag }}  
+- name: IMAGE_TAG
+  value: ${{ parameters.imageTag }}
+  
+- name: ENV_NAME
+  value: ${{ parameters.testEnvironment }}
 
 stages:
 - stage: Test
@@ -67,10 +68,6 @@ stages:
     displayName: Docker Test Runner
     pool:
       name: default
-
-    variables:
-      imageName: ${{ parameters.imageName }}
-      imageTag:  ${{ parameters.imageTag }}
 
     steps:
     - checkout: self
@@ -111,13 +108,26 @@ stages:
         docker network create shared-test-network
       displayName: 'Ensure Shared Network is Clean'      
 
-    - script: docker-compose -f docker-compose.yml up -d --build
+    - script: MOCK_ENV=$(ENV_NAME) docker-compose -f docker-compose.yml up -d --build
       displayName: 'Start WireMock Server'
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
 
-    - script: docker-compose -f Config/Sql/docker-compose.yml up -d --build
-      displayName: 'Start MySQL container'
-      workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+    # - script: docker-compose -f Config/Sql/docker-compose.yml up -d --build
+    #   displayName: 'Start MySQL container'
+    #   workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+    - task: DockerCompose@0
+      displayName: 'Start Test Framework container with docker-compose'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Run services'
+        workingDirectory: '$(Build.SourcesDirectory)/csharp-automation-framework-playwright'
+        customCommand: 'up -d --build'
+        env:         
+          MYSQL_DATABASE: ${{ parameters.mySqlDatabase }}
+          MYSQL_USER: $(MYSQL_USER)
+          MYSQL_PASSWORD: $(MYSQL_PASSWORD)
+          MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
 
     - script: docker ps -a
       displayName: 'List running containers'      
@@ -126,19 +136,19 @@ stages:
       displayName: 'Build and push Docker image'
       inputs:
         containerRegistry: DockerHubConnection
-        repository: todddonaldson22/$(imageName)
+        repository: todddonaldson22/$(IMAGE_NAME)
         command: buildAndPush
         Dockerfile: '**/Dockerfile'
         tags: |
-          $(imageTag)                    
+          $(IMAGE_TAG)                    
 
     - script: |
-        echo "Docker image ready: $(imageName):$(imageTag)"
+        echo "Docker image ready: $(IMAGE_NAME):$(IMAGE_TAG)"
       displayName: 'Docker Image Confirmation'
       
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm --network shared-test-network -e TEST_ENV=${{ parameters.testEnvironment }} -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults $(imageName):$(imageTag)
+        docker run --rm --network shared-test-network -e TEST_ENV=$(ENV_NAME) -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults $(IMAGE_NAME):$(IMAGE_TAG)
       displayName: 'Run Docker Image'
 
     - task: PublishTestResults@2

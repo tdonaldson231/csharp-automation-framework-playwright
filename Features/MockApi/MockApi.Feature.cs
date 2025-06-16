@@ -107,7 +107,7 @@ namespace AutomationFramework.Features.MockApi
 #line 6
   #line hidden
 #line 7
-    await testRunner.GivenAsync("the backend is up and operational", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.GivenAsync("the mock backend is up and operational", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
         }
         

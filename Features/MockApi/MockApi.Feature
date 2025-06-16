@@ -4,7 +4,7 @@ Feature: Mock Service API
   # This feature tests the backend service API responses for various endpoints.
 
   Background:
-    Given the backend is up and operational
+    Given the mock backend is up and operational
 
   @mockapi @smoke @regression
   Scenario: GET request to a valid mock endpoint returns 200 OK

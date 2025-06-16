@@ -181,7 +181,7 @@ $ bash tests.sh -e dev -c regression
     Given the backend is up and operational
     Environment: dev
     API URL: https://api.restful-api.dev
-    SQL DB: Server=localhost;Port=3306;Database=devdb;User ID=devuser;Password=devpassword;
+    SQL DB: Server=localhost;Port=3306;Database=mysql-db;User ID=devuser;Password=devpassword;
     Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0
     Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright
     -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.5s)
@@ -195,7 +195,7 @@ $ bash tests.sh -e dev -c regression
     Given the backend is up and operational
     Environment: dev
     API URL: https://api.restful-api.dev
-    SQL DB: Server=localhost;Port=3306;Database=devdb;User ID=devuser;Password=devpassword;
+    SQL DB: Server=localhost;Port=3306;Database=mysql-db;User ID=devuser;Password=devpassword;
     Current Working Directory: C:\Users\toddd\source\repos\csharp-automation-framework-playwright\bin\Debug\net8.0
     Project Path: C:\Users\toddd\source\repos\csharp-automation-framework-playwright
     -> done: BackendRestApi.GivenTheBackendIsUpAndOperational() (0.3s)

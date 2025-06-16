@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
 	<TestRunParameters>
-		<!-- currently set to dev for api url that is only dev -->
-		<Parameter name="testEnvironment" value="dev" />
+		<Parameter name="testEnvironment" value="local" />
 	    <Parameter name="dbServer" value="localhost" />
 		<Parameter name="userJourneyUrl" value="https://demoqa.com/" />
 		<Parameter name="mockServerUrl" value="http://localhost:9090" />

@@ -28,7 +28,7 @@ namespace AutomationFramework.Features.Sql
 
         private void StartDockerCompose()
         {
-            RunCommand("docker-compose", "up -d");
+            RunCommand("docker-compose", $"--env-file .env.{_config.TestEnvironment} up -d");
         }
 
         private void StopDockerCompose()

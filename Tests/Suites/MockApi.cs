@@ -34,7 +34,7 @@ namespace AutomationFramework.Tests.Suites
         }
 
         [Given(@"the mock backend is up and operational")]
-        public void GivenTheBackendIsUpAndOperational()
+        public void GivenTheMockBackendIsUpAndOperational()
         {
             _statusCode = _apiClient.GetStatus("/");
             Assert.That(_statusCode, Is.EqualTo(HttpStatusCode.OK), "Mock backend is not operational.");
