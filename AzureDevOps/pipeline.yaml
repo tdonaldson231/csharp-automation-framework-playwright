@@ -36,6 +36,11 @@ parameters:
   type: string
   default: mysql-db
 
+- name: dockerRepository
+  displayName: Docker Repository
+  type: string
+  default: todddonaldson22
+
 - name: imageName
   displayName: Docker Image Name
   type: string
@@ -113,10 +118,7 @@ stages:
         docker-compose -f docker-compose.yml up -d --build
       displayName: 'Start WireMock Server'
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
-
-    # - script: docker-compose -f Config/Sql/docker-compose.yml up -d --build
-    #   displayName: 'Start MySQL container'
-    #   workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+      
     - script: |
         export MYSQL_DATABASE=$(MYSQL_DATABASE)
         export MYSQL_USER=$(MYSQL_USER)
@@ -136,19 +138,19 @@ stages:
       displayName: 'Build and push Docker image'
       inputs:
         containerRegistry: DockerHubConnection
-        repository: todddonaldson22/$(IMAGE_NAME)
+        repository: ${{ parameters.dockerRepository }}/$(IMAGE_NAME)
         command: buildAndPush
         Dockerfile: '**/Dockerfile'
         tags: |
           $(IMAGE_TAG)                    
 
     - script: |
-        echo "Docker image ready: $(IMAGE_NAME):$(IMAGE_TAG)"
+        echo "Docker image ready: ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)"
       displayName: 'Docker Image Confirmation'
       
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm --network shared-test-network -e TEST_ENV=$(ENV_NAME) -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults $(IMAGE_NAME):$(IMAGE_TAG)
+        docker run --rm --network shared-test-network -e TEST_ENV=$(ENV_NAME) -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)
       displayName: 'Run Docker Image'
 
     - task: PublishTestResults@2
@@ -179,7 +181,7 @@ stages:
       displayName: 'Stop WireMock Server'
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
 
-    # Stop MySQL container
+    # Stop the database container (MySql)
     - script: docker-compose -f Config/Sql/docker-compose.yml down --remove-orphans
       displayName: 'Stop MySQL container'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
