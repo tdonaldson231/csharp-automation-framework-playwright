@@ -115,19 +115,17 @@ stages:
     # - script: docker-compose -f Config/Sql/docker-compose.yml up -d --build
     #   displayName: 'Start MySQL container'
     #   workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
-    - task: DockerCompose@0
-      displayName: 'Start Test Framework container with docker-compose'
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerComposeFile: 'docker-compose.yml'
-        action: 'Run services'
-        workingDirectory: '$(Build.SourcesDirectory)/csharp-automation-framework-playwright'
-        customCommand: 'up -d --build'
-        env:         
-          MYSQL_DATABASE: ${{ parameters.mySqlDatabase }}
-          MYSQL_USER: $(MYSQL_USER)
-          MYSQL_PASSWORD: $(MYSQL_PASSWORD)
-          MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
+    - script: |
+        export MYSQL_DATABASE=$(MYSQL_DATABASE)
+        export MYSQL_USER=$(MYSQL_USER)
+        export MYSQL_PASSWORD=$(MYSQL_PASSWORD)
+        export MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD)
+        docker-compose up -d --build
+      workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
+      displayName: 'Run docker-compose with secrets'
+      env:
+        MYSQL_PASSWORD: $(MYSQL_PASSWORD)
+        MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
 
     - script: docker ps -a
       displayName: 'List running containers'      
