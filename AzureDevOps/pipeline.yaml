@@ -183,5 +183,3 @@ stages:
     - script: docker-compose -f Config/Sql/docker-compose.yml down --remove-orphans
       displayName: 'Stop MySQL container'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
-
-
