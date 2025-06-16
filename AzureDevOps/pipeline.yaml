@@ -108,7 +108,9 @@ stages:
         docker network create shared-test-network
       displayName: 'Ensure Shared Network is Clean'      
 
-    - script: MOCK_ENV=$(ENV_NAME) docker-compose -f docker-compose.yml up -d --build
+    - script: |
+        export MOCK_ENV=${ENV_NAME}
+        docker-compose -f docker-compose.yml up -d --build
       displayName: 'Start WireMock Server'
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
 
