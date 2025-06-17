@@ -173,7 +173,11 @@ stages:
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
         docker run --rm --network shared-test-network -e TEST_ENV=$(ENV_NAME) -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)
+        IF %ERRORLEVEL% NEQ 0 (
+            echo ##vso[task.setvariable variable=testFailed]true
+        )
       displayName: 'Run Docker Image'
+      continueOnError: true
 
     - task: PublishTestResults@2
       displayName: 'Publish Test Results (.trx)'
