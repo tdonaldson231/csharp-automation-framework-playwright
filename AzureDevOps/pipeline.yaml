@@ -132,17 +132,36 @@ stages:
         MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
 
     - script: docker ps -a
-      displayName: 'List running containers'      
+      displayName: 'List running containers'
 
+    - script: |
+        echo "Checking if image exists: ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)"
+        IMAGE_EXISTS=$(curl -s -o /dev/null -w "%{http_code}" https://hub.docker.com/v2/repositories/${{ parameters.dockerRepository }}/$(IMAGE_NAME)/tags/$(IMAGE_TAG)/)
+        echo "Image status code: $IMAGE_EXISTS"
+
+        if [ "$IMAGE_EXISTS" -eq 200 ]; then
+          echo "##vso[task.setvariable variable=imageExists]true"
+        else
+          echo "##vso[task.setvariable variable=imageExists]false"
+        fi
+      displayName: 'Check if Docker image exists'
+      
     - task: Docker@2
-      displayName: 'Build and push Docker image'
+      displayName: 'Build and push Docker image if it does not exist'
+      condition: ne(variables['imageExists'], 'true')
       inputs:
         containerRegistry: DockerHubConnection
         repository: ${{ parameters.dockerRepository }}/$(IMAGE_NAME)
         command: buildAndPush
         Dockerfile: '**/Dockerfile'
         tags: |
-          $(IMAGE_TAG)                    
+          $(IMAGE_TAG)
+          
+    - script: |
+        docker pull ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)
+      condition: eq(variables['imageExists'], 'true')
+      displayName: 'Pull down Docker image if it does exist'
+
 
     - script: |
         echo "Docker image ready: ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)"
