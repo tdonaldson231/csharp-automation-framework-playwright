@@ -135,16 +135,16 @@ stages:
       displayName: 'List running containers'
 
     - script: |
-        echo "Checking if image exists: ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)"
-        if docker pull ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG) > /dev/null 2>&1; then
-          echo "##vso[task.setvariable variable=imageExists]true"
-          echo "Image exists? true"
-        else
-          echo "##vso[task.setvariable variable=imageExists]false"
-          echo "Image exists? false"
-        fi
-      displayName: 'Check if Docker image exists (via docker pull)'
-      shell: bash
+        echo Checking if image exists: %IMAGE_NAME%:%IMAGE_TAG%
+        docker pull %{{ parameters.dockerRepository }}%/%IMAGE_NAME%:%IMAGE_TAG%
+        IF %ERRORLEVEL% EQU 0 (
+            echo Image exists? true
+            echo ##vso[task.setvariable variable=imageExists]true
+        ) ELSE (
+            echo Image exists? false
+            echo ##vso[task.setvariable variable=imageExists]false
+        )
+      displayName: 'Check if Docker image exists (Windows syntax)'
       
     - task: Docker@2
       displayName: 'Build and push Docker image if it does not exist'
