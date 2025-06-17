@@ -195,6 +195,6 @@ stages:
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
 
     # Stop the database container (MySql)
-    - script: docker-compose -f docker-compose.yml down --remove-orphans
+    - script: docker-compose -f docker-compose.yml down --remove-orphans --volumes
       displayName: 'Stop MySQL container'
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
