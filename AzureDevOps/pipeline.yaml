@@ -55,6 +55,9 @@ parameters:
 variables:
 - group: docker-secrets  # Replace with your actual variable group name
 
+- name: DOCKER_REPOSITORY
+  value: ${{ parameters.dockerRepository }}
+
 - name: IMAGE_NAME
   value: ${{ parameters.imageName }}
 
