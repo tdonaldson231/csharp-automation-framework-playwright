@@ -136,15 +136,10 @@ stages:
 
     - script: |
         echo "Checking if image exists: ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)"
-        IMAGE_EXISTS=$(curl -s -o /dev/null -w "%{http_code}" https://hub.docker.com/v2/repositories/${{ parameters.dockerRepository }}/$(IMAGE_NAME)/tags/$(IMAGE_TAG)/)
-        echo "Image status code: $IMAGE_EXISTS"
-
-        if [ "$IMAGE_EXISTS" -eq 200 ]; then
-          echo "##vso[task.setvariable variable=imageExists]true"
-        else
-          echo "##vso[task.setvariable variable=imageExists]false"
-        fi
-      displayName: 'Check if Docker image exists'
+        IMAGE_EXISTS=$(docker pull ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG) > /dev/null 2>&1 && echo true || echo false)
+        echo "Image exists? $IMAGE_EXISTS"
+        echo "##vso[task.setvariable variable=imageExists]$IMAGE_EXISTS"
+      displayName: 'Check if Docker image exists (via docker pull)'
       
     - task: Docker@2
       displayName: 'Build and push Docker image if it does not exist'
@@ -161,8 +156,7 @@ stages:
         docker pull ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)
       condition: eq(variables['imageExists'], 'true')
       displayName: 'Pull down Docker image if it does exist'
-
-
+      
     - script: |
         echo "Docker image ready: ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)"
       displayName: 'Docker Image Confirmation'
