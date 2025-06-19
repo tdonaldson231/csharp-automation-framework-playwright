@@ -2,7 +2,7 @@
 <RunSettings>
 	<TestRunParameters>
 		<Parameter name="testEnvironment" value="test" />
-		<Parameter name="dbServer" value="mysql-db" />
+		<Parameter name="SqlServer" value="mysql-db" />
 		<Parameter name="userJourneyUrl" value="https://demoqa.com/" />
 		<Parameter name="mockServerUrl" value="http://wiremock-server:9090" />
 	</TestRunParameters>

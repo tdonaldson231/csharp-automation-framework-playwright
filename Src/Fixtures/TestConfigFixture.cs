@@ -5,7 +5,7 @@ using DotEnv = dotenv.net.DotEnv;
 public class TestConfigFixture
 {
     public string TestEnvironment { get; }
-    public string DbServer { get; }
+    public string SqlServer { get; }
     public string RestApiUrl { get; set; }
     public string MySqlConnection { get; }
     public string CurrentWorkingDir { get; }
@@ -17,7 +17,6 @@ public class TestConfigFixture
     public TestConfigFixture()
     {
         // Load .env if it exists (optional)
-        //var envFile = $"Tests/RunSettings/.env.{Environment.GetEnvironmentVariable("ENV_NAME") ?? "dev"}";
         TestEnvironment = TestContext.Parameters["testEnvironment"] ?? "dev";
 
         var envPath = Path.Combine($".env.{TestEnvironment}");
@@ -35,21 +34,18 @@ public class TestConfigFixture
                 ignoreExceptions: false,
                 overwriteExistingVars: true
             ));
-
-            Console.WriteLine($"[INFO] DB_SERVER loaded: {Environment.GetEnvironmentVariable("DB_SERVER") ?? "null"}");
         }
 
+        SqlServer = TestContext.Parameters["SqlServer"];
+        var sqlDatabase = Environment.GetEnvironmentVariable("SQL_DATABASE");
+        var sqlUser = Environment.GetEnvironmentVariable("SQL_USER");
+        var sqlPassword = Environment.GetEnvironmentVariable("SQL_PASSWORD");
+        MySqlConnection = $"Server={SqlServer};Port=3306;Database={sqlDatabase};User ID={sqlUser};Password={sqlPassword};";
 
-        DbServer = Environment.GetEnvironmentVariable("DB_SERVER");
-        var dbName = Environment.GetEnvironmentVariable("DB_NAME");
-        var dbUser = Environment.GetEnvironmentVariable("DB_USER");
-        var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
-        MySqlConnection = $"Server={DbServer};Port=3306;Database={dbName};User ID={dbUser};Password={dbPassword};";
-
-        Console.WriteLine($"[DEBUG] DB_SERVER: {Environment.GetEnvironmentVariable("DB_SERVER")}");
-        Console.WriteLine($"[DEBUG] DB_NAME: {Environment.GetEnvironmentVariable("DB_NAME")}");
-        Console.WriteLine($"[DEBUG] DB_USER: {Environment.GetEnvironmentVariable("DB_USER")}");
-        Console.WriteLine($"[DEBUG] DB_PASSWORD: {Environment.GetEnvironmentVariable("DB_PASSWORD")}");
+        Console.WriteLine($"[DEBUG] SQL_SERVER: {SqlServer}");
+        Console.WriteLine($"[DEBUG] SQL_DATABASE: {Environment.GetEnvironmentVariable("SQL_DATABASE")}");
+        Console.WriteLine($"[DEBUG] SQL_USER: {Environment.GetEnvironmentVariable("SQL_USER")}");
+        Console.WriteLine($"[DEBUG] SQL_PASSWORD: {Environment.GetEnvironmentVariable("SQL_PASSWORD")}");
 
         RestApiUrl = $"https://api.restful-api.{TestEnvironment}";
         MockServerUrl = $"{TestContext.Parameters["mockServerUrl"]}/{TestEnvironment}";

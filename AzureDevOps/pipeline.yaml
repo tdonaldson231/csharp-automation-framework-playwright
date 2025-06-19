@@ -31,7 +31,7 @@ parameters:
   type: string
   default: dev
 
-- name: mySqlDatabase
+- name: mySqlServer
   displayName: MySql DB Name
   type: string
   default: mysql-db
@@ -123,17 +123,19 @@ stages:
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
       
     - script: |
-        export MYSQL_DATABASE=${{ parameters.mySqlDatabase }}
-        export MYSQL_USER=$(MYSQL_USER)
-        export MYSQL_PASSWORD=$(MYSQL_PASSWORD)
-        export MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD)
+        export SQL_SERVER=${{ parameters.mySqlServer }}
+        export SQL_DATABASE=$(SQL_DATABASE)
+        export SQL_USER=$(SQL_USER)
+        export SQL_PASSWORD=$(SQL_PASSWORD)
+        export SQL_ROOT_PASSWORD=$(SQL_ROOT_PASSWORD)
         docker-compose up -d --build
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
       displayName: 'Run docker-compose with secrets'
       env:
-        MYSQL_USER: $(MYSQL_USER)
-        MYSQL_PASSWORD: $(MYSQL_PASSWORD)
-        MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
+        SQL_DATABASE: $(SQL_DATABASE)
+        SQL_USER: $(SQL_USER)
+        SQL_PASSWORD: $(SQL_PASSWORD)
+        SQL_ROOT_PASSWORD: $(SQL_ROOT_PASSWORD)
 
     - script: docker ps -a
       displayName: 'List running containers'
