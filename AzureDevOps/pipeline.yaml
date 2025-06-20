@@ -150,7 +150,7 @@ stages:
         echo "MySQL did not become ready in time."
         exit 1
       displayName: 'Wait for MySQL readiness'
-      shell: bash
+      bash: true
 
     - script: |
         echo Checking if image exists: %DOCKER_REPOSITORY%/%IMAGE_NAME%:%IMAGE_TAG%
