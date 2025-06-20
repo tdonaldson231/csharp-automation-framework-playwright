@@ -15,7 +15,6 @@ namespace AutomationFramework.Features.Sql
         {
             _config = config;
             _dockerComposeDirectory = Path.Combine(config.ProjectPath);
-            if (string.Equals(_config.SqlServer, "localhost", StringComparison.OrdinalIgnoreCase))
             try
             {
                 StartDockerCompose();
@@ -67,17 +66,14 @@ namespace AutomationFramework.Features.Sql
 
         public async ValueTask DisposeAsync()
         {
-            if (string.Equals(_config.SqlServer, "localhost", StringComparison.OrdinalIgnoreCase))
+            try
             {
-                try
-                {
-                    StopDockerCompose();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Docker Compose cleanup failed: {ex.Message}");
-                }
+                StopDockerCompose();
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Docker Compose cleanup failed: {ex.Message}");
+            }            
             
             await Task.CompletedTask;
         }

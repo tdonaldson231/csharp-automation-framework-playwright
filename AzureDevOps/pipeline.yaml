@@ -49,7 +49,7 @@ parameters:
 - name: imageTag
   displayName: Docker Image Tag
   type: string
-  default: v0.0.1  ## latest  ## $(Build.BuildNumber)
+  default: v0.0.2  ## latest  ## $(Build.BuildNumber)
 
 variables:
 - group: docker-secrets  # Replace with your actual variable group name
@@ -116,39 +116,22 @@ stages:
       displayName: 'Ensure Shared Network is Clean'      
 
     - script: |
-        MOCK_ENV=${ENV_NAME}
         docker-compose -f docker-compose.yml up -d --build
       displayName: 'Start WireMock Server'
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
+      env:
+        MOCK_ENV: $(ENV_NAME)
       
     - script: |
         docker-compose up -d --build
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
       displayName: 'Run docker-compose with secrets'
       env:
-        SQL_DATABASE: $(SQL_DATABASE)
-        SQL_USER: $(SQL_USER)
-        SQL_PASSWORD: $(SQL_PASSWORD)
-        SQL_ROOT_PASSWORD: $(SQL_ROOT_PASSWORD)
-
-    - script: |
-        echo Waiting for MySQL to be ready...
-        set attempts=0
-        :retry
-        docker run --rm --network shared-test-network mysql:8.0 mysqladmin ping -h mysql-db -uroot -p%SQL_ROOT_PASSWORD% --silent
-        if %ERRORLEVEL%==0 (
-            echo MySQL is ready!
-            exit /b 0
-        )
-        set /a attempts+=1
-        if %attempts% GEQ 10 (
-            echo MySQL did not become ready in time.
-            exit /b 1
-        )
-        echo MySQL not ready yet, sleeping 5 seconds...
-        timeout /t 5 /nobreak
-        goto retry
-      displayName: 'Wait for MySQL readiness'
+        MYSQL_SERVER: ${{ parameters.mySqlServer }}
+        MYSQL_DATABASE: $(MYSQL_DATABASE)
+        MYSQL_USER: $(MYSQL_USER)
+        MYSQL_PASSWORD: $(MYSQL_PASSWORD)
+        MYSQL_ROOT_PASSWORD: $(MYSQL_ROOT_PASSWORD)
       
     - script: |
         echo Checking if image exists: %DOCKER_REPOSITORY%/%IMAGE_NAME%:%IMAGE_TAG%

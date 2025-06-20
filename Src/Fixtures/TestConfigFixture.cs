@@ -5,14 +5,13 @@ using DotEnv = dotenv.net.DotEnv;
 public class TestConfigFixture
 {
     public string TestEnvironment { get; }
-    public string SqlServer { get; }
     public string RestApiUrl { get; set; }
     public string MySqlConnection { get; }
     public string CurrentWorkingDir { get; }
     public string ProjectPath { get; }
-    public string UserJourneyUrl { get; }
+    public string? UserJourneyUrl { get; }
     public string SuiteType { get; }
-    public string MockServerUrl { get; }
+    public string? MockServerUrl { get; }
 
     public TestConfigFixture()
     {
@@ -36,16 +35,16 @@ public class TestConfigFixture
             ));
         }
 
-        SqlServer = TestContext.Parameters["SqlServer"];
-        var sqlDatabase = Environment.GetEnvironmentVariable("SQL_DATABASE");
-        var sqlUser = Environment.GetEnvironmentVariable("SQL_USER");
-        var sqlPassword = Environment.GetEnvironmentVariable("SQL_PASSWORD");
-        MySqlConnection = $"Server={SqlServer};Port=3306;Database={sqlDatabase};User ID={sqlUser};Password={sqlPassword};";
+        var sqlServer = Environment.GetEnvironmentVariable("MYSQL_SERVER") ?? "mysql-db";
+        var sqlDatabase = Environment.GetEnvironmentVariable("MYSQL_DATABASE");
+        var sqlUser = Environment.GetEnvironmentVariable("MYSQL_USER");
+        var sqlPassword = Environment.GetEnvironmentVariable("MYSQL_PASSWORD");
+        MySqlConnection = $"Server={sqlServer};Port=3306;Database={sqlDatabase};User ID={sqlUser};Password={sqlPassword};";
 
-        Console.WriteLine($"[DEBUG] SQL_SERVER: {SqlServer}");
-        Console.WriteLine($"[DEBUG] SQL_DATABASE: {Environment.GetEnvironmentVariable("SQL_DATABASE")}");
-        Console.WriteLine($"[DEBUG] SQL_USER: {Environment.GetEnvironmentVariable("SQL_USER")}");
-        Console.WriteLine($"[DEBUG] SQL_PASSWORD: {Environment.GetEnvironmentVariable("SQL_PASSWORD")}");
+        //Console.WriteLine($"[DEBUG] MYSQL_SERVER: {sqlServer}");
+        //Console.WriteLine($"[DEBUG] MYSQL_DATABASE: {sqlDatabase}");
+        //Console.WriteLine($"[DEBUG] MYSQL_USER: {sqlUser}");
+        //Console.WriteLine($"[DEBUG] MYSQL_PASSWORD: {sqlPassword}");
 
         RestApiUrl = $"https://api.restful-api.{TestEnvironment}";
         MockServerUrl = $"{TestContext.Parameters["mockServerUrl"]}/{TestEnvironment}";
