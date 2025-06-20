@@ -136,7 +136,7 @@ stages:
         SQL_PASSWORD: $(SQL_PASSWORD)
         SQL_ROOT_PASSWORD: $(SQL_ROOT_PASSWORD)
 
-    - script: |
+    - bash: |
         echo "Waiting for MySQL to be ready..."
         for i in {1..10}; do
           docker run --rm --network shared-test-network mysql:8.0 mysqladmin ping --host=mysql-db -uroot -p$(SQL_ROOT_PASSWORD) --silent
@@ -149,8 +149,7 @@ stages:
         done
         echo "MySQL did not become ready in time."
         exit 1
-      displayName: 'Wait for MySQL readiness'
-      bash: true
+      displayName: 'Wait for MySQL readiness'      
 
     - script: |
         echo Checking if image exists: %DOCKER_REPOSITORY%/%IMAGE_NAME%:%IMAGE_TAG%
