@@ -122,11 +122,6 @@ stages:
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
       
     - script: |
-        export SQL_SERVER=${{ parameters.mySqlServer }}
-        export SQL_DATABASE=$(SQL_DATABASE)
-        export SQL_USER=$(SQL_USER)
-        export SQL_PASSWORD=$(SQL_PASSWORD)
-        export SQL_ROOT_PASSWORD=$(SQL_ROOT_PASSWORD)
         docker-compose up -d --build
       workingDirectory: $(Build.SourcesDirectory)/csharp-automation-framework-playwright
       displayName: 'Run docker-compose with secrets'
@@ -136,24 +131,24 @@ stages:
         SQL_PASSWORD: $(SQL_PASSWORD)
         SQL_ROOT_PASSWORD: $(SQL_ROOT_PASSWORD)
 
-    - script: |
-        echo Waiting for MySQL to be ready...
-        set attempts=0
-        :retry
-        docker run --rm --network shared-test-network mysql:8.0 mysqladmin ping -h mysql-db -uroot -p%SQL_ROOT_PASSWORD% --silent
-        if %ERRORLEVEL%==0 (
-            echo MySQL is ready!
-            exit /b 0
-        )
-        set /a attempts+=1
-        if %attempts% GEQ 10 (
-            echo MySQL did not become ready in time.
-            exit /b 1
-        )
-        echo MySQL not ready yet, sleeping 5 seconds...
-        timeout /t 5 /nobreak
-        goto retry
-      displayName: 'Wait for MySQL readiness'
+    # - script: |
+    #     echo Waiting for MySQL to be ready...
+    #     set attempts=0
+    #     :retry
+    #     docker run --rm --network shared-test-network mysql:8.0 mysqladmin ping -h mysql-db -uroot -p%SQL_ROOT_PASSWORD% --silent
+    #     if %ERRORLEVEL%==0 (
+    #         echo MySQL is ready!
+    #         exit /b 0
+    #     )
+    #     set /a attempts+=1
+    #     if %attempts% GEQ 10 (
+    #         echo MySQL did not become ready in time.
+    #         exit /b 1
+    #     )
+    #     echo MySQL not ready yet, sleeping 5 seconds...
+    #     timeout /t 5 /nobreak
+    #     goto retry
+    #   displayName: 'Wait for MySQL readiness'
       
     - script: |
         echo Checking if image exists: %DOCKER_REPOSITORY%/%IMAGE_NAME%:%IMAGE_TAG%
