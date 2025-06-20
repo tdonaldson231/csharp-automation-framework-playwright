@@ -116,7 +116,7 @@ stages:
       displayName: 'Ensure Shared Network is Clean'      
 
     - script: |
-        export MOCK_ENV=${ENV_NAME}
+        MOCK_ENV=${ENV_NAME}
         docker-compose -f docker-compose.yml up -d --build
       displayName: 'Start WireMock Server'
       workingDirectory: $(Build.SourcesDirectory)/wiremock-server
@@ -131,24 +131,24 @@ stages:
         SQL_PASSWORD: $(SQL_PASSWORD)
         SQL_ROOT_PASSWORD: $(SQL_ROOT_PASSWORD)
 
-    # - script: |
-    #     echo Waiting for MySQL to be ready...
-    #     set attempts=0
-    #     :retry
-    #     docker run --rm --network shared-test-network mysql:8.0 mysqladmin ping -h mysql-db -uroot -p%SQL_ROOT_PASSWORD% --silent
-    #     if %ERRORLEVEL%==0 (
-    #         echo MySQL is ready!
-    #         exit /b 0
-    #     )
-    #     set /a attempts+=1
-    #     if %attempts% GEQ 10 (
-    #         echo MySQL did not become ready in time.
-    #         exit /b 1
-    #     )
-    #     echo MySQL not ready yet, sleeping 5 seconds...
-    #     timeout /t 5 /nobreak
-    #     goto retry
-    #   displayName: 'Wait for MySQL readiness'
+    - script: |
+        echo Waiting for MySQL to be ready...
+        set attempts=0
+        :retry
+        docker run --rm --network shared-test-network mysql:8.0 mysqladmin ping -h mysql-db -uroot -p%SQL_ROOT_PASSWORD% --silent
+        if %ERRORLEVEL%==0 (
+            echo MySQL is ready!
+            exit /b 0
+        )
+        set /a attempts+=1
+        if %attempts% GEQ 10 (
+            echo MySQL did not become ready in time.
+            exit /b 1
+        )
+        echo MySQL not ready yet, sleeping 5 seconds...
+        timeout /t 5 /nobreak
+        goto retry
+      displayName: 'Wait for MySQL readiness'
       
     - script: |
         echo Checking if image exists: %DOCKER_REPOSITORY%/%IMAGE_NAME%:%IMAGE_TAG%
@@ -188,6 +188,9 @@ stages:
         docker network ls
         docker network inspect shared-test-network
       displayName: 'Debug Docker containers and network'
+
+    - script: docker logs mysql-db
+      displayName: 'Dump MySQL logs for debugging'
             
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
