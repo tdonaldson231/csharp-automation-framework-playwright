@@ -49,9 +49,8 @@ parameters:
 - name: imageTag
   displayName: Docker Image Tag
   type: string
-  default: latest  ## $(Build.BuildNumber)
+  default: v0.0.1  ## latest  ## $(Build.BuildNumber)
 
-# ?? Add this section below parameters
 variables:
 - group: docker-secrets  # Replace with your actual variable group name
 
@@ -137,8 +136,20 @@ stages:
         SQL_PASSWORD: $(SQL_PASSWORD)
         SQL_ROOT_PASSWORD: $(SQL_ROOT_PASSWORD)
 
-    - script: docker ps -a
-      displayName: 'List running containers'
+    - script: |
+        echo "Waiting for MySQL to be ready..."
+        for i in {1..10}; do
+          docker run --rm --network shared-test-network mysql:8.0 mysqladmin ping -hmysql-db -uroot -p$(SQL_ROOT_PASSWORD) --silent
+          if [ $$? -eq 0 ]; then
+            echo "MySQL is ready!"
+            exit 0
+          fi
+          echo "MySQL not ready yet, sleeping 5 seconds..."
+          sleep 5
+        done
+        echo "MySQL did not become ready in time."
+        exit 1
+      displayName: 'Wait for MySQL readiness'
 
     - script: |
         echo Checking if image exists: %DOCKER_REPOSITORY%/%IMAGE_NAME%:%IMAGE_TAG%
@@ -172,7 +183,13 @@ stages:
     - script: |
         echo "Docker image ready: ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)"
       displayName: 'Docker Image Confirmation'
-      
+
+    - script: |
+        docker ps -a
+        docker network ls
+        docker network inspect shared-test-network
+      displayName: 'Debug Docker containers and network'
+            
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
         docker run --rm --network shared-test-network -e TEST_ENV=$(ENV_NAME) -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)
