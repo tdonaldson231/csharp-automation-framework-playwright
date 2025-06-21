@@ -49,7 +49,7 @@ parameters:
 - name: imageTag
   displayName: Docker Image Tag
   type: string
-  default: v0.0.2  ## latest  ## $(Build.BuildNumber)
+  default: v0.0.3  ## latest  ## $(Build.BuildNumber)
 
 variables:
 - group: docker-secrets  # Replace with your actual variable group name
@@ -177,7 +177,7 @@ stages:
             
     - script: |
         mkdir -p $(Build.ArtifactStagingDirectory)/test-results
-        docker run --rm --network shared-test-network -e TEST_ENV=$(ENV_NAME) -e TEST_CATEGORY=${{ parameters.testCategory }} -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)
+        docker run --rm --network shared-test-network -e TEST_ENV=$(ENV_NAME) -e TEST_CATEGORY=${{ parameters.testCategory }} -e MYSQL_SERVER=${{ parameters.mySqlServer }} -e MYSQL_DATABASE=$(MYSQL_DATABASE) -e MYSQL_USER=$(MYSQL_USER) -e MYSQL_PASSWORD=$(MYSQL_PASSWORD) -v $(Build.ArtifactStagingDirectory)/test-results:/app/TestResults ${{ parameters.dockerRepository }}/$(IMAGE_NAME):$(IMAGE_TAG)
       displayName: 'Run Docker Image'
 
     - task: PublishTestResults@2
